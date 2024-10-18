@@ -21,5 +21,6 @@ These notes follow the material presented in EN.553.431 Honors Mathematical Stat
 3. Taylor Approximations (p. 7)
 4. Sample Ratio (p. 9)
 5. Real Analysis (p. 12)
-6. Convergence of Random Variable (p. 15)
-7. Parametric Estimation (p. 20)
+6. Probability Spaces (p. 15)
+7. convergence of Random Variables (p. 18)
+8. Parametric Estimation (p. 21)

@@ -337,6 +337,73 @@ But $a_{n}$ is not bounded, so for any $\epsilon > 0$ and $m \in \mathbb{N}$, th
 $$d(a_{n}, a_{m}) \geq \epsilon$$
 because $a_{m} \pm \epsilon$ would otherwise be a bound for $a_{n}$. Hence, we have a contradiction, so $\mathbb{R}$ is complete.
 
+\subsection{Lemma.} $x$ such that $x^{2} = 2$ is irrational.
+
+\subsection{Proof.} (Continued.) Suppose that $x$ such that $x^{2} = 2$ is rational, i.e., that $x = p/q$ for some $p,q \in \mathbb{Z}$ coprime. Then, 
+\begin{align*}
+    \frac{p^{2}}{q^{2}} &= 2 \\
+                  p^{2} &= 2q^{2}.
+\end{align*}
+Hence, $p^{2}$ is even, which means that $p$ is even. Let $p = 2k$ for some $k \in \mathbb{Z}$. Then, 
+\begin{align*}
+    4k^{2} &= 2q^{2} \\
+    2k^{2} &= q^{2}.
+\end{align*}
+Hence, $q^{2}$ is even, which means that $q$ is even. But $p$ and $q$ are coprime, so we have a contradiction. Therefore, $x$ such that $x^{2} = 2$ is irrational.
+
+\subsection{Theorem.} $\mathbb{Q}$ is not complete.
+
+\subsection{Proof.} (Continued.) Recall that a field is complete if every Cauchy sequence in the field converges to a limit in the field We shall construct a Cauchy sequence in $\mathbb{Q}$ that does not converge to a limit in $\mathbb{Q}$. 
+
+\textit{The Sequence.} Consider the function $f(x) = x^{2} - 2$. Recall Newton's method for finding roots of $y = f(x)$, wherein iterates are defined as 
+$$x_{n+1} = x_{n} - \frac{f(x_{n})}{f'(x_{n})}.$$
+We have that 
+$$f'(x) = 2x,$$
+so 
+\begin{align*}
+    x_{n+1} &= x_{n} - \frac{x_{n}^{2} - 2}{2x_{n}} \\
+            &= \frac{1}{2}x_{n} + \frac{1}{x_{n}}.
+\end{align*}
+\textit{Boundedness.} Suppose that $x_{n} = \sqrt{2} + \epsilon$ for some $\epsilon > 0$. We then have that 
+\begin{align*}
+    x_{n+1} &= \frac{1}{2}(\sqrt{2} + \epsilon) + \frac{1}{\sqrt{2} + \epsilon} \\
+            &= \frac{(\sqrt{2} + \epsilon)^{2}/2 + 1}{\sqrt{2} + \epsilon} \\
+            &= \sqrt{2} + \frac{\epsilon^{2}}{2(\sqrt{2} + \epsilon)} \\
+            &> \sqrt{2}.
+\end{align*}
+For $\epsilon > 0$,  the inequality always holds, i.e., if $x_{n} > \sqrt{2}$, then $x_{n+1} > \sqrt{2}$. 
+
+\textit{Monotonacity.} We also have that 
+\begin{align*}
+    x_{n+1} - x_{n} &= \sqrt{2} +  \frac{\epsilon^{2}}{2(\sqrt{2} + \epsilon)} - \sqrt{2} - \epsilon \\
+                    &\leq\frac{\epsilon^{2}}{\epsilon} - \epsilon \\
+    x_{n+1} - x_{n} &\leq 0.
+\end{align*}
+For $\epsilon > 0$, the inequality always holds, i.e., if $x_{n} > \sqrt{2}$, then $x_{n+1} \leq x_{n}$. In fact, the sequence is strictly decreasing such that $x_{n+1} < x_{n}$.
+
+\textit{Convergence.} Furthermore, the sequence $x_{n}$ is nonempty and bounded below, so it must have a greatest lower bound $L$. Suppose that $x_{n}$ does not converge to $L$. Then, 
+$$\exists\epsilon>0 \text{ s.t. } \neg\exists N \in \mathbb{N} \text{ s.t. } |x_{n}-L|<\epsilon, \quad \forall n \geq N.$$
+Recall that $L$ is a lower bound, so the only way for this statement to hold is if 
+$x_{n} \geq L + \epsilon$ for all $n \geq N$. But then $L + \epsilon$ is a lower bound, which means that $L$ is not the 
+greatest lower bound, hence a contradiction. Therefore, the sequence $x_{n}$ converges to $L$. 
+
+$L$ cannot be strictly less than $\sqrt{2}$ because $\sqrt{2}$ is a lower bound of $x_{n}$. $L$ cannot be strictly greater than $\sqrt{2}$ because we define $x_{1} = \sqrt{2} + \epsilon$ for some $\epsilon > 0$ and the sequence is strictly decreasing. Hence, $L = \sqrt{2}$.
+
+\textit{Rationality.} Suppose that $x_{1} = 3/2$. Then, $x_{n} \in \mathbb{Q}$ for all $n \in \mathbb{N}$. We shall prove this fact by induction. 
+\begin{enumerate}
+\item[(1)] \textit{Base Case.} $x_{1} = 3/2 \in \mathbb{Q}$.
+\item[(2)] \textit{Inductive Hypothesis.} Suppose that $x_{n} \in \mathbb{Q}$ for some $n \in \mathbb{N}$, i.e., that $x_{n} = p/q$ for some $p,q \in \mathbb{Z}$ coprime.
+\item[(3)] \textit{Inductive Step.} We have that 
+\begin{align*}
+    x_{n+1} &= \frac{1}{2}x_{n} + \frac{1}{x_{n}} \\
+            &= \frac{1}{2}\frac{p}{q} + \frac{q}{p} \in \mathbb{Q}
+\end{align*}
+because the sums and products of rationals are rational. Therefore, each element $x_{n}, n \in \mathbb{N}$, for 
+$x_{1} = 3/2$, is in $\mathbb{Q}$.
+\end{enumerate}
+
+\textit{Conclusion.} We have hence constructed a sequence $x_{n}$, for $x_{1} = 3/2$, that is in $\mathbb{Q}$ but converges to a limit $L = \sqrt{2}$ that is not in $\mathbb{Q}$. Therefore, $\mathbb{Q}$ is not complete.
+
 \subsection{Definition.} A series is a sequence $s_{n}$ of partial sums 
 $$s_{n} = \sum_{k=1}^{n}a_{k}.$$
 for some sequence $\{a_{n}\}$.
@@ -346,9 +413,9 @@ $$\lim_{n \to \infty}s_{n} = \sup s_{n}.$$
 We often denote this limit as 
 $$S = \sup s_{n}.$$
 
-\newpage \newsection{Convergence of Random Variables.}
+\newpage \newsection{Probability Spaces.}
 
-\subsection{Introduction.} Convergence of Random Variables.
+\subsection{Introduction.} Probability Spaces.
 
 \subsection{Definition.} A $\sigma-$algebra $\mathcal{F}$ is a collection of subsets of $\Omega$ such that 
 \begin{enumerate}
@@ -369,6 +436,21 @@ $$\sigma(A) = \{\emptyset, A, A^{c}, \Omega\}.$$
 $$\sigma(A_{1}, A_{2}, \ldots, A_{n}) = \bigcup_{i \in S}A_{i}$$
 for all $S \subseteq \{1, 2, \ldots, n\}$. That is, 
 $$\sigma(A_{1}, A_{2}, \ldots, A_{n}) = 2^{\Omega}.$$
+
+\subsection{Example.} Consider the coin-flip space 
+$$\Omega = \{\omega = (\omega_{1}, \omega_{2}, \ldots): \omega_{i} \in \{0, 1\}\},$$
+that is, the sample space consisting of countable-length strings of $0$ and $1$. Denote 
+\begin{align*}
+         A_{x} &= \{\omega \in \Omega: \omega_{1} = x\} \\
+        A_{xy} &= \{\omega \in \Omega: \omega_{1} = x, \omega_{2} = y\}
+\end{align*}
+We claim that the $\sigma$-algebra $\mathcal{F}$ generated by the events 
+$$A_{1}, \quad A_{11}, \quad A_{01}$$
+has cardinality $|\mathcal{F}| = 2^{4}$. Observe that we can form a partition of $\Omega$ by 
+$$P = \{A_{00}, A_{01}, A_{10}, A_{11}\}.$$
+Therefore, 
+$$\mathcal{F} = 2^{P}$$
+with cardinality $|\mathcal{F}| = 2^{4}$.
 
 \subsection{Definition.} A probability measure $P$ is a function $P: \mathcal{F} \to [0, 1]$ such that 
 \begin{enumerate}
@@ -420,6 +502,10 @@ is not in $\mathcal{F}$, so $W_{1}$ is not a random variable defined on the spec
 
 \subsection{Definition.} If $X: \Omega \to \mathbb{R}$ is a random variable, then the $\sigma$-algebra generated by $X$ is 
 $$\sigma(X) = \sigma\left(\{X^{-1}(B): B \in \mathcal{B}(\mathbb{R})\}\right).$$
+
+\newpage \newsection{Convergence of Random Variables.}
+
+\subsection{Introduction.} Convergence of Random Variables.
 
 \subsection{Definition.} Let $(\Omega, \mathcal{F}, P)$ be a probability space. Let 
 $$\{X_{n}: n \in \mathbb{N}\}$$
@@ -485,16 +571,18 @@ If $F$ is continuous, then $F$ is a continuous cumulative distribution function.
 \subsection{Definition.} A continuity point of a function $f: \mathbb{R} \to \mathbb{R}$ is a point $t$ such that 
 $$\forall \epsilon > 0, \exists \delta > 0 \text{ s.t. if } |x - t| < \delta \text{ then } |f(x) - f(t)| < \epsilon.$$
 
-\subsection{Definition.} A sequence of random variables $X_{n}$ converges in distribution to a random variable $X$ if for all continuity points $t$ of $F$, 
+\subsection{Definition.} A sequence of rvs $X_{n}$ converges in distribution to an rv $X$ if for all continuity points $t$ of $F$, 
 $$\lim_{n \to \infty}F_{n}(t) = F(t)$$
 where $F_{n}$ is the cdf of $X_{n}$ and $F$ is the cdf of $X$.
+We denote this type of convergence as
+$$X_{n} \xrightarrow{D} X.$$
 
 \subsection{Theorem.} Suppose that $g: \mathbb{R} \to \mathbb{R}$ is continuous. Then, if 
 $$X_{n} \xrightarrow{D} X,$$
 then
 $$g(X_{n}) \xrightarrow{D} g(X).$$
 
-\subsection{Lemma.} If a sequence of random variables $X_{n}$ is defined on a common probability space $\Omega$ and 
+\subsection{Lemma.} If a sequence of rvs $X_{n}$ is defined on a common probability space $\Omega$ and 
 $$X_{n} \xrightarrow{D} c$$
 for some degenerate random variable $c \in \mathbb{R}$, then 
 $$X_{n} \xrightarrow{P} c.$$
@@ -511,5 +599,100 @@ for some degenerate random variable $c \in \mathbb{R}$. If $X_{n}, Y_{n}$ are de
 \newpage \newsection{Parametric Estimation.}
 
 \subsection{Introduction.} Parametric Estimation.
+
+\subsection{Remark.} The motivation for parametric estimation is the following problem. Suppose that we have a collection of iid rvs $X_{n}$ with a common cdf $F_{\theta}$ for some $\theta \in \Theta \subseteq \mathbb{R}^{k}$. Suppose that we know the parametric family of $F_{\theta}$ but not the exact value of $\theta$. Then, we would like to estimate $\theta$ from the observations of $X_{n}$.
+
+\subsection{Remark.} We may ask two types of questions about $\hat{\theta}$. If we investigate finite sample properties of $\hat{\theta}$, then we are interested in the properties of $\hat{\theta}$ for a fixed $n$. Examples of these properties are 
+\begin{enumerate}
+\item[(1)] Distribution of $\hat{\theta}$
+\item[(2)] $\E(\hat{\theta})$
+\item[(3)] $\Var(\hat{\theta})$
+\end{enumerate}
+If we investigate asymptotic properties of $\hat{\theta}$, then we are interested in the properties of $\hat{\theta}$ as $n \to \infty$. Examples of these properties are 
+\begin{enumerate}
+\item[(1)] Consistency.
+\item[(2)] Limiting Distribution.
+\end{enumerate}
+
+\subsection{Definition.} For an rv $X$ with pdf $f$, the support of $f$ is the set 
+$$\text{supp}(f) = \{x \in \mathbb{R}: f(x) > 0\}.$$
+For an rv $X$ with a pmf $p$, the support of $p$ is the set
+$$\text{supp}(p) = \{x \in \mathbb{R}: p(x) > 0\}.$$
+
+\subsection{Example.} The support of $f_{\theta}$ can depend on $\theta$. Consider $X_{n} \sim \text{unif}(0, \theta)$ for $\theta > 0$. Then, the support of $f_{\theta}$ is
+$$\text{supp}(f_{\theta}) = [0, \theta].$$
+
+\subsection{Definition.} Suppose that we have a collection of random variables $X_{n}$ iid with a common cdf $F_{\theta}$ for some $\theta \in \Theta \subseteq \mathbb{R}^{k}$. We may write the parameter $\theta$ as the solution to the system of equations 
+$$\mu_{r}(\theta) = \E_{\theta}(X^{r})$$
+for $r = 1, 2, \ldots, k$ where $\E(X^{r})$ is the $r$th moment of $X$. We denote the solution to this system of equations as the inverse function 
+$$\theta = g(\mu_{1}, \mu_{2}, \ldots, \mu_{k}).$$
+Suppose that we do not know the exact value of $\theta$ but we observe a collection of iid rvs $X_{n}$ with a common cdf $F_{\theta}$. Then, we would like to estimate $\theta$ from the observations of $X_{n}$. In particular, 
+$$\hat{\theta}_{MOM} = g(\hat{\mu}_{1}, \hat{\mu}_{2}, \ldots, \hat{\mu}_{k})$$
+where $\hat{\mu}_{r}$ is the $r$th sample moment of $X_{n}$. We call $\hat{\theta}_{MOM}$ the method of moments estimator of $\theta$.
+
+\subsection{Example.} If $X_{n} \sim \text{N}(\theta_{1}, \theta_{2})$ iid, then 
+\begin{align*}
+    \mu_{1} &= \theta_{1} \\
+    \mu_{2} &= \theta_{1}^{2} + \theta_{2},
+\end{align*}
+so 
+\begin{align*}
+    \hat{\theta}_{1_{MOM}} &= \hat{\mu}_{1} \\
+    \hat{\theta}_{2_{MOM}} &= \hat{\mu}_{2} - \hat{\mu}_{1}^{2}.
+\end{align*}
+Note that this method of moments estimator is simply the sample mean and sample variance, which is expected for a distribution $X \sim \text{N}(\mu, \sigma^{2})$. Note that $\hat{\theta}_{1_{MOM}} = \bar{X}$ is unbiased for $\theta_{1}$ but that $\hat{\theta}_{2_{MOM}} = \hat{\sigma}^{2}$ is biased for $\theta_{2}$.
+
+\subsection{Example.} Sometimes, the distribution of $\hat{\theta}$ can be determined exactly. For $X_{n} \sim \text{Exp}(\lambda)$ iid, we have that 
+$$\hat{\lambda}_{MOM} = \frac{1}{\bar{X}}.$$
+But we know that 
+$$\bar{X} \sim \text{Gamma}(n, n\lambda).$$
+
+\subsection{Example.} (Continued.) We may also determine the asymptotic properties of $\hat{\lambda}_{MOM} = 1/\bar{X}$. We have that 
+$$P\left(\frac{1}{\bar{X}} \leq t\right) = P(\bar{X} \geq \frac{1}{t}).$$
+Since $f: t \to 1/t$ is continuous for $t > 0$ and 
+$$\bar{X} \xrightarrow{P} \frac{1}{\lambda},$$
+then 
+$$\hat{\lambda}_{MOM} \xrightarrow{P} \lambda.$$
+
+\subsection{Definition.} For the likelihood function 
+$$f(x_{1}, x_{2}, \ldots, x_{n}|\theta),$$
+the maximum likelihood estimator of $\theta$ given the observations $X_{i} = x_{i}$ is the value of $\theta$ that maximizes the likelihood function. That is, 
+$$\hat{\theta}_{MLE} = \arg\max_{\theta \in \Theta}f(x_{1}, x_{2}, \ldots, x_{n}|\theta).$$
+
+\subsection{Example.} Suppose that $X_{i}$ are iid. Then, the $\arg\max$ of the likelihood function occurs at 
+\begin{align*}
+    \arg\max_{\theta \in \Theta}f(x_{1}, x_{2}, \ldots, x_{n}|\theta) &= \arg\max_{\theta \in \Theta}\log f(x_{1}, x_{2}, \ldots, x_{n}|\theta) \\
+                                                   &= \arg\max_{\theta \in \Theta}\sum_{i=1}^{n}\log f(x_{i}|\theta)
+\end{align*}
+since $f: t \to \log t$ is monotone increasing. Under certain conditions, we maximize the likelihood function by setting the gradient of the log-likelihood function equal to zero. That is, setting 
+$$\nabla \sum_{i=1}^{n}\log f(x_{i}|\theta) = \left(\frac{\partial}{\partial\theta_{j}}\sum_{i=1}^{n}\log f(x_{i}|\theta)\right)$$
+for $j = 1, 2, \ldots k$ equal to zero and solving for $\theta$.
+
+\subsection{Example.} For $X_{i} \sim \text{Exp}(\lambda)$ iid for $\lambda > 0$, the likelihood function is 
+$$f(x_{1}, x_{2}, \ldots, x_{n}|\lambda) = \lambda^{n}\exp\left(-\lambda\sum_{i=1}^{n}x_{i}\right).$$
+Then, the log-likelihood function is 
+$$\log f(x_{1}, x_{2}, \ldots, x_{n}|\lambda) = n\log\lambda - \lambda\sum_{i=1}^{n}x_{i},$$
+which is maximized at 
+\begin{align*}
+          0 &= \frac{n}{\lambda} - \sum_{i=1}^{n}x_{i} \\
+    \lambda &= n\left(\sum_{i=1}^{n}x_{i}\right)^{-1}.
+\end{align*}
+Therefore, 
+$$\hat{\lambda}_{MLE} = \frac{1}{\bar{X}}.$$
+Note that this agrees with the method of moments estimator for $\lambda$.
+
+\subsection{Example.} If $X_{n} \sim \text{unif}(0, \theta)$ iid, then 
+$$\mu_{1} = \frac{\theta}{2},$$
+so
+$$\hat{\theta}_{MOM} = 2\hat{\mu}_{1}.$$
+But some observations $X_{i}$ may be greater than $\hat{\theta}_{MOM}$, which means that those observations are beyond the support of the estimated $f_{\theta}$.
+
+\subsection{Example.} (Continued.) The likelihood function of $X_{n} \sim \text{unif}(0, \theta)$ iid is 
+$$f(x_{1}, x_{2}, \ldots, x_{n}|\theta) = \theta^{-n}I_{x_{i} \in [0, \theta] \forall i}.$$
+Since the support of $f_{\theta}$ depends on $\theta$, then $f(x|\theta)$ is not differentiable in $\theta$, so we cannot set the derivative equal to zero. But we observe that if $\theta \leq \max\{x_{i}\}$, i.e., if $\theta$ is feasible, then 
+$$f(x_{1}, x_{2}, \ldots, x_{n}|\theta) = \theta^{-n},$$
+which is maximized when $\theta$ is small. Therefore, the maximum likelihood estimator of $\theta$ is the smallest feasible $\theta$, i.e., 
+$$\hat{\theta}_{MLE} = \max\{x_{i}\}.$$
+Note that $\hat{\theta}_{MLE}$ is always feasible unlike $\hat{\theta}_{MOM}$.
 
 \end{document}
