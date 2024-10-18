@@ -15,12 +15,12 @@ cd EN_553_431_FA24
 These notes follow the material presented in EN.553.431 Honors Mathematical Statistics taught by Professor Avanti Athreya during the semester of Fall 2024 at The Johns Hopkins University. The content of lectures is presented along with selected homework exercises.
 
 # Table of Contents
-0. Introduction (p. 3)
-1. Finite Population Samples (p. 4)
-2. Confidence Intervals (p. 5)
-3. Taylor Approximations (p. 7)
-4. Sample Ratio (p. 9)
-5. Real Analysis (p. 12)
-6. Probability Spaces (p. 15)
-7. convergence of Random Variables (p. 18)
-8. Parametric Estimation (p. 21)
+0. Introduction (p. 4)
+1. Finite Population Samples (p. 5)
+2. Confidence Intervals (p. 6)
+3. Taylor Approximations (p. 8)
+4. Sample Ratio (p. 10)
+5. Real Analysis (p. 13)
+6. Probability Spaces (p. 18)
+7. convergence of Random Variables (p. 21)
+8. Parametric Estimation (p. 25)

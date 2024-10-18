@@ -358,8 +358,6 @@ Hence, $q^{2}$ is even, which means that $q$ is even. But $p$ and $q$ are coprim
 \textit{The Sequence.} Consider the function $f(x) = x^{2} - 2$. Recall Newton's method for finding roots of $y = f(x)$, wherein iterates are defined as 
 $$x_{n+1} = x_{n} - \frac{f(x_{n})}{f'(x_{n})}.$$
 We have that 
-$$f'(x) = 2x,$$
-so 
 \begin{align*}
     x_{n+1} &= x_{n} - \frac{x_{n}^{2} - 2}{2x_{n}} \\
             &= \frac{1}{2}x_{n} + \frac{1}{x_{n}}.
@@ -367,27 +365,25 @@ so
 \textit{Boundedness.} Suppose that $x_{n} = \sqrt{2} + \epsilon$ for some $\epsilon > 0$. We then have that 
 \begin{align*}
     x_{n+1} &= \frac{1}{2}(\sqrt{2} + \epsilon) + \frac{1}{\sqrt{2} + \epsilon} \\
-            &= \frac{(\sqrt{2} + \epsilon)^{2}/2 + 1}{\sqrt{2} + \epsilon} \\
             &= \sqrt{2} + \frac{\epsilon^{2}}{2(\sqrt{2} + \epsilon)} \\
-            &> \sqrt{2}.
+    x_{n+1} &> \sqrt{2}.
 \end{align*}
 For $\epsilon > 0$,  the inequality always holds, i.e., if $x_{n} > \sqrt{2}$, then $x_{n+1} > \sqrt{2}$. 
 
 \textit{Monotonacity.} We also have that 
 \begin{align*}
     x_{n+1} - x_{n} &= \sqrt{2} +  \frac{\epsilon^{2}}{2(\sqrt{2} + \epsilon)} - \sqrt{2} - \epsilon \\
-                    &\leq\frac{\epsilon^{2}}{\epsilon} - \epsilon \\
     x_{n+1} - x_{n} &\leq 0.
 \end{align*}
 For $\epsilon > 0$, the inequality always holds, i.e., if $x_{n} > \sqrt{2}$, then $x_{n+1} \leq x_{n}$. In fact, the sequence is strictly decreasing such that $x_{n+1} < x_{n}$.
 
-\textit{Convergence.} Furthermore, the sequence $x_{n}$ is nonempty and bounded below, so it must have a greatest lower bound $L$. Suppose that $x_{n}$ does not converge to $L$. Then, 
+\textit{Convergence.} The sequence $x_{n}$ is nonempty and bounded below, so it must have a greatest lower bound $L$. Suppose that $x_{n}$ does not converge to $L$. Then, 
 $$\exists\epsilon>0 \text{ s.t. } \neg\exists N \in \mathbb{N} \text{ s.t. } |x_{n}-L|<\epsilon, \quad \forall n \geq N.$$
 Recall that $L$ is a lower bound, so the only way for this statement to hold is if 
 $x_{n} \geq L + \epsilon$ for all $n \geq N$. But then $L + \epsilon$ is a lower bound, which means that $L$ is not the 
 greatest lower bound, hence a contradiction. Therefore, the sequence $x_{n}$ converges to $L$. 
 
-$L$ cannot be strictly less than $\sqrt{2}$ because $\sqrt{2}$ is a lower bound of $x_{n}$. $L$ cannot be strictly greater than $\sqrt{2}$ because we define $x_{1} = \sqrt{2} + \epsilon$ for some $\epsilon > 0$ and the sequence is strictly decreasing. Hence, $L = \sqrt{2}$.
+Observe that $L$ cannot be strictly less than $\sqrt{2}$ because $\sqrt{2}$ is a lower bound of $x_{n}$. Observe also that $L$ cannot be strictly greater than $\sqrt{2}$ because we define $x_{1} = \sqrt{2} + \epsilon$ for some $\epsilon > 0$ and the sequence is strictly decreasing. Hence, $L = \sqrt{2}$.
 
 \textit{Rationality.} Suppose that $x_{1} = 3/2$. Then, $x_{n} \in \mathbb{Q}$ for all $n \in \mathbb{N}$. We shall prove this fact by induction. 
 \begin{enumerate}
@@ -595,6 +591,58 @@ for some degenerate random variable $c \in \mathbb{R}$. If $X_{n}, Y_{n}$ are de
 \item[(2)] $X_{n}Y_{n} \xrightarrow{D} cX$.
 \item[(3)] $X_{n}/Y_{n} \xrightarrow{D} X/c$ if $c \neq 0$.
 \end{enumerate}
+
+\subsection{Example.} Let $\Omega$ be the unit interval and $P$ the uniform probability measure. For any $\omega \in \Omega$, let $Y_n(\omega) = g_n(\omega)$, defined as follows. First, for any $n \geq 1$, let $m$ be the largest integer such that $2^m \leq n$. Then note that $n$ can be written uniquely as $n = 2^m + j$, where $0 \leq j < 2^m$. For such $n$, define
+$$g_n(\omega) = I_{\left[\frac{j}{2^m}, \frac{j+1}{2^m}\right]}(\omega)$$
+where $I$ denotes the indicator function.
+
+We claim that $g_n(\omega)$ converges in probability to zero. But for any value of $\omega \in \Omega$, there exists an infinite sequence of integers $n_k$ where $g_{n_k}(\omega) = 0$ and an infinite sequence of integers $n_l$ where $g_{n_l}(\omega) = 1$, so $g_n(\omega)$ does not converge with probabilty one to zero.
+
+\textit{Convergence in Probability.} Recall that a sequence of random variables $X_{n}$ converges in probability to $X$ if for all $\delta > 0$, the set 
+$$A_{n, \delta} = \{\omega \in \Omega : |X_{n}(\omega) - X(\omega)| \geq \delta\}$$
+satisfies
+$$P(A_{n, \delta}) \rightarrow 0 \text{ as } n \rightarrow \infty.$$
+For all $\delta \in (0, 1]$, the set for which $|g_{n}(\omega) - 0| \geq \delta$ is $\omega \in [j/2^{m}, (j+1)/2^{m}]$. We thus have that 
+\begin{align*}
+    P(A_{n, \delta}) &= P\left(\left[\frac{j}{2^m}, \frac{j+1}{2^m}\right]\right) \\ 
+                     &= \frac{1}{2^m} \rightarrow 0 \text{ as } n \rightarrow \infty
+\end{align*}
+where $m$ is defined as the largest integer such that $2^m \leq n$. Observe that the problematic set $A_{n,\delta}$ does not depend on the particular value of $\delta$. So, for all $\delta > 0$, we have that 
+$$P(A_{n},\delta) = \frac{1}{2^{m}} = 2^{-\left\lfloor \log_{2}n \right\rfloor}.$$
+Suppose that $P(A_{n,\delta})$ converges to $0$. Then, for all $\epsilon > 0$, we can choose 
+$$N_{\epsilon} = \left\lceil \frac{1}{\epsilon} \right\rceil + 1$$
+such that for all $n > N_{\epsilon}$, 
+\begin{align*}
+    |2^{-\left\lfloor \log_{2}n \right\rfloor} - 0| &\leq 2^{-\log_{2}n - 1} \\
+                                                    &= \frac{1}{2n} \\
+                                                    &< \frac{1}{2}\frac{1}{1/\lceil\epsilon\rceil+1} \\
+                                                    &< \epsilon.
+\end{align*}
+Therefore, for all $\delta$, the problematic set $A_{n,\delta}$ converges to probability zero as $n$. Thus, $Y_{n} = g_{n}(\omega)$ converges in probability to zero.
+
+\textit{Non-Convergence with Probability One.} Observe that any number $\omega \in [0, 1]$ can be written in binary form as 
+$$\omega = 0.\omega_{1}\omega_{2}\omega_{3}\ldots$$
+where $\omega_{i} \in \{0, 1\}$. For all $m$, we truncate $\omega$ at the $m$th digit to get 
+$$\omega' = 0.\omega_{1}\omega_{2}\ldots\omega_{m}.$$
+For all such $\omega'$, we can write 
+$$\omega' = \frac{j}{2^{m}}$$
+for some unique $0 \leq j < 2^{m}$. Clearly, then,  
+$$\omega \in [j/2^{m}, (j+1)/2^{m}].$$
+Thus, for all $m = 1, 2, \ldots$, let $n_{l} = 2^{m} + j$, where $j$ is the unique integer described above. Therefore, 
+\begin{align*}
+    g_{n_{l}}(\omega) &= I_{\left[\frac{j}{2^{m}}, \frac{j+1}{2^{m}}\right]}(\omega) \\
+                      &= 1
+\end{align*}
+for all $\omega \in \Omega$. Similarly, we can choose $n_{k} = 2^{m} + j - 1$ where $m = m_{1}, m_{2}, ...$ such that $m_{1}$ is the smallest $2^{k}, k \in \mathbb{N}$, such that the special $j$ described above is not $0$. Then, 
+\begin{align*}
+    g_{n_{k}}(\omega) &= I_{\left[\frac{j-1}{2^{m}}, \frac{j}{2^{m}}\right]}(\omega) \\ 
+                      &= 0
+\end{align*}
+for all $\omega \in \Omega$. Thus, for any value of $\omega \in \Omega$, there exists an infinite sequence of integers $n_{k}$ where $g_{n_{k}}(\omega) = 0$ and an infinite sequence of integers $n_{l}$ where $g_{n_{l}}(\omega) = 1$.
+
+Recall that a sequence of random variables $X_{n}$ converges pointwise with probability one to $X$ if there exists a set $A \subseteq \Omega$ with $P(A) = 0$ such that 
+$$\forall \omega \in A^{c}, \forall \epsilon > 0, \exists N_{\omega,\epsilon} \in \mathbb{N} \text{ s.t. } |X_{n}(\omega) - X(\omega)| < \epsilon, \forall n > N_{\omega,\epsilon}.$$
+For any $\omega \in [0, 1]$, there exists an unbounded sequence of integers $n_{l}$ where $g_{n_{l}}(\omega) = 1$. Therefore, for any $\omega \in [0, 1]$ and any $\epsilon > 0$, there exists no $N_{\epsilon}$ such that for all $n > N_{\epsilon}$, $|g_{n}(\omega) - 0| < \epsilon$. Thus, $g_{n}(\omega)$ does not converge to zero with probability one.
 
 \newpage \newsection{Parametric Estimation.}
 
