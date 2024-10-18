@@ -1,0 +1,515 @@
+\documentclass[titlepage]{article}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage \newsection{Introduction.}
+
+\subsection{Introduction.} Introduction.
+
+\subsection{Remark.} The following notes follow the material presented in EN.553.431 Honors Mathematical Statistics taught by Professor Avanti Athreya during the semester of Fall 2024 at The Johns Hopkins University. The content of lectures is presented along with selected homework exercises.
+
+\subsection{Notation.} Rice shall refer to 'Mathematical Statistics and Data Analysis' 3rd edition (US) by John A. Rice.
+
+\subsection{Notation.} The following abbreviations shall be overserved.
+\begin{enumerate}
+\item The term 'rv' shall denote 'random variable'.
+\item The term 'pmf' shall denote 'probability mass function'.
+\item The term 'pdf' shall denote 'probability density function'.
+\item The term 'cdf' shall denote 'cumulative density function'.
+\end{enumerate}
+
+\subsection{Notation} A finite population sample shall be as follows. We are given a finite bivariate population of $N$ distinct objects, and associated to each object $k$ is a pair of measurements $(x_k, y_k)$. Suppose our population of measurements is represented by $\{(x_1, y_1), \ldots, (x_N, y_N)\}$. We assume $N > 1$. Let $\tau_x$ and $\tau_y$ be the population totals of the $x$- and $y$-measurements, respectively; let $\mu_x$ and $\mu_y$ be the population means of the $x$- and $y$-measurements, respectively; let $\sigma_x^2$ and $\sigma_y^2$ denote the population variances of the $x$- and $y$-measurements, respectively. Let $\sigma_{xy}$ denote the population covariance.
+The population 3rd and 4th moments, $\mu_3(x)$ and $\mu_4(x)$, respectively, of the $x$-values are
+$$\mu_3(x) = \frac{1}{N} \sum_{k=1}^{N} x_k^3, \quad \mu_4(x) = \frac{1}{N} \sum_{k=1}^{N} x_k^4$$
+Similarly, the population 3rd and 4th moments are, respectively, $\mu_3(y)$ and $\mu_4(y)$.
+Let $\sigma_{x^2y^2}$ denote
+$$\sigma_{x^2y^2} = \left( \frac{1}{N} \sum_{k=1}^{N} x_k^2 y_k^2 \right) - (\sigma_x^2 + \mu_x^2)(\sigma_y^2 + \mu_y^2)$$
+Let $M_x$ and $M_y$ represent the population maximum of the $x$- and $y$-values, respectively, so that $M_x$ and $M_y$ are defined by
+$$M_x = \max\{x_k : 1 \leq k \leq N\}, \quad M_y = \max\{y_k : 1 \leq k \leq N\}$$
+Let $m_x$ and $m_y$ denote the population minimum of the $x$- and $y$-measurements, respectively, so that
+$$m_x = \min\{x_k : 1 \leq k \leq N\}, \quad m_y = \min\{y_k : 1 \leq k \leq N\}$$
+All sample sizes $n$ satisfy $n \geq 1$, and in some cases, we specify if $n > 1$ or we give an explicit value for $n$. In what follows below, $\bar{X}$ denotes the sample mean of the $x$-measurements in the sample, and $\bar{Y}$ denotes the sample mean of the $y$-measurements in the sample. The letter $\E$ represents expected value; $\Var$ represents variance; and $\Cov$ represents covariance.
+
+\newpage \newsection{Finite Population Samples.}
+
+\subsection{Introduction.} Finite Population Samples.
+
+\subsection{Definition.} For an estimator $\hat{\theta}$ of a parameter $\theta$, the mean squared error is 
+\begin{align*}
+    \MSE(\hat{\theta}) &= \E\left((\hat{\theta} - \theta)^{2}\right) \\
+                       &= \Var(\hat{\theta}) + \left(\E(\hat{\theta}) - \theta\right)^{2} \\
+                       &= \Var(\hat{\theta}) + \text{Bias}(\hat{\theta})^{2}.
+\end{align*}
+where 
+$$\text{Bias}(\hat{\theta}) = \E(\hat{\theta}) - \theta.$$
+
+\newpage \newsection{Confidence Intervals.}
+
+\subsection{Introduction.} Confidence Intervals.
+
+\subsection{Theorem.} (Central Limit Theorem.) Let $U_{1}, U_{2}, \ldots, U_{n}$ be iid rvs with $\E(U_{i}) = \mu$ and $\Var(U_{i}) = \sigma^{2}$. For $$\bar{U} = \frac{1}{n}\sum_{i=1}^{n}U_{i},$$
+we have that for all $t \in \mathbb{R}$,
+$$P\left(\left|\frac{\bar{U} - \mu}{\sigma/\sqrt{n}}\right| \leq t\right) \rightarrow \Phi(t) \text{ as } n \rightarrow \infty.$$
+
+\subsection{Definition.} An $\alpha$-critical value $z_{\alpha}$ for an rv $Z$ is such that 
+$$P(Z > z_{\alpha}) = \alpha.$$
+That is, $\alpha$ is the upper-tail probability of $Z$.
+
+\subsection{Example.} For $\bar{X}$ approximately normal, we have that 
+$$P\left(-z_{\alpha} \leq \frac{\bar{X} - \mu}{\sigma/\sqrt{n}} \leq z_{\alpha}\right) \approx 1 - 2\alpha,$$
+so
+$$P\left(\bar{X} - z_{\alpha/2}\frac{\sigma}{\sqrt{n}} \leq \mu \leq \bar{X} + z_{\alpha/2}\frac{\sigma}{\sqrt{n}}\right) \approx 1 - \alpha$$
+where the (random) interval is the $1-\alpha$ confidence inverval for $\mu$.
+
+\subsection{Note.} The population standard deviation $\sigma$ may be unknown, but we may substite the sample standard deviation $s$ in its place.
+
+\subsection{Example.} By Chebyshev's Inequality, we have that for a sample of size $n$, 
+$$P(|s_{n}^{2} - \sigma^{2}| \geq \delta) \leq \frac{\Var(s_{n}^{2})}{\delta^{2}} \rightarrow 0 \text{ as } n \rightarrow \infty,$$
+so 
+$$\frac{\bar{X} - \mu}{s/\sqrt{n}} \approx \text{N}(0, 1)$$
+for $n$ large.
+
+\subsection{Example.} If we sample without replacement and $n << N$, then 
+$$\frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}\sqrt{\frac{N-n}{N-1}}} \approx \text{N}(0, 1).$$
+
+\subsection{Theorem.} For the sample total 
+$$T_{n} = \sum_{i=1}^{n}X_{i},$$
+the CLT says that 
+$$P\left(\frac{T_{n} - n\mu}{\sigma\sqrt{n}} \leq t\right) \rightarrow \Phi(t) \text{ as } n \rightarrow \infty.$$
+
+\subsection{Note.} The sample mean and the sample total are related in that 
+$$\frac{n}{n}\frac{\bar{X}_{n}-\mu}{\sigma/\sqrt{n}} = \frac{T_{n}-n\mu}{\sigma\sqrt{n}}.$$
+
+\newpage \newsection{Taylor Approximations.}
+
+\subsection{Introduction.} Taylor Approximations.
+
+\subsection{Theorem.} (Mean Value Theorem.) Suppose that $g: \mathbb{R} \to \mathbb{R}$ is differentiable on $(a, b)$ and that $a < x < y < b$. Then there exists a $\xi \in (x, y)$ such that 
+$$g'(\xi) = \frac{g(y) - g(x)}{y - x}.$$
+
+\subsection{Theorem.} (Taylor's Theorem with Remainder.) 
+Let $g: \mathbb{R} \to \mathbb{R}$ be $n$ times differentiable on $(a, b)$ and let $a < x < y < b$. Then there exists a $\xi \in (x, y)$ such that 
+$$g(y) = \sum_{k=0}^{n}\frac{g^{(k)}(x)}{k!}(y-x)^{k} + R_{n}(y)$$
+where
+$$R_{n}(y) = \frac{g^{(n+1)}(\xi)}{(n+1)!}(y-x)^{n+1}.$$
+We may bound this remainder by 
+$$|R_{n}(y)| \leq \frac{M}{(n+1)!}|y-x|^{n+1}$$
+where $M = \max|g^{(n+1)}(\xi)|$ on the interval $(x, y)$.
+
+\subsection{Theorem.} For $g: \mathbb{R}^{n} \to \mathbb{R}$ twice-differentiable on a closed ball $B$ containing $x$ and $y$, we have that the first-order Taylor polynomial with remainder is 
+$$g(y) = g(x) + \nabla g(x)^{T}(y-x) + \frac{1}{2}(y-x)^{T}H(\xi)(y-x)$$
+where 
+$$\nabla g(x) = \begin{pmatrix} \frac{\partial g}{\partial x_{1}}(\xi) & \cdots & \frac{\partial g}{\partial x_{n}}(\xi) \end{pmatrix}^{T}$$
+is the gradient of $g$ at $x$ and 
+$$H(\xi) = \begin{pmatrix} \frac{\partial^{2} g}{\partial x_{1}^{2}}(\xi) & \cdots & \frac{\partial^{2} g}{\partial x_{1}\partial x_{n}}(\xi) \\ \vdots & \ddots & \vdots \\ \frac{\partial^{2} g}{\partial x_{n}\partial x_{1}}(\xi) & \cdots & \frac{\partial^{2} g}{\partial x_{n}^{2}}(\xi) \end{pmatrix}$$
+is the Hessian of $g$ at $\xi$.
+
+\subsection{Example.} For $g: \mathbb{R}^{2} \to \mathbb{R}$, the second order taylor polynomial is 
+$$g(y) \approx g(x) + \nabla g(x)^{T}(y-x) + \frac{1}{2}(y-x)^{T}H(x)(y-x).$$
+Written in polynomial form, this is 
+\begin{align*}
+    g(y_{1}, y_{2}) \approx g(x_{1}, x_{2}) &+ \frac{\partial g}{\partial x_{1}}(y_{1}-x_{1}) + \frac{\partial g}{\partial x_{2}}(y_{2}-x_{2}) \\
+                                            &+ \frac{1}{2}\left(\frac{\partial^{2} g}{\partial x_{1}^{2}}(y_{1}-x_{1})^{2} + 2\frac{\partial^{2} g}{\partial x_{1}\partial x_{2}}(y_{1}-x_{1})(y_{2}-x_{2}) + \frac{\partial^{2} g}{\partial x_{2}^{2}}(y_{2}-x_{2})^{2}\right)
+\end{align*}
+where the partial derivatives are evaluated at $(x_{1}, x_{2})$.
+
+\subsection{Example.} For $h: \mathbb{R}^{2} \to \mathbb{R}$, the second-order taylor polynomial about $(\mu_{x}, \mu_{y})$ is
+\begin{align*}
+    h(x, y) \approx h(\mu_{x}, \mu_{y}) &+ \frac{\partial h}{\partial x}(x - \mu_{x}) + \frac{\partial h}{\partial y}(y - \mu_{y}) \\
+                                        &+ \frac{1}{2}\left(\frac{\partial^{2} h}{\partial x^{2}}(x - \mu_{x})^{2} + 2\frac{\partial^{2} h}{\partial x \partial y}(x - \mu_{x})(y - \mu_{y}) + \frac{\partial^{2} h}{\partial y^{2}}(y - \mu_{y})^{2}\right)
+\end{align*}
+where the partial derivatives are evaluated at $(\mu_{x}, \mu_{y})$. Therefore, the expected value of $h(X, Y)$ (under certain conditions) is 
+$$\E(h(X, Y)) \approx h(\mu_{x}, \mu_{y}) + \frac{1}{2}\frac{\partial^{2} h}{\partial x^{2}}\sigma_{X}^{2} + \frac{\partial^{2} h}{\partial x \partial y}\sigma_{XY} + \frac{1}{2}\frac{\partial^{2} h}{\partial y^{2}}\sigma_{Y}^{2}$$
+because the first-order terms vanish when 
+$$\E(X - \mu_{x}) = 0.$$
+
+\subsection{Example.} For $h: \mathbb{R}^{2} \to \mathbb{R}$, the first-order taylor polynomial about $(\mu_{X}, \mu_{Y})$ is
+$$h(X, Y) \approx h(\mu_{X}, \mu_{Y}) + \frac{\partial h}{\partial x}(X - \mu_{X}) + \frac{\partial h}{\partial y}(Y - \mu_{Y})$$
+where the partial derivatives are evaluated at $(\mu_{X}, \mu_{Y})$. Therefore, the variance of $h(X, Y)$ (under certain conditions) is 
+$$\Var(h(X, Y)) \approx \left(\frac{\partial h}{\partial x}\right)^{2}\Var(X) + \left(\frac{\partial h}{\partial y}\right)^{2}\Var(Y) + 2\frac{\partial h}{\partial x}\frac{\partial h}{\partial y}\Cov(X, Y).$$
+To approximate the variance, the second-order terms become small quickly, so a first-order approximation is appropriate.
+
+\newpage \newsection{Sample Ratio.}
+
+\subsection{Introduction.} Sample Ratio.
+
+\subsection{Definition.} For a bivariate population and a sample of size $n$, the sample ratio is 
+$$\bar{R} = \frac{\bar{Y}}{\bar{X}}.$$
+
+\subsection{Example.} We then have that 
+$$g(x, y) = \frac{y}{x}$$
+with partial derivatives 
+$$\frac{\partial g}{\partial x} = -\frac{y}{x^{2}}, \quad \frac{\partial g}{\partial y} = \frac{1}{x}$$
+$$\frac{\partial^{2} g}{\partial x^{2}} = \frac{2y}{x^{3}}, \quad \frac{\partial^{2} g}{\partial x \partial y} = -\frac{1}{x^{2}}, \quad \frac{\partial^{2} g}{\partial y^{2}} = 0.$$
+Therefore, 
+\begin{align*}
+    \bar{R} \approx \frac{\mu_{y}}{\mu_{x}} &- \frac{\mu_{y}}{\mu_{x}^{2}}(\bar{X} - \mu_{x}) + \frac{1}{\mu_{x}}(\bar{Y} - \mu_{y}) \\
+                                            &+ \frac{\mu_{y}}{\mu_{x}^{3}}(\bar{X} - \mu_{x})^{2} - \frac{1}{\mu_{x}^{2}}(\bar{X} - \mu_{x})(\bar{Y} - \mu_{y}).
+\end{align*}
+
+\subsection{Example.} (Continued.) The expected value of $\bar{R}$ is 
+\begin{align*}
+    \E(\bar{R}) &\approx \frac{\mu_{y}}{\mu_{x}} + \frac{1}{\mu_{x}^{2}}\left(\Var(\bar{X})\frac{\mu_{y}}{\mu_{x}} - \Cov(\bar{X}, \bar{Y})\right) \\
+                &= r + \frac{1}{\mu_{x}^{2}}(\Var(\bar{X})r - \Cov(\bar{X}, \bar{Y}))
+\end{align*}
+where 
+$$r = \frac{\mu_{y}}{\mu_{x}}$$
+In the case of sampling with replacement, we have that
+$$\E(\bar{R}) = \frac{\mu_{y}}{\mu_{x}} + \frac{1}{\mu_{x}^{2}}\left(\frac{\mu_{y}}{\mu_{x}}\frac{\sigma_{x}^{2}}{n} - \frac{\sigma_{xy}}{n}\right).$$
+In the case of sampling without replacement, we have that 
+$$\E(\bar{R}) = \frac{\mu_{y}}{\mu_{x}} + \frac{1}{\mu_{x}^{2}}\left(\frac{\mu_{y}}{\mu_{x}}\frac{\sigma_{x}^{2}}{n}\frac{N - n}{N - 1} - \frac{\sigma_{xy}}{n}\frac{N - n}{N - 1}\right).$$
+
+\subsection{Example.} (Continued.) The variance of $\bar{R}$ is 
+$$\Var(\bar{R}) = \frac{\mu_{y}^{2}}{\mu_{x}^{4}}\sigma_{\bar{x}}^{2} + \frac{1}{\mu_{x}^{2}}\sigma_{\bar{y}}^{2} - \frac{2\mu_{y}}{\mu_{x}^{3}}\sigma_{\bar{x}\bar{y}}.$$
+In the case of sampling with replacement, we have that 
+\begin{align*}
+    \Var(\bar{R}) &= \frac{\mu_{y}^{2}}{\mu_{x}^{4}}\frac{\sigma_{x}^{2}}{n} + \frac{1}{\mu_{x}^{2}}\frac{\sigma_{y}^{2}}{n} - \frac{2\mu_{y}}{\mu_{x}^{3}}\frac{\sigma_{xy}}{n} \\
+            &= \frac{1}{\mu_{x}^{2}}\frac{1}{n}\left(\frac{\mu_{y}^{2}}{\mu_{x}^{2}}\sigma_{x}^{2} + \sigma_{y}^{2} 
+               - \frac{2\mu_{y}}{\mu_{x}}\sigma_{xy}\right).
+\end{align*}
+and in the case of sampling without replacement, we have that 
+\begin{align*}
+    \Var(\bar{R}) &= \frac{\mu_{y}^{2}}{\mu_{x}^{4}}\frac{\sigma_{x}^{2}}{n}\frac{N - n}{N - 1} + \frac{1}{\mu_{x}^{2}}\frac{\sigma_{y}^{2}}{n}\frac{N - n}{N - 1} - \frac{2\mu_{y}}{\mu_{x}^{3}}\frac{\sigma_{xy}}{n}\frac{N - n}{N - 1} \\
+            &= \frac{1}{\mu_{x}^{2}}\frac{1}{n}\frac{N-n}{N-1}\left(\frac{\mu_{y}^{2}}{\mu_{x}^{2}}\sigma_{x}^{2} + \sigma_{y}^{2} - \frac{2\mu_{y}}{\mu_{x}}\sigma_{xy}\right).
+\end{align*}
+where $n, N$ are the sample size and population size, respectively.
+
+\subsection{Theorem.} We have the following propositions from Rice, Chapter (7), Section (7.4). Consider the case of sampling without replacement. Taking 
+$$r = \frac{\mu_{x}}{\mu_{y}},$$
+we can recover Theorem B, that the approximate expectation of $R = \bar{Y}/\bar{X}$ is 
+$$\E(R) \approx r + \frac{1}{n}\left(1 - \frac{n-1}{N-1}\right)\frac{1}{\mu_{x}^{2}}
+(r\sigma_{x}^{2} - \rho\sigma_{x}\sigma_{y})$$
+where $\rho$ is the correlation 
+$$\rho = \frac{\sigma_{xy}}{\sigma_{x}\sigma_{y}}$$
+as well as Corollary B, that the approximate bias of the ratio estimate $\bar{Y}_{R} = \mu_{x}R$ of $\mu_{y}$ is 
+$$\E(\bar{Y}_{R}) - \mu_{y} \approx \frac{1}{n}\left(1 - \frac{n-1}{N-1}\right)\frac{1}{\mu_{x}}\sigma_{x}^{2}.$$
+
+\subsection{Theorem.} We have the following propositions from Rice, Chapter (7), Section (7.4). Consider the case of sampling without replacement. Taking 
+$$r = \frac{\mu_{x}}{\mu_{y}},$$
+we can recover Theorem A, that the approximate variance of $R = \bar{Y}/\bar{X}$ is 
+$$\Var(R) \approx \frac{1}{n}\left(1 - \frac{n-1}{N-1}\right)\frac{1}{\mu_{x}^{2}}
+                  (r^{2}\sigma_{x}^{2} + \sigma_{y}^{2} - 2r\sigma_{xy}),$$
+and Corollary A, that the the estimated variance of the ratio estimate $\bar{Y}_{R} = \mu_{x}R$ of $\mu_{y}$ is 
+$$\Var(\bar{Y}_{R}) \approx \frac{1}{n}\left(1 - \frac{n-1}{N-1}\right)\left(r^{2}\sigma_{y}^{2} 
+                  + \sigma_{x}^{2} - 2r\sigma_{xy}\right),$$
+and Corollary C, that the variance of $\bar{Y}_{R}$ can be estimated by 
+$$s^{2}_{\bar{Y}_{R}} \approx \frac{1}{n}\left(1 - \frac{n-1}{N-1}\right)(R^{2}s_{x}^{2} + s_{y}^{2} - 2Rs_{xy}).$$
+
+\subsection{Theorem.} (Rice, Chapter (7), Exercise (50).) Hartley and Ross (1954) derived the following exact bound on the relative size of the bias and 
+standard error of a ratio estimate:
+$$\frac{|\E(R) - r|}{\sigma_{R}} \leq \frac{\sigma_{\bar{X}}}{\mu_{x}}.$$
+
+\subsection{Proof.} (Continued.) Consider the relation
+$$\Cov(R, \bar{X}) = \E(R\bar{X}) - \E(R)\E(\bar{X}).$$
+We have that 
+\begin{align*}
+    E(R\bar{X}) - E(R)E(\bar{X}) &= E(\bar{Y}) - E(R)E(\bar{X}) \\
+                                 &= \mu_{y} - \mu_{x}E(R)
+\end{align*}
+so by the Cauchy-Schwarz inequality, we have that 
+\begin{align*}
+    |\mu_{y} - \mu_{x}E(R)| &\leq \sigma_{\bar{x}}\sigma_{R} \\
+    |\mu_{x}E(R) - \mu_{y}| &\leq \sigma_{\bar{x}}\sigma_{R} \\
+    |E(R) - r| &\leq \frac{\sigma_{\bar{x}}\sigma_{R}}{\mu_{x}} \\
+    \frac{|E(R) - r|}{\sigma_{R}} &\leq \frac{\sigma_{\bar{x}}}{\mu_{x}}.
+\end{align*}
+
+\textbf{Remark.} For the ratio estimate of the population total 
+$$T_{R} = \tau_{x}R,$$
+the squared standard error for $T_{R}$ is 
+$$s_{T_{R}}^{2} = N^{2}\frac{1}{n}\left(\frac{N-n}{N-1}\right)(R^{2}s_{x}^{2} + s_{y}^{2} - 2Rs_{xy}).$$
+Compare that to the standard error for the direct estimate $T$ in part (c), which is 
+$$s_{T}^{2} = N^{2}\frac{1}{n}\left(\frac{N-n}{N-1}\right)s_{y}^{2}.$$
+If $R$ is small or if $s_{x}$ is small, then 
+\begin{align*}
+    R^{2}s_{x}^{2} + s_{y}^{2} - 2Rs_{xy} &< s_{y}^{2} \\
+                            s_{T_{R}}^{2} &< s_{T}^{2}.
+\end{align*}
+The same argument holds for the variance of the ratio estimate 
+$$\bar{Y}_{R} = \mu_{x}R.$$
+This is an example of a biased estimator possessing a smaller variance than the unbiased estimator.
+
+\newpage \newsection{Real Analysis.}
+
+\subsection{Introduction.} Real Analysis.
+
+\subsection{Definition.} A field is a set $F$ equipped with two operations: addition and multiplication. The field axioms are as follows.
+\begin{enumerate}
+\item[(A)] Addition.
+    \begin{enumerate}
+    \item[(A1)] If $x,y \in F$, then $x+y \in F$. (Closure.)
+    \item[(A2)] If $x,y \in F$, then $x+y = y+x$. (Commutativity.)
+    \item[(A3)] If $x,y,z \in F$, then $(x+y)+z = x+(y+z)$. (Associativity.)
+    \item[(A4)] There exists an element $0 \in F$ such that $0 + x = x$ for all $x \in F$. (Identity.)
+    \item[(A5)] To every $x \in F$ there corresponds an element $-x \in F$ such that $x + (-x) = 0$. (Inverse.)
+    \end{enumerate}
+\item[(M)] Multiplication.
+    \begin{enumerate}
+    \item[(M1)] If $x,y \in F$, then $xy \in F$. (Closure.)
+    \item[(M2)] If $x,y \in F$, then $xy = yx$. (Commutativity.)
+    \item[(M3)] If $x,y,z \in F$, then $(xy)z = x(yz)$. (Associativity.)
+    \item[(M4)] There exists an element $1 \in F, 1 \neq 0$, such that $1x = x$ for all $x \in F$. (Identity.)
+    \item[(M5)] If $x \in F, \neq 0$, then there corresponds an element $1/x \in F$ such that $x(1/x) = 1$. (Inverse.)
+    \end{enumerate}
+\item[(D)] Distribution.
+    \begin{enumerate}
+    \item[(D1)] If $x,y,z \in F$, then $x(y+z) = xy + xz$. (Left distribution.)
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Definition.} An ordered set is a set $S$ equipped with a relation $<$ such that for all $x,y,z \in S$,
+\begin{enumerate}
+\item[(1)] If $x,y \in S$, then one and only one of 
+$$x < y, \quad x = y, \quad y < x$$
+is true. (Trichotomy.)
+\item[(2)] If $x,y,z \in S$ and $x < y$ and $y < z$, then $x < z$. (Transitivity.)
+\end{enumerate}
+
+\subsection{Definition.} An ordered field is a field $F$ equipped with an order relation $<$ such that for all $x,y,z \in F$, 
+\begin{enumerate}
+\item[(1)] If $x,y,z \in F$ and $y < z$, then $x + y < x + z$.
+\item[(2)] If $x,y \in F$ and $x,y > 0$, then $xy > 0$.'
+\end{enumerate}
+
+\subsection{Remark.} From these axioms, we may derive the familiar properties of $\mathbb{Q}, \mathbb{R}, \mathbb{C}$.
+
+\subsection{Definition.} A subset $D$ of an ordered field $F$ is said to be bounded above if there exists an element $M \in F$ such that 
+$$x \leq M, \quad \forall x \in D.$$
+The element $M$ is called an upper bound of $D$. $M$ is a least upper bound of $D$ if
+\begin{enumerate}
+\item[(1)] $\forall x \in D, M \leq x$.
+\item[(2)] $\forall m < M, \exists x \in D \text{ s.t. } m < x$.
+\end{enumerate}
+
+\subsection{Definition.} The least upper bound property states that every nonempty subset $D$ of $F$ that is bounded above has a least upper bound
+$$\sup D.$$
+
+\subsection{Theorem.} There exists an ordered field $\mathbb{R}$ with the least upper bound property. Moreover, $\mathbb{Q} \subset \mathbb{R}$.
+
+\subsection{Definition.} A metric space is a set $X$ equipped with a metric $d: X \times X \to \mathbb{R}$ such that for all $x,y,z \in X$,
+\begin{enumerate}
+\item[(1)] $d(x,y) \geq 0$. (Non-negativity.)
+\item[(2)] $d(x,y) = 0$ if and only if $x = y$. (Positive definiteness.)
+\item[(3)] $d(x,y) = d(y,x)$. (Symmetry.)
+\item[(4)] $d(x,y) \leq d(x,z) + d(z,y)$. (Triangle inequality.)
+\end{enumerate}
+Unless otherwise specified, we assume that the standard metric is 
+$$d(x,y) = |x-y|.$$
+
+\subsection{Definition.} A sequence $\{x_{n}\}$ in $\mathbb{R}$ is the indexed output of a map 
+$$\phi: \mathbb{N} \to \mathbb{R}$$
+and we denote the sequence as 
+$$\{a_{n}: n \in \mathbb{N}\}.$$
+or simply as $\{a_{n}\}$ or even more simply as $a_{n}$.
+
+\subsection{Definition.} A sequence is Cauchy if 
+$$\forall \epsilon > 0, \exists N_{\epsilon} \in \mathbb{N} \text{ s.t. } d(a_{n}, a_{m}) < \epsilon, \forall n,m \geq N_{\epsilon}.$$
+
+\subsection{Definition.} A sequence $\{a_{n}\}$ in $\mathbb{R}$ is convergent if 
+$$\exists L \in \mathbb{R} \text{ s.t. } \forall \epsilon > 0, \exists N_{\epsilon} \in \mathbb{N} \text{ s.t. } d(a_{n} - L) < \epsilon, \forall n \geq N_{\epsilon}.$$
+$L$ is said to be the limit of the sequence $\{a_{n}\}$.
+
+\subsection{Lemma.} A sequence is Cauchy if it is convergent.
+
+\subsection{Proof.} (Continued.) Suppose that $\epsilon > 0$. Since 
+$$a_{n} \rightarrow L,$$
+there exists an $N_{\epsilon/2} \in \mathbb{N}$ such that for all $n > N_{\epsilon/2}$,
+\begin{align*}
+        d(a_{n}, L) &< \frac{\epsilon}{2} \\
+        d(a_{m}, L) &< \frac{\epsilon}{2} \\
+    d(a_{n}, a_{m}) &< \epsilon
+\end{align*}
+for all $m, n > N_{\epsilon/2}$ by the triangle inequality. Hence, a sequence if convergent if it is Cauchy.
+
+\subsection{Definition.} A set $D$ is complete if every Cauchy sequence in $D$ is convergent to a limit $L \in D$.
+
+\subsection{Theorem.} $\mathbb{R}$ is complete.
+
+\subsection{Proof.} (Continued.) Suppose that $a_{n}$ is a Cauchy sequence in $\mathbb{R}$ that is not bounded. Then, for all $\epsilon > 0$, there exists an $N_{\epsilon} \in \mathbb{N}$ such that
+$$d(a_{n}, a_{m}) < \epsilon, \forall n,m \geq N_{\epsilon}.$$
+But $a_{n}$ is not bounded, so for any $\epsilon > 0$ and $m \in \mathbb{N}$, there exists an $n \geq m$ such that 
+$$d(a_{n}, a_{m}) \geq \epsilon$$
+because $a_{m} \pm \epsilon$ would otherwise be a bound for $a_{n}$. Hence, we have a contradiction, so $\mathbb{R}$ is complete.
+
+\subsection{Definition.} A series is a sequence $s_{n}$ of partial sums 
+$$s_{n} = \sum_{k=1}^{n}a_{k}.$$
+for some sequence $\{a_{n}\}$.
+
+\subsection{Lemma.} Suppose that $a_{n} \in \mathbb{R}, a_{n} \geq 0$, i.e., that the series $s_{n}$ is monotone increasing. Then, if $s_{n}$ is bounded above, then $s_{n}$ converges to its least supper bound, i.e., 
+$$\lim_{n \to \infty}s_{n} = \sup s_{n}.$$
+We often denote this limit as 
+$$S = \sup s_{n}.$$
+
+\newpage \newsection{Convergence of Random Variables.}
+
+\subsection{Introduction.} Convergence of Random Variables.
+
+\subsection{Definition.} A $\sigma-$algebra $\mathcal{F}$ is a collection of subsets of $\Omega$ such that 
+\begin{enumerate}
+\item[(1)] $\emptyset \in \mathcal{F}$.
+\item[(2)] If $A \in \mathcal{F}$, then $A^{c} \in \mathcal{F}$. (Closure under complement.)
+\item[(3)] If $A_{1}, A_{2}, \ldots \in \mathcal{F}$, then 
+$$\bigcup_{i=1}^{\infty}A_{i} \in \mathcal{F}.$$
+(Closure under countable union.)
+\end{enumerate}
+
+\subsection{Definition.} The $\sigma$-algebra generated by a collection of subsets $\mathcal{A}$ is the smallest $\sigma$-algebra containing $\mathcal{A}$. We denote the $\sigma$-algebra generated by $\mathcal{A}$ as
+$$\sigma(\mathcal{A}).$$
+
+\subsection{Example.} The $\sigma$-algebra generated by $A$ is 
+$$\sigma(A) = \{\emptyset, A, A^{c}, \Omega\}.$$
+
+\subsection{Lemma.} If $A_{1}, A_{2}, \ldots, A_{n}$ partition $\Omega$, then 
+$$\sigma(A_{1}, A_{2}, \ldots, A_{n}) = \bigcup_{i \in S}A_{i}$$
+for all $S \subseteq \{1, 2, \ldots, n\}$. That is, 
+$$\sigma(A_{1}, A_{2}, \ldots, A_{n}) = 2^{\Omega}.$$
+
+\subsection{Definition.} A probability measure $P$ is a function $P: \mathcal{F} \to [0, 1]$ such that 
+\begin{enumerate}
+\item[(1)] $P: \mathcal{F} \to [0, 1]$. (Non-negativity.)
+\item[(2)] If $A_{1}, A_{2}, \ldots \in \mathcal{F}$ are disjoint, then 
+$$P\left(\bigcup_{i=1}^{\infty}A_{i}\right) = \sum_{i=1}^{\infty}P(A_{i}).$$
+(Countable additivity.)
+\end{enumerate}
+
+\subsection{Definition.} A probability space is a triple $(\Omega, \mathcal{F}, P)$ where the event space $F$ is a $\sigma$-algebra of subsets of the sample space $\Omega$ and $P: \mathcal{F} \to [0, 1]$ is a probability measure on $\mathcal{F}$.
+
+\subsection{Definition.} A real-valued random variable is a function 
+$$X: \Omega \to \mathbb{R}$$
+with a $(F, \mathcal{B}(\mathbb{R}))$-measurability requirement. That is, for all $B \in \mathcal{B}(\mathbb{R})$, 
+$$X^{-1}(B) \in \mathcal{F}$$
+where 
+$$X^{-1}(B) = \{\omega \in \Omega: X(\omega) \in B\}$$
+is the preimage of $B$ under $X$ and where $\mathcal{B}(\mathbb{R})$ is the Borel $\sigma$-algebra on $\mathbb{R}$, i.e., the $\sigma$-algebra generated by the open intervals of $\mathbb{R}$.
+
+\subsection{Example.} Consider the random variable $X = I_{A}$, that is, indicator function of the event $A$. Then, for all $B \in \mathcal{B}(\mathbb{R})$, 
+\begin{enumerate}
+\item[(1)] If $0 \not\in B$ and $1 \not\in B$, then $X^{-1}(B) = \emptyset$.
+\item[(2)] If $0 \not\in B$ and $1 \in B$, then $X^{-1}(B) = A$.
+\item[(3)] If $0 \in B$ and $1 \not\in B$, then $X^{-1}(B) = A^{c}$.
+\item[(4)] If $0 \in B$ and $1 \in B$, then $X^{-1}(B) = \Omega$.
+\end{enumerate}
+Therefore, $X$ is a random variable for 
+$$\mathcal{F} = \{\emptyset, A, A^{c}, \Omega\}.$$
+
+\subsection{Example.} Consider the sample space of two die rolls, that is 
+$$\Omega = \{(i, j): i, j \in \{1, 2, 3, 4, 5, 6\}\}.$$
+Let $X(\omega) = \omega_{1} + \omega_{2}$ be the sum of the two die rolls. Consider $B$ such that $B \cap \Omega = 3$ with preimage 
+$$X^{-1}(B) = \{(1, 2), (2, 1)\}.$$
+So $\mathcal{F}$ must include $\{(1, 2), (2, 1)\}$. But if $A$ includes $(1, 2)$, then it must also include $(2, 1)$. Therefore, 
+$$\sigma(X^{-1}(\mathcal{B}(\mathbb{R}))) \neq 2^{\Omega}.$$
+In fact, for any $B \in \mathcal{B}(\mathbb{R})$,
+$$X^{-1}(B) = X^{-1}(B \cap \text{image}(X)) .$$
+In particular, $\mathcal{F}$ is the $\sigma$-algebra generated by 
+$$A = \{X^{-1}(\{2\}), X^{-1}(\{3\}), \ldots, X^{-1}(\{12\})\},$$
+i.e., 
+$$\mathcal{F} = 2^{A}.$$
+
+\subsection{Example.} (Continued.) Recall that 
+$$\mathcal{F} = 2^{A}.$$
+Consider the random variable $$W_{1} = \omega_{1}$$
+for $\omega \in \Omega$. But the preimage 
+$$W_{1}^{-1}(1) = \{(1, 1), (1, 2), \ldots, (1, 6)\},$$
+is not in $\mathcal{F}$, so $W_{1}$ is not a random variable defined on the specified probability space.
+
+\subsection{Definition.} If $X: \Omega \to \mathbb{R}$ is a random variable, then the $\sigma$-algebra generated by $X$ is 
+$$\sigma(X) = \sigma\left(\{X^{-1}(B): B \in \mathcal{B}(\mathbb{R})\}\right).$$
+
+\subsection{Definition.} Let $(\Omega, \mathcal{F}, P)$ be a probability space. Let 
+$$\{X_{n}: n \in \mathbb{N}\}$$
+be a sequence of rvs on $\Omega$ and let $X$ also be an rv on $\Omega$. Then, $X_{n}$ converges pointwise everywhere to $X$ if for all $\omega \in \Omega$,
+$$X_{n}(\omega) \to X(\omega).$$
+That is, $X_{n}$ converges pointwise everywhere to $X$ if 
+$$\forall \omega \in \Omega, \forall \epsilon > 0, \exists N_{\epsilon} \in \mathbb{N} \text{ s.t. } |X_{n}(\omega) - X(\omega)| < \epsilon, \forall n > N_{\epsilon}.$$
+
+\subsection{Definition.} Let $(\Omega, \mathcal{F}, P)$ be a probability space. Let 
+$$\{X_{n}: n \in \mathbb{N}\}$$
+be a sequence of rvs on $\Omega$ and let $X$ also be an rv on $\Omega$. Then, $X_{n}$ converges pointwise with probability one to $X$ if there exists a set $A$ with $P(A) = 0$ such that 
+$$\forall \omega \in A^{c}, X_{n}(\omega) \to X(\omega).$$
+
+\subsection{Definition.} Let $(\Omega, \mathcal{F}, P)$ be a probability space. Let
+$$\{X_{n}: n \in \mathbb{N}\}$$
+be a sequence of rvs on $\Omega$ and let $X$ also be an rv on $\Omega$. Then, $X_{n}$ converges uniformly everywhere to $X$ if 
+$$\forall \epsilon > 0, \exists N_{\epsilon} \in \mathbb{N} \text{ s.t. } |X_{n}(\omega) - X(\omega)| < \epsilon, \forall n > N_{\epsilon}$$
+for all $\omega \in \Omega$.
+
+\subsection{Definition.} Let $(\Omega, \mathcal{F}, P)$ be a probability space. Let
+$$\{X_{n}: n \in \mathbb{N}\}$$
+be a sequence of rvs on $\Omega$ and let $X$ also be an rv on $\Omega$. Then, $X_{n}$ converges uniformly with probability one to $X$ if there exists a set $A$ with $P(A) = 0$ such that
+$$\forall \epsilon > 0, \exists N_{\epsilon} \in \mathbb{N} \text{ s.t. } |X_{n}(\omega) - X(\omega)| < \epsilon, \forall n > N_{\epsilon}$$
+for all $\omega \in A^{c}$.
+
+\subsection{Definition.} Let $(\Omega, \mathcal{F}, P)$ be a probability space. Let
+$$\{X_{n}: n \in \mathbb{N}\}$$
+be a sequence of rvs on $\Omega$ and let $X$ also be an rv on $\Omega$. Then, $X_{n}$ converges in probability to $X$ if for all $\delta > 0$, the $n,\delta$-problematic set 
+$$A_{n,\delta} = \{\omega \in \Omega: |X_{n}(\omega) - X(\omega)| \geq \delta\}$$
+satisfies 
+$$P(A_{n,\delta}) \to 0 \text{ as } n \to \infty.$$
+We denote this type of convergence as 
+$$X_{n} \xrightarrow{P} X.$$
+
+\subsection{Note.} For $\delta_{1} < \delta_{2}$, we have that 
+$$A_{n,\delta_{1}} \supseteq A_{n,\delta_{2}}.$$
+
+\subsection{Remark.} Consistentcy 
+$$P\left(|\bar{X}_{n} - \mu| \geq \epsilon\right) \to 0 \text{ as } n \to \infty$$
+is a statement about convergence in probability to the degenerate random variable $X = \mu$.
+
+\subsection{Definition.} Let $(\Omega, \mathcal{F}, P)$ be a probability space. Let
+$$\{X_{n}: n \in \mathbb{N}\}$$
+be a sequence of rvs on $\Omega$ and let $X$ also be an rv on $\Omega$. Then, $X_{n}$ converges in $L^{p}$ to $X$ if
+$$\E\left(|X_{n} - X|^{p}\right) \to 0 \text{ as } n \to \infty.$$
+
+\subsection{Remark.} Consider Markov's Inequality 
+$$P(|X_{n} - X| \geq \delta) \leq \frac{\E(|X_{n} - X|)}{\delta}.$$
+Then, for $p > 0$, we have that 
+$$P(|X_{n} - X|^{p} \geq \delta^{p}) \leq \frac{\E(|X_{n} - X|^{p})}{\delta^{p}},$$
+so if $X_{n}$ converges in $L^{p}$ to $X$, then $X_{n}$ converges in probability to $X$.
+
+\subsection{Definition.} A cumulative distribution function is a function that satisfies 
+\begin{enumerate}
+\item[(C)] $F: \mathbb{R} \to [0, 1]$.
+\item[(C)] $F$ is non-decreasing.
+\item[(C)] $\lim_{x \to -\infty}F(x) = 0$.
+\item[(C)] $\lim_{x \to \infty}F(x) = 1$.
+\item[(C)] $F$ is right-continuous.
+\end{enumerate}
+If $F$ is continuous, then $F$ is a continuous cumulative distribution function.
+
+\subsection{Definition.} A continuity point of a function $f: \mathbb{R} \to \mathbb{R}$ is a point $t$ such that 
+$$\forall \epsilon > 0, \exists \delta > 0 \text{ s.t. if } |x - t| < \delta \text{ then } |f(x) - f(t)| < \epsilon.$$
+
+\subsection{Definition.} A sequence of random variables $X_{n}$ converges in distribution to a random variable $X$ if for all continuity points $t$ of $F$, 
+$$\lim_{n \to \infty}F_{n}(t) = F(t)$$
+where $F_{n}$ is the cdf of $X_{n}$ and $F$ is the cdf of $X$.
+
+\subsection{Theorem.} Suppose that $g: \mathbb{R} \to \mathbb{R}$ is continuous. Then, if 
+$$X_{n} \xrightarrow{D} X,$$
+then
+$$g(X_{n}) \xrightarrow{D} g(X).$$
+
+\subsection{Lemma.} If a sequence of random variables $X_{n}$ is defined on a common probability space $\Omega$ and 
+$$X_{n} \xrightarrow{D} c$$
+for some degenerate random variable $c \in \mathbb{R}$, then 
+$$X_{n} \xrightarrow{P} c.$$
+
+\subsection{Theorem.} (Slutsky's Theorem.) Suppose that 
+$$X_{n} \xrightarrow{D} X, \quad Y_{n} \xrightarrow{D} c$$
+for some degenerate random variable $c \in \mathbb{R}$. If $X_{n}, Y_{n}$ are defined on a common $\Omega$ such that $X+Y$ and $XY$ are well-defined, then 
+\begin{enumerate}
+\item[(1)] $X_{n} + Y_{n} \xrightarrow{D} X + c$.
+\item[(2)] $X_{n}Y_{n} \xrightarrow{D} cX$.
+\item[(3)] $X_{n}/Y_{n} \xrightarrow{D} X/c$ if $c \neq 0$.
+\end{enumerate}
+
+\newpage \newsection{Parametric Estimation.}
+
+\subsection{Introduction.} Parametric Estimation.
+
+\end{document}
