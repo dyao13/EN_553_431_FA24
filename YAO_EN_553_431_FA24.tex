@@ -90,7 +90,7 @@ $$\frac{n}{n}\frac{\bar{X}_{n}-\mu}{\sigma/\sqrt{n}} = \frac{T_{n}-n\mu}{\sigma\
 
 \subsection{Introduction.} Taylor Approximations.
 
-\subsection{Theorem.} (Mean Value Theorem.) Suppose that $g: \mathbb{R} \to \mathbb{R}$ is differentiable on $(a, b)$ and that $a < x < y < b$. Then there exists a $\xi \in (x, y)$ such that 
+\subsection{Theorem.} (Mean Value Theorem.) Suppose that $g: \mathbb{R} \to \mathbb{R}$ is differentiable on $(a, b)$ and that $a < x < y < b$. Then there exists a $\xi \in [x, y]$ such that 
 $$g'(\xi) = \frac{g(y) - g(x)}{y - x}.$$
 
 \subsection{Theorem.} (Taylor's Theorem with Remainder.) 
@@ -106,7 +106,7 @@ where $M = \max|g^{(n+1)}(\xi)|$ on the interval $(x, y)$.
 $$g(y) = g(x) + \nabla g(x)^{T}(y-x) + \frac{1}{2}(y-x)^{T}H(\xi)(y-x)$$
 where 
 $$\nabla g(x) = \begin{pmatrix} \frac{\partial g}{\partial x_{1}}(\xi) & \cdots & \frac{\partial g}{\partial x_{n}}(\xi) \end{pmatrix}^{T}$$
-is the gradient of $g$ at $x$ and 
+for some $\xi \in \mathbb{R}^{n}$ between $x$ and $y$ where is the gradient of $g$ at $x$ and 
 $$H(\xi) = \begin{pmatrix} \frac{\partial^{2} g}{\partial x_{1}^{2}}(\xi) & \cdots & \frac{\partial^{2} g}{\partial x_{1}\partial x_{n}}(\xi) \\ \vdots & \ddots & \vdots \\ \frac{\partial^{2} g}{\partial x_{n}\partial x_{1}}(\xi) & \cdots & \frac{\partial^{2} g}{\partial x_{n}^{2}}(\xi) \end{pmatrix}$$
 is the Hessian of $g$ at $\xi$.
 
