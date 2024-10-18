@@ -5,7 +5,7 @@ Honors Mathematical Statistics
 ![Gilman Hall](https://github.com/dyao13/EN_553_431_FA24/blob/main/gilman_hall.jpg)
 
 # Installation
-To install `BrawlStars`:
+To install `EN_553_431_FA24`:
 ```
 git clone https://github.com/dyao13/EN_553_431_FA24.git
 cd EN_553_431_FA24
