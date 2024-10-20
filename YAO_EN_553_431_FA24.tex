@@ -36,9 +36,236 @@ Let $m_x$ and $m_y$ denote the population minimum of the $x$- and $y$-measuremen
 $$m_x = \min\{x_k : 1 \leq k \leq N\}, \quad m_y = \min\{y_k : 1 \leq k \leq N\}$$
 All sample sizes $n$ satisfy $n \geq 1$, and in some cases, we specify if $n > 1$ or we give an explicit value for $n$. In what follows below, $\bar{X}$ denotes the sample mean of the $x$-measurements in the sample, and $\bar{Y}$ denotes the sample mean of the $y$-measurements in the sample. The letter $\E$ represents expected value; $\Var$ represents variance; and $\Cov$ represents covariance.
 
+\newpage \newsection{Probability.}
+
+\subsection{Introduction.} Probability.
+
+\subsection{Remark.} This course EN.553.431 Honors Mathematical Statistics is taken after EN.553.420 Probability or EN.553.420 Honors Probabiity. The following notes shall be brief.
+
+\subsection{Definition.} If $X$ and $Y$ are rvs with respective pdfs $f_{x}$ and $f_{y}$ and joint pdf $f_{xy}$, then the conditional pdf of $Y$ given $X = x$ is
+$$f_{y|x}(y|x) = \frac{f_{xy}(x, y)}{f_{x}(x)}.$$
+
+\subsection{Definition.} If $X$ and $Y$ are rvs with respective pdfs $f_{x}$ and $f_{y}$, then $X$ and $Y$ are independent if and only if the joint pdf 
+$$f_{xy}(x, y) = f_{x}(x)f_{y}(y).$$
+This implies that the conditional pdf of $Y$ given $X = x$ is
+$$f_{y|x}(y|x) = f_{y}(y),$$
+i.e., the marginal pdf of $Y$.
+
+\subsection{Definition.} If $X$ and $Y$ are rvs with joint pdf $f_{xy}$, then $X$ and $Y$ are exchangeable if and only if 
+$$f_{xy}(x, y) = f_{xy}(y, x).$$
+That is, the joint pdf is symmetric under permutations of its arguments.
+
+\subsection{Theorem.} (Markov's Inequality.) Let $X$ be a nonnegative rv. Then, for any $a > 0$, 
+$$P(X \geq a) \leq \frac{\E(X)}{a}.$$
+
+\subsection{Proof.} (Continued.) Observe that $X$ may be written as 
+$$X = XI_{X < a} + XI_{X \geq a}.$$
+Then, since $X \geq 0$ and expectation is monotonoic, we have that 
+\begin{align*}
+          \E(X) &\leq \E(XI_{X \geq a}) \\
+                &\leq aP(X \geq a) \\
+    P(X \geq a) &\leq \frac{\E(X)}{a}.
+\end{align*}
+
+\subsection{Theorem.} (Chebyshev's Inequality.) Let $X$ be a rv with finite mean $\mu$ and finite variance $\sigma^{2}$. Then, for any $\delta > 0$, 
+$$P(|X - \mu| \geq \delta) \leq \frac{\sigma^{2}}{\delta^{2}}.$$
+
+\subsection{Proof.} (Continued.) From Markov's Inequality, take 
+$$X = (X - \mu)^{2}$$
+and 
+$$\E\left(X - \mu\right)^{2} = \sigma^{2}$$
+to obtain Chebyshev's Inequality.
+
+\subsection{Theorem.} (Cauchy-Schwarz Inequality.) Let $X$ and $Y$ be rvs with finite second moments. Then,
+$$|\Cov(X, Y)| \leq \sqrt{\Var(X)\Var(Y)}.$$
+
+\subsection{Theorem.} (Jensen's Inequality.) Let $f$ be a convex function and $X$ be a rv. Then,
+$$f(\E(X)) \leq \E(f(X)).$$
+
+\subsection{Definition.} For two random $k$-vectors $X$ and $Y$, the covariance matrix is a matrix $\Sigma \in \mathbb{R}^{k \times k}$ such that
+$$(\Sigma)_{ij} = \Cov(X_{i}, Y_{j}).$$
+
+\subsection{Theorem.} Suppose that $X,Y$ are random $k$-vectors and that $A, B \in \mathbb{R}^{m \times k}$. Then, the covariance matrix between $AX$ and $BY$ is an $m \times m$ matrix given by 
+$$\Cov(AX, BY) = A\Sigma B^{T}.$$
+
+\subsection{Definition.} For $Z_{1}, Z_{2} \sim \text{N}(0, 1)$ iid, the rvs
+\begin{align*}
+    X &= \sigma_{x}Z_{1} + \mu_{x} \\
+    Y &= \sigma_{y}(\rho Z_{1} + \sqrt{1 - \rho^{2}}Z_{2}) + \mu_{y}
+\end{align*}
+form a bivariate normal distribution with means $(\mu_{x}, \mu_{y})$, variances $(\sigma_{x}^{2}, \sigma_{y}^{2})$, and covariance $\sigma_{xy} = \rho\sigma_{x}\sigma_{y}$. We may write the joint pdf of $X$ and $Y$ in matrix form as 
+$$f_{x_{1},x_{2}}(x_{1}, x_{2}) = \frac{1}{2\pi\sigma_{1}\sigma_{2}\sqrt{1-\rho^{2}}}\exp(-A(x_{1}, x_{2})/2)$$
+where 
+$$A(x_{1}, x_{2}) = (x-\mu)^{T}\Sigma^{-1}(x-\mu)$$
+where 
+$$\Sigma = \begin{bmatrix} \sigma_{x}^{2} & \rho\sigma_{x}\sigma_{y} \\ \rho\sigma_{x}\sigma_{y} & \sigma_{y}^{2} \end{bmatrix}$$
+is the covariance matrix.
+
+\subsection{Theorem.} For $X,Y$ bivariate normal and $D \in \mathbb{R}^{2 \times 2}$, the covariance matrix of 
+$$\begin{bmatrix} U \\ V \end{bmatrix} = D\begin{bmatrix} X \\ Y \end{bmatrix}$$
+where 
+$$D = \begin{bmatrix} a_{1} & a_{2} \\ b_{1} & b_{2} \end{bmatrix}$$
+is 
+$$\Sigma_{uv} = D\Sigma_{xy}D^{T}.$$
+From the method of Jacobians, we have that the bivariate normal pdf of $U,V$ is therefore 
+$$f_{uv}(u, v) = \frac{1}{2\pi\sqrt{\det(\Sigma_{uv})}}\exp\left(A(u, v)/2\right)$$
+where 
+$$A(u, v) = (u - \mu_{u})^{T}\Sigma_{uv}^{-1}(u - \mu_{u}).$$
+and
+$$\mu_{u} = D\mu_{x}.$$
+
 \newpage \newsection{Finite Population Samples.}
 
 \subsection{Introduction.} Finite Population Samples.
+
+\subsection{Definition.} Let $k = 1, 2, \ldots, N$ index the objects in a finite population of size $N$. The objects $z_{k}$ are represented as measurement-index tuples 
+$$z_{k} = (x_{k}, k)$$
+where $x_{k} \in \mathbb{R}^{d}$ is the numerical d-tuple of measurements for object $k$.
+
+\subsection{Definition.} For an object $z_{k}$ in a finite population, let the operators 
+\begin{align*}
+                   \pi(z_{k}) &= x_{k} \\
+               \pi_{i}(z_{k}) &= x_{k,i} \\
+    \pi_{\text{index}}(z_{k}) &= k
+\end{align*}
+where $\pi$ is the projection operator, $\pi_{i}$ is the $i$th component projection operator, and $\pi_{\text{index}}$ is the index projection operator.
+
+\subsection{Definition.} For a bivariate population of size $N$ such that 
+$$z_{k} = (x_{k}, y_{k}),$$
+the population parameters are 
+\begin{align*}
+           \mu_{x} &= \frac{1}{N}\sum_{k=1}^{N}x_{k} \\
+    \sigma_{x}^{2} &= \frac{1}{N}\sum_{k=1}^{N}(x_{k} - \mu_{x})^{2} \\
+       \sigma_{xy} &= \frac{1}{N}\sum_{k=1}^{N}(x_{k} - \mu_{x})(y_{k} - \mu_{y}) \\
+\end{align*}
+along with the corresponding parameters for the $y$-measurements. Note the similiaries between $\mu_{x}$ and expectation, $\sigma_{x}^{2}$ and variance, and $\sigma_{xy}$ and covariance. We often refer to these respective parameters as the population mean, the population variance, and the population covariance.
+
+\subsection{Definition.} The population total is 
+\begin{align*}
+    \tau_{x} &= \sum_{k=1}^{N}x_{k} \\
+             &= N\mu_{x}.
+\end{align*}
+
+\subsection{Example.} An easier way to compute the population variance is
+\begin{align*}
+    \sigma_{x}^{2} &= \frac{1}{N}\sum_{k=1}^{N}(x_{k} - \mu)^{2} \\
+                   &= \frac{1}{N}\sum_{k=1}^{N}\left(x_{k}^{2} - 2x_{k}\mu + \mu^{2}\right) \\
+                   &= \frac{1}{N}\sum_{k=1}^{N}x_{k}^{2} - 2\mu\frac{1}{N}\sum_{k=1}^{N}x_{k} + \mu^{2} \\
+                   &= \frac{1}{N}\sum_{k=1}^{N}x_{k}^{2} -\mu^{2},
+\end{align*}
+i.e., the second population moment minus the square of the population mean. Similarly, the population covariance is 
+$$\sigma_{xy} = \frac{1}{N}\sum_{k=1}^{N}x_{k}y_{k} - \mu_{x}\mu_{y}.$$
+
+\subsection{Definition.} A uniform sample of size $n$ is a sample of $n$ objects drawn from a finite population of size $N$ such that each object has an equal probability of being selected. We consider a sample as a collection of random objects 
+$$\{Z_{1}, Z_{2}, \ldots Z_{n}.\}$$
+We consider the special cases:
+\begin{enumerate}
+\item{(1)} \textit{With Replacement.} An object may be drawn from the population multiple times. In this case, the sample points are independent.
+\item{(2)} \textit{Without Replacement.} An object may be drawn at most once from the population. In this case, the sample points are not independent. Note that a sample without replacement can only have sample size $n \leq N$.
+\end{enumerate}
+
+\subsection{Lemma.} A uniform sample with replacement of size $n$ produces iid sample points. A uniform sample without replacement of size $n$ produces identically distributed but not independent sample points. In either case, the probability that the $i$th sample point is $z_{k}$ is
+$$P(X_{i} = z_{k}) = \frac{1}{N}$$
+for all $i = 1, 2, \ldots, n$ and $k = 1, 2, \ldots, N$ and the sample points are exchangeable.
+
+\subsection{Definition.} For a finite bivariate population of size $N$ with objects 
+$$z_{k} = (x_{k}, y_{k}),$$
+the (distinct) numerical values of the $x$- and $y$-measurements are 
+$$\xi_{l} \text{ and } \eta_{r}$$
+for $l = 1, 2, \ldots, L$ and $r = 1, 2, \ldots, R$ where $L$ and $R$ are the respective number of distinct $x$- and $y$-measurements. The probability that the $i$th sample point has $X_{i} = \xi_{l}$ is
+$$P(X_{i} = \xi_{l}) = \frac{n_{l}}{N}$$
+and similarly for the $y$-measurements.
+
+\subsection{Remark.} Observe the distinction between $x_{k}$ and $\xi_{l}$. $x_{k}$ is the $x$-measurement, which need not be distinct, for the $k$th object. That is 
+$$X_{1} = x_{k} \text{ iff } Z_{1} = z_{k}.$$
+On the other hand, $\xi_{l}$ is a distinct $x$-measurement. That is 
+$$X_{1} = \xi_{l} \text{ iff } Z_{1} \in \{Z_{k} : x_{k} = \xi_{l}\}.$$
+
+\subsection{Example.} If $Z_{i}$ is the $i$th object in a uniform sample, then 
+\begin{align*}
+    \E(X) &= \sum_{l=1}^{L}\xi_{l}P(X = \xi_{l}) \\
+           &= \sum_{l=1}^{L}\xi_{l}\frac{n_{l}}{N} \\
+           &= \mu_{x}.
+\end{align*}
+
+\subsection{Definition.} For a sample of size $n$, the sample mean is defined as 
+$$\bar{X} = \frac{1}{n}\sum_{i=1}^{n}X_{i}.$$
+
+\subsection{Lemma.} For a uniform sample with replacement, the sample mean has the following properties:
+\begin{enumerate}
+\item{(1)} The expectation is 
+$$\E(\bar{X}) = \mu_{x}.$$
+\item{(2)} The variance is
+$$\Var(\bar{X}) = \frac{1}{n}\sigma^{2}.$$
+\end{enumerate}
+
+\subsection{Proof.} (Continued.) Observe that our sample points are iid. We have that 
+\begin{align*}
+    \E(\bar{X}) &= \E\left(\frac{1}{n}\sum_{i=1}^{n}X_{i}\right) \\
+                &= \frac{1}{n}\sum_{i=1}^{n}\E(X_{i}) \\
+                &= \mu_{x}
+\end{align*}
+since expectation is linear. We also have that 
+\begin{align*}
+    \Var(\bar{X}) &= \Var\left(\frac{1}{n}\sum_{i=1}^{n}X_{i}\right) \\
+                  &= \frac{1}{n^{2}}\sum_{i=1}^{n}\Var(X_{i}) \\
+                  &= \frac{1}{n}\sigma^{2}
+\end{align*}
+since variance is bilinear.
+
+\subsection{Theorem.} If we sample uniformly with replacement, the covariance between $X_{i}$ and $X_{j}$ is 
+$$\Cov(X_{i}, X_{j}) = 0.$$
+If we sample uniformly without replacement, the covariance between $X_{i}$ and $X_{j}$ is
+$$\Cov(X_{i}, X_{j}) = -\frac{\sigma^{2}}{N-1}.$$
+
+\subsection{Proof.} (Continued.) If we sample uniformly with replacement, then the sample points are iid, so the covariance is zero. If we sample uniformly without replacement, then the sample points are not independent. Suppose that our sample is of size $n = N$. Then, 
+$$\Var(\bar{X}) = 0$$
+because we exhaust the population. We have that 
+\begin{align*}
+                 0 &= \Var(\bar{X}) \\
+                   &= \frac{1}{N^{2}}\Cov\left(\sum_{i=1}^{N}X_{i}, \sum_{j=1}^{N}X_{j}\right) \\
+                   &= \frac{1}{N^{2}}\left(\sum_{i=1}^{N}\Var(X_{i}) + \sum\sum_{i \neq j}\Cov(X_{i}, X_{j})\right) \\
+                   &= \frac{1}{N^{2}}\left(N\sigma^{2} + N(N-1)\Cov(X_{i}, X_{j})\right) \\
+                   &= \frac{1}{N}\sigma^{2} + \frac{N-1}{N}\Cov(X_{i}, X_{j}) \\
+\Cov(X_{i}, X_{j}) &= -\frac{\sigma^{2}}{N-1}.
+\end{align*}
+
+\subsection{Theorem.} If we sample from a bivariate population with replacement, the covariance between $X_{i}$ and $Y_{j}$ is
+$$\Cov(X_{i}, Y_{j}) = 0.$$
+If we sample from a bivariate population without replacement, the covariance between $X_{i}$ and $Y_{j}$ is
+$$\Cov(X_{i}, Y_{j}) = -\frac{\sigma_{xy}}{N-1}.$$
+
+\subsection{Theorem.} For a uniform sample without replacement, the sample mean has the following properties:
+\begin{enumerate}
+\item{(1)} The expectation is 
+$$\E(\bar{X}) = \mu_{x}.$$
+\item{(2)} The variance is 
+$$\Var(\bar{X}) = \frac{1}{n}\left(\frac{N-n}{N-1}\right)\sigma^{2}$$
+where $(N-n)/(N-1)$ is the finite population correction factor.
+\end{enumerate}
+
+\subsection{Proof.} (Continued.) The expectation is the same as before since the sample points are exchangeable. We have that the variance is 
+\begin{align*}
+    \Var(\bar{X}) &= \frac{1}{n^{2}}\Cov\left(\sum_{i=1}^{n}X_{i}, \sum_{j=1}^{n}X_{j}\right) \\
+                  &= \frac{1}{n}\sigma^{2} + \frac{n-1}{n}\Cov(X_{i}, X_{j}) \\
+                  &= \frac{1}{n}\sigma^{2} - \frac{n-1}{n}\frac{\sigma^{2}}{N-1} \\
+                  &= \frac{1}{n}\left(1 - \frac{n-1}{N-1}\right)\sigma^{2} \\
+                  &= \frac{1}{n}\left(\frac{N-n}{N-1}\right)\sigma^{2}.
+\end{align*}
+
+\newpage \newsection{Estimators for Finite Population Samples.}
+
+\subsection{Introduction.} Estimators for Finite Population Samples.
+
+\subsection{Definition.} An estimator $\hat{\theta}$ is a function of the sample points $Z_{1}, Z_{2}, \ldots, Z_{n}$ that estimates a population parameter $\theta$.
+
+\subsection{Definition.} The bias of an estimator $\hat{\theta}$ for $\theta$ is 
+$$\text{Bias}(\hat{\theta}) = \E(\hat{\theta}) - \theta.$$
+$\hat{\theta}$ is unbiased for $\theta$ if
+$$\E(\hat{\theta}) = \theta.$$
+
+\subsection{Definition.} An estimator $\hat{\theta}$ for $\theta$ is consistent if for all $\delta > 0$, 
+$$P(|\hat{\theta} - \theta| > \delta) \to 0 \text{ as } n \to \infty.$$
 
 \subsection{Definition.} For an estimator $\hat{\theta}$ of a parameter $\theta$, the mean squared error is 
 \begin{align*}
@@ -46,8 +273,151 @@ All sample sizes $n$ satisfy $n \geq 1$, and in some cases, we specify if $n > 1
                        &= \Var(\hat{\theta}) + \left(\E(\hat{\theta}) - \theta\right)^{2} \\
                        &= \Var(\hat{\theta}) + \text{Bias}(\hat{\theta})^{2}.
 \end{align*}
-where 
-$$\text{Bias}(\hat{\theta}) = \E(\hat{\theta}) - \theta.$$
+
+\subsection{Definition.} The sample mean $\bar{X}$ is an estimator of the population mean $\mu_{x}$ defined as 
+$$\bar{X} = \frac{1}{n}\sum_{i=1}^{n}X_{i}.$$
+
+\subsection{Theorem.} The sample mean $\bar{X}$ is an unbiased estimator of the population mean $\mu_{x}$.
+
+\subsection{Proof.} (Continued.) Consider the expectation
+\begin{align*}
+    \E(\bar{X}) &= \E\left(\frac{1}{n}\sum_{i=1}^{n}X_{i}\right) \\
+                &= \frac{1}{n}\sum_{i=1}^{n}\E(X_{i}) \\
+                &= \mu_{x}.
+\end{align*}
+
+\subsection{Example.} $\bar{X}^{2}$ is not an unbiased estimator of $\mu_{x}^{2}$. Observe that 
+\begin{align*}
+             \E(\bar{X}^{2}) &= \Var(\bar{X}) + \mu_{x}^{2} \\
+                             &= \frac{1}{n}\sigma^{2} + \mu_{x}^{2} \\
+    \text{Bias}(\bar{X}^{2}) &= \frac{1}{n}\sigma^{2}
+\end{align*}
+in the case of sampling with replacement and 
+$$\text{Bias}(\bar{X}^{2}) = \frac{1}{n}\frac{N-n}{N-1}\sigma^{2}$$
+in the case of sampling without replacement.
+
+\subsection{Definition.} Define the estimator $\hat{\sigma}^{2}$ for the population variance $\sigma^{2}$ as 
+$$\hat{\sigma}^{2} = \frac{1}{n}\sum_{i=1}^{n}(X_{i} - \bar{X})^{2}.$$
+
+\subsection{Definition.} The sample variance $s^{2}$ is an estimator for the population variance $\sigma^{2}$ defined as 
+$$s^{2} = \frac{n}{n-1}\hat{\sigma}^{2}.$$
+
+\subsection{Theorem.} Suppose that we sample uniformly with replacement. The sample variance $s^{2}$ is an unbiased estimator of the population variance $\sigma^{2}$.
+
+\subsection{Proof.} (Continued.) Consider the expectation 
+\begin{align*}
+    \E(\hat{\sigma}^{2}) &= \E\left(\frac{1}{n}\sum_{i=1}^{n}(X_{i} - \bar{X})^{2}\right) \\
+                         &= \frac{1}{n}\sum_{i=1}^{n}\E(X_{i}^{2}) - \bar{X}^{2} \\
+                         &= \Var{X} + \E(X)^{2} - \Var(\bar{X}) - \E(X)^{2} \\
+                         &= \Var(X) - \Var(\bar{X}) \\
+                         &= \frac{n-1}{n}\sigma^{2}.
+\end{align*}
+We can correct this bias to obtain the unbiased estimator $s^{2}$ such that 
+\begin{align*}
+    \E(s^{2}) &= \E\left(\frac{n}{n-1}\hat{\sigma}^{2}\right) \\
+              &= \sigma^{2}.
+\end{align*}
+
+\subsection{Theorem.} Suppose that we sample uniformly without replacement. The unbiased estimator $\hat{\theta}$ for $\sigma^{2}$ is 
+\begin{align*}
+    \hat{\theta} &= \frac{n}{n-1}\frac{N-1}{N}\hat{\sigma}^{2} \\
+                 &= \frac{N-1}{N}s^{2}.
+\end{align*}
+
+\subsection{Proof.} (Continued.) Consider the expectation 
+\begin{align*}
+    \E(\hat{\sigma^{2}}) &= \Var(X) - \Var(\bar{X}) \\
+                         &= \sigma^{2} - \frac{1}{n}\frac{N-n}{N-1}\sigma^{2} \\
+                         &= 1 - \frac{1}{n}\frac{N-n}{N-1}\sigma^{2}.
+\end{align*}
+We then have that 
+\begin{align*}
+    \E(s^{2}) &= \E\left(\frac{n}{n-1}\hat{\sigma}^{2}\right) \\
+              &= \frac{n}{n-1}\left(1 - \frac{1}{n}\frac{N-n}{N-1}\sigma^{2}\right) \\
+              &= \frac{n}{n-1}\left(\frac{N(n-1)}{n(N-1)}\right)\sigma^{2} \\
+              &= \frac{N}{N-1}\sigma^{2}.
+\end{align*}
+Hence, the unbiased estimator $\hat{\theta}$ for $\sigma^{2}$ is
+$$\hat{\theta} = \frac{n}{n-1}\frac{N}{N-1}\hat{\sigma}^{2}.$$
+
+\subsection{Theorem.} The sample variance $s^{2}$ is a consistent estimator of the population variance $\sigma^{2}$.
+
+\subsection{Example.} $s$ is not a consistent estimator of $\sigma$. Observe that $f: t \to \sqrt{t}$ is a strictly concave function. Therefore, by Jensen's Inequality, we have that
+\begin{align*}
+    \E(\sqrt{s^{2}}) &\leq \sqrt{\E(s^{2})} \\
+               \E(s) &\leq \sigma
+\end{align*}
+and the inequality is strict if the sample points $X$ are not degenerate.
+
+\newpage \newsection{Dichotomous Populations.}
+
+\subsection{Introduction.} Dichotomous Populations.
+
+\subsection{Definition.} A population is dichotomous if at least one measurement is binary, that is 
+$$x_{k} \in \{0, 1\}$$
+for all $k = 1, 2, \ldots, N$ for some measurement $x$.
+
+\subsection{Remark.} Dichotomous populations have a number of nice properties. These properties arise from the Bernoulli nature of the sample points.
+
+\subsection{Definition.} The population proportion is
+$$p = \frac{1}{N}\sum_{k=1}^{N}x_{k}.$$
+Note that $p$ is also the population mean $\mu$.
+
+\subsection{Theorem.} The population variance of a dichotomous population is bounded by 
+$$0 \leq \sigma^{2} \leq \frac{1}{4}.$$
+
+\subsection{Proof.} (Continued.) Since our sample points are Bernoulli, we have that 
+$$\Var(X) = p(1-p),$$
+which is maximized for $p = 1/2$.
+
+\subsection{Definition.} The sample proportion $\hat{p}$ is an estimator of the population proportion $p$ defined as
+$$\hat{p} = \frac{1}{n}\sum_{i=1}^{n}X_{i}.$$
+Note that $\hat{p}$ is also the sample mean $\bar{X}$.
+
+\subsection{Theorem.} The sample proportion $\hat{p}$ is an unbiased estimator of the population proportion $p$.
+
+\subsection{Proof.} (Continued.) The sample mean is an unbiased estimator of the population mean, so the sample proportion is an unbiased estimator of the population proportion.
+
+\subsection{Example.} The estimator 
+$$\frac{1}{n}\hat{p}(1-\hat{p})$$
+is unbiased for $\sigma_{\hat{p}}^{2}$.
+
+\subsection{Proof.} (Continued.) Recall that 
+$$\sigma_{\hat{p}}^{2} = \frac{1}{n}\sigma^{2}.$$
+We have that 
+\begin{align*}
+    \E(\hat{\sigma}^{2}) &= \E\left(\frac{1}{n-1}\hat{p}(1-\hat{p})\right) \\
+                         &= \frac{1}{n-1}\left(\E(\hat{p}) - \E(\hat{p}^{2})\right) \\
+                         &= \frac{1}{n-1}(p - \sigma_{\hat{p}}^{2} - p^{2}) \\
+                         &= \frac{1}{n-1}(p(1-p) - \sigma_{\hat{p}}^{2}) \\
+                         &= \frac{1}{n-1}(n\sigma_{\hat{p}}^{2} - \sigma_{\hat{p}}^{2}) \\
+                         &= \sigma_{\hat{p}}^{2}.
+\end{align*}
+
+\subsection{Theorem.} Suppose we take a uniform sample of size $n$ from a dichotomous population. Then, for any $\epsilon > 0$ and $\delta > 0$, 
+$$n \geq \frac{1}{4\epsilon\delta^{2}}$$
+such that 
+$$P(|\hat{p} - p| > \delta) \leq \epsilon.$$
+
+\subsection{Proof.} (Continued.) Recall that the population variance is bounded by $0 \leq \sigma^{2} \leq 1/4$. We therefore have that the variance of the sample proportion is 
+$$\Var(\hat{p}) \leq \frac{1}{4n}.$$
+By Chebyshev's Inequality, we have that 
+\begin{align*}
+    P(|\hat{p} - p| > \delta) &\leq \frac{\Var(\hat{p})}{\delta^{2}} \\
+                              &\leq \frac{1}{4n\delta^{2}}.
+\end{align*}
+We want 
+$$\frac{1}{4n\delta^{2}} \leq \epsilon,$$
+so we choose 
+$$n \geq \frac{1}{4\epsilon\delta^{2}}.$$
+
+\subsection{Proof.} (Continued.) The sample mean is a consistent estimator of the population mean, so the sample proportion is a consistent estimator of the population proportion.
+
+\subsection{Theorem.} For a bivariate population of two dichotomous measurements, if the population covariance 
+$$\sigma_{xy} = 0,$$
+then the measurements $X$ and $Y$ are independent.
+
+\subsection{Proof.} (Continued.) Since $X$ and $Y$ are Bernoulli, if they are of covariance zero, then they are independent.
 
 \newpage \newsection{Confidence Intervals.}
 
@@ -86,9 +456,9 @@ $$P\left(\frac{T_{n} - n\mu}{\sigma\sqrt{n}} \leq t\right) \rightarrow \Phi(t) \
 \subsection{Note.} The sample mean and the sample total are related in that 
 $$\frac{n}{n}\frac{\bar{X}_{n}-\mu}{\sigma/\sqrt{n}} = \frac{T_{n}-n\mu}{\sigma\sqrt{n}}.$$
 
-\newpage \newsection{Taylor Approximations.}
+\newpage \newsection{Delta Methods.}
 
-\subsection{Introduction.} Taylor Approximations.
+\subsection{Introduction.} Delta Methods.
 
 \subsection{Theorem.} (Mean Value Theorem.) Suppose that $g: \mathbb{R} \to \mathbb{R}$ is differentiable on $(a, b)$ and that $a < x < y < b$. Then there exists a $\xi \in [x, y]$ such that 
 $$g'(\xi) = \frac{g(y) - g(x)}{y - x}.$$
@@ -118,6 +488,8 @@ Written in polynomial form, this is
                                             &+ \frac{1}{2}\left(\frac{\partial^{2} g}{\partial x_{1}^{2}}(y_{1}-x_{1})^{2} + 2\frac{\partial^{2} g}{\partial x_{1}\partial x_{2}}(y_{1}-x_{1})(y_{2}-x_{2}) + \frac{\partial^{2} g}{\partial x_{2}^{2}}(y_{2}-x_{2})^{2}\right)
 \end{align*}
 where the partial derivatives are evaluated at $(x_{1}, x_{2})$.
+
+\subsection{Definition.} For a random vector $X = (X_{1}, X_{2})$ and a function $g: \mathbb{R}^{2} \to \mathbb{R}$, the delta method is a method to approximate the distribution of $g(X)$ with a Taylor polynomial about $\mu_{x}$.
 
 \subsection{Example.} For $h: \mathbb{R}^{2} \to \mathbb{R}$, the second-order taylor polynomial about $(\mu_{x}, \mu_{y})$ is
 \begin{align*}
@@ -518,14 +890,7 @@ $$\forall \omega \in A^{c}, X_{n}(\omega) \to X(\omega).$$
 \subsection{Definition.} Let $(\Omega, \mathcal{F}, P)$ be a probability space. Let
 $$\{X_{n}: n \in \mathbb{N}\}$$
 be a sequence of rvs on $\Omega$ and let $X$ also be an rv on $\Omega$. Then, $X_{n}$ converges uniformly everywhere to $X$ if 
-$$\forall \epsilon > 0, \exists N_{\epsilon} \in \mathbb{N} \text{ s.t. } |X_{n}(\omega) - X(\omega)| < \epsilon, \forall n > N_{\epsilon}$$
-for all $\omega \in \Omega$.
-
-\subsection{Definition.} Let $(\Omega, \mathcal{F}, P)$ be a probability space. Let
-$$\{X_{n}: n \in \mathbb{N}\}$$
-be a sequence of rvs on $\Omega$ and let $X$ also be an rv on $\Omega$. Then, $X_{n}$ converges uniformly with probability one to $X$ if there exists a set $A$ with $P(A) = 0$ such that
-$$\forall \epsilon > 0, \exists N_{\epsilon} \in \mathbb{N} \text{ s.t. } |X_{n}(\omega) - X(\omega)| < \epsilon, \forall n > N_{\epsilon}$$
-for all $\omega \in A^{c}$.
+$$\forall \epsilon > 0, \exists N_{\epsilon} \in \mathbb{N} \text{ s.t. } |X_{n}(\omega) - X(\omega)| < \epsilon, \forall n > N_{\epsilon}, \forall \omega \in \Omega.$$ 
 
 \subsection{Definition.} Let $(\Omega, \mathcal{F}, P)$ be a probability space. Let
 $$\{X_{n}: n \in \mathbb{N}\}$$
@@ -560,7 +925,8 @@ so if $X_{n}$ converges in $L^{p}$ to $X$, then $X_{n}$ converges in probability
 \item[(2)] $F$ is non-decreasing.
 \item[(3)] $\lim_{x \to -\infty}F(x) = 0$.
 \item[(4)] $\lim_{x \to \infty}F(x) = 1$.
-\item[(5)] $F$ is right-continuous.
+\item[(5)] $F$ has left limits.
+\item[(6)] $F$ is right-continuous.
 \end{enumerate}
 If $F$ is continuous, then $F$ is a continuous cumulative distribution function.
 
@@ -572,6 +938,7 @@ $$\lim_{n \to \infty}F_{n}(t) = F(t)$$
 where $F_{n}$ is the cdf of $X_{n}$ and $F$ is the cdf of $X$.
 We denote this type of convergence as
 $$X_{n} \xrightarrow{D} X.$$
+Note that $X_{1}, X_{2}, \ldots$ and $X$ need not be defined on a common probability space.
 
 \subsection{Theorem.} Suppose that $g: \mathbb{R} \to \mathbb{R}$ is continuous. Then, if 
 $$X_{n} \xrightarrow{D} X,$$
@@ -592,17 +959,86 @@ for some degenerate random variable $c \in \mathbb{R}$. If $X_{n}, Y_{n}$ are de
 \item[(3)] $X_{n}/Y_{n} \xrightarrow{D} X/c$ if $c \neq 0$.
 \end{enumerate}
 
-\subsection{Example.} Let $\Omega$ be the unit interval and $P$ the uniform probability measure. For any $\omega \in \Omega$, let $Y_n(\omega) = g_n(\omega)$, defined as follows. First, for any $n \geq 1$, let $m$ be the largest integer such that $2^m \leq n$. Then note that $n$ can be written uniquely as $n = 2^m + j$, where $0 \leq j < 2^m$. For such $n$, define
+\subsection{Example.} Let $\Omega$ be the unit interval and $P$ be the uniform probability measure. Define the sequence of rvs $X_{n}$ such that 
+$$X_{n} = I_{[0, 1/n]}.$$
+Define also the degenerate rv $X = 0$.
+
+We claim that $X_{n}$ does not converge pointwise everywhere, does converge pointwise with probability one, does not converge uniformly, does converge uniformly with probability one, does converge in probability, does converge in $L^{2}$, and does converge in distrubtion to $X$.
+
+\textit{Non-Convergence Pointwise Everywhere.} Recall that $X_{n}$ converges pointwise everywhere to $X$ if 
+$$X_{n}(\omega) \to X(\omega)$$
+for all $\omega \in \Omega$. Consider $\omega = 0$. For all $n \in \mathbb{N}$, $X_{n}(0) = 1$ but $X(0) = 0$, so $X_{n}$ does not converge pointwise everywhere to $X$.
+
+\textit{Convergence Pointwise with Probability One.} Consider the set $A^{c} = \Omega \setminus 0$. Consider an arbitary $\omega \in A^{c}$. Then, for all $\epsilon > 0$, we can choose 
+$$N_{\epsilon} = \left\lceil \frac{1}{\omega} \right\rceil + 1$$
+such that for all $n > N_{\epsilon}$,
+$$|X_{n}(\omega) - 0| = 0.$$
+Hence, $X_{n}$ converges pointwise with probability one to $X$.
+
+\textit{Non-Convergence Uniformly.} Recall that $X_{n}$ converges uniformly to $X$ if
+$$\forall \epsilon > 0, \exists N_{\epsilon} \in \mathbb{N} \text{ s.t. } |X_{n}(\omega) - X(\omega)| < \epsilon, \forall n > N_{\epsilon}, \forall \omega \in \Omega.$$
+Uniform convergence is a stronger condition than pointwise convergence, so if $X_{n}$ does not converge pointwise everywhere to $X$, then $X_{n}$ does not converge uniformly to $X$.
+
+\textit{Convergence in Probability.} Recall that $X_{n}$ converges in probability to $X$ if for all $\delta > 0$, the set
+$$A_{n,\delta} = \{\omega \in \Omega: |X_{n}(\omega) - X(\omega)| \geq \delta\}$$
+satisfies
+$$P(A_{n,\delta}) \to 0 \text{ as } n \to \infty.$$
+For any $\delta > 0$, the problematic set is the set for which the indicator is one, i.e., 
+$$A_{n,\delta} = [0, 1/n)$$
+with probability 
+$$P(A_{n,\delta}) = 1/n \to 0 \text{ as } n \to \infty.$$
+Hence, $X_{n}$ converges in probability to $X$.
+
+\textit{Convergence in L2.} Recall that $X_{n}$ converges in $L^{2}$ to $X$ if
+$$\E(|X_{n} - X|^{2}) \to 0 \text{ as } n \to \infty.$$
+We have that 
+\begin{align*}
+    \E(|X_{n} - X|^{2}) &= \E(I_{[0, 1/n]}) \\
+                        &= 1/n \to 0 \text{ as } n \to \infty.
+\end{align*}
+Hence, $X_{n}$ converges in $L^{2}$ to $X$.
+
+\textit{Convergence in Distribution.} Recall that $X_{n}$ converges in distribution to $X$ if for all continuity points $t$ of $F$, the limit 
+$$\lim_{n \to \infty}F_{n}(t) = F(t).$$
+The cdf of $X_{n}$ is 
+$$F_{n}(t) = \begin{cases} 0 & t < 0 \\ 1 - 1/n & 0 \leq t < 1 \\ 1 & t \geq 1 \end{cases}$$
+and the cdf of $X$ is 
+$$F(t) = \begin{cases} 0 & t < 0 \\ 1 & t \geq 0 \end{cases}.$$
+For all points $t \neq 0$, we have that
+$$\lim_{n \to \infty}F_{n}(t) = F(t).$$
+But $t = 0$ is not a continuity point of $F$ because 
+\begin{align*}
+                      F(0) &= 1 \\
+    \lim_{t \to 0^{-}}F(t) &= 0.
+\end{align*}
+Therefore, $X_{n}$ converges in distribution to $X$.
+
+\subsection{Example.} Let $\Omega$ be the unit interval and $P$ be the uniform probability measure. Define the sequence of rvs $X_{n}$ such that 
+$$X_{n} = 2^{n}I_{[0, 2^{-n}]}.$$
+
+We claim that $X_{n}$ converges in probability to $X$ but that $X_{n}$ does not converge in $L^{2}$ to $X$.
+
+\textit{Convergence in Probability.} For any $\delta > 0$, the problematic set is the set for which the indicator is one, i.e., 
+$$A_{n,\delta} = [0, 2^{-n})$$
+with probability
+$$P(A_{n,\delta}) = 2^{-n} \to 0 \text{ as } n \to \infty.$$
+Hence, $X_{n}$ converges in probability to $X$.
+
+\textit{Non-Convergence in L2.} We have that the second absolute moment is 
+\begin{align*}
+    \E(|X_{n} - X|^{2}) &= \E(2^{2n}I_{[0, 2^{-n}]}) \\
+                        &= 2^{2n}2^{-n} \\
+                        &= 2^{n}.
+\end{align*}
+Therefore, $X_{n}$ does not converge in $L^{2}$ to $X$.
+
+\subsection{Example.} Let $\Omega$ be the unit interval and $P$ be the uniform probability measure. For any $\omega \in \Omega$, let $Y_n(\omega) = g_n(\omega)$, defined as follows. First, for any $n \geq 1$, let $m$ be the largest integer such that $2^m \leq n$. Then note that $n$ can be written uniquely as $n = 2^m + j$, where $0 \leq j < 2^m$. For such $n$, define
 $$g_n(\omega) = I_{\left[\frac{j}{2^m}, \frac{j+1}{2^m}\right]}(\omega)$$
 where $I$ denotes the indicator function.
 
 We claim that $g_n(\omega)$ converges in probability to zero. But for any value of $\omega \in \Omega$, there exists an infinite sequence of integers $n_k$ where $g_{n_k}(\omega) = 0$ and an infinite sequence of integers $n_l$ where $g_{n_l}(\omega) = 1$, so $g_n(\omega)$ does not converge with probabilty one to zero.
 
-\textit{Convergence in Probability.} Recall that a sequence of random variables $X_{n}$ converges in probability to $X$ if for all $\delta > 0$, the set 
-$$A_{n, \delta} = \{\omega \in \Omega : |X_{n}(\omega) - X(\omega)| \geq \delta\}$$
-satisfies
-$$P(A_{n, \delta}) \rightarrow 0 \text{ as } n \rightarrow \infty.$$
-For all $\delta \in (0, 1]$, the set for which $|g_{n}(\omega) - 0| \geq \delta$ is $\omega \in [j/2^{m}, (j+1)/2^{m}]$. We thus have that 
+\textit{Convergence in Probability.} For all $\delta \in (0, 1]$, the set for which $|g_{n}(\omega) - 0| \geq \delta$ is $\omega \in [j/2^{m}, (j+1)/2^{m}]$. We thus have that 
 \begin{align*}
     P(A_{n, \delta}) &= P\left(\left[\frac{j}{2^m}, \frac{j+1}{2^m}\right]\right) \\ 
                      &= \frac{1}{2^m} \rightarrow 0 \text{ as } n \rightarrow \infty
@@ -640,8 +1076,6 @@ for all $\omega \in \Omega$. Similarly, we can choose $n_{k} = 2^{m} + j - 1$ wh
 \end{align*}
 for all $\omega \in \Omega$. Thus, for any value of $\omega \in \Omega$, there exists an infinite sequence of integers $n_{k}$ where $g_{n_{k}}(\omega) = 0$ and an infinite sequence of integers $n_{l}$ where $g_{n_{l}}(\omega) = 1$.
 
-Recall that a sequence of random variables $X_{n}$ converges pointwise with probability one to $X$ if there exists a set $A \subseteq \Omega$ with $P(A) = 0$ such that 
-$$\forall \omega \in A^{c}, \forall \epsilon > 0, \exists N_{\omega,\epsilon} \in \mathbb{N} \text{ s.t. } |X_{n}(\omega) - X(\omega)| < \epsilon, \forall n > N_{\omega,\epsilon}.$$
 For any $\omega \in [0, 1]$, there exists an unbounded sequence of integers $n_{l}$ where $g_{n_{l}}(\omega) = 1$. Therefore, for any $\omega \in [0, 1]$ and any $\epsilon > 0$, there exists no $N_{\epsilon}$ such that for all $n > N_{\epsilon}$, $|g_{n}(\omega) - 0| < \epsilon$. Thus, $g_{n}(\omega)$ does not converge to zero with probability one.
 
 \newpage \newsection{Parametric Estimation.}
@@ -736,7 +1170,7 @@ $$\hat{\theta}_{MOM} = 2\hat{\mu}_{1}.$$
 But some observations $X_{i}$ may be greater than $\hat{\theta}_{MOM}$, which means that those observations are beyond the support of the estimated $f_{\theta}$.
 
 \subsection{Example.} (Continued.) The likelihood function of $X_{n} \sim \text{unif}(0, \theta)$ iid is 
-$$f(x_{1}, x_{2}, \ldots, x_{n}|\theta) = \theta^{-n}I_{x_{i} \in [0, \theta] \forall i}.$$
+$$f(x_{1}, x_{2}, \ldots, x_{n}|\theta) = \theta^{-n}I_{\{x_{i} \in [0, \theta] \forall i\}}.$$
 Since the support of $f_{\theta}$ depends on $\theta$, then $f(x|\theta)$ is not differentiable in $\theta$, so we cannot set the derivative equal to zero. But we observe that if $\theta \leq \max\{x_{i}\}$, i.e., if $\theta$ is feasible, then 
 $$f(x_{1}, x_{2}, \ldots, x_{n}|\theta) = \theta^{-n},$$
 which is maximized when $\theta$ is small. Therefore, the maximum likelihood estimator of $\theta$ is the smallest feasible $\theta$, i.e., 
