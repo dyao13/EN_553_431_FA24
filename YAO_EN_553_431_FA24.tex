@@ -40,7 +40,7 @@ All sample sizes $n$ satisfy $n \geq 1$, and in some cases, we specify if $n > 1
 
 \subsection{Introduction.} Probability.
 
-\subsection{Remark.} This course EN.553.431 Honors Mathematical Statistics is taken after EN.553.420 Probability or EN.553.420 Honors Probabiity. The following notes shall be brief.
+\subsection{Remark.} This course EN.553.431 Honors Mathematical Statistics is taken after the prerequisite EN.553.420 Probability or EN.553.420 Honors Probability. The following notes shall be brief.
 
 \subsection{Definition.} If $X$ and $Y$ are rvs with respective pdfs $f_{x}$ and $f_{y}$ and joint pdf $f_{xy}$, then the conditional pdf of $Y$ given $X = x$ is
 $$f_{y|x}(y|x) = \frac{f_{xy}(x, y)}{f_{x}(x)}.$$
@@ -60,7 +60,7 @@ $$P(X \geq a) \leq \frac{\E(X)}{a}.$$
 
 \subsection{Proof.} (Continued.) Observe that $X$ may be written as 
 $$X = XI_{X < a} + XI_{X \geq a}.$$
-Then, since $X \geq 0$ and expectation is monotonoic, we have that 
+Then, since $X \geq 0$ and expectation is monotonic, we have that 
 \begin{align*}
           \E(X) &\leq \E(XI_{X \geq a}) \\
                 &\leq aP(X \geq a) \\
@@ -138,7 +138,7 @@ the population parameters are
     \sigma_{x}^{2} &= \frac{1}{N}\sum_{k=1}^{N}(x_{k} - \mu_{x})^{2} \\
        \sigma_{xy} &= \frac{1}{N}\sum_{k=1}^{N}(x_{k} - \mu_{x})(y_{k} - \mu_{y}) \\
 \end{align*}
-along with the corresponding parameters for the $y$-measurements. Note the similiaries between $\mu_{x}$ and expectation, $\sigma_{x}^{2}$ and variance, and $\sigma_{xy}$ and covariance. We often refer to these respective parameters as the population mean, the population variance, and the population covariance.
+along with the corresponding parameters for the $y$-measurements. Note the similarities between $\mu_{x}$ and expectation, $\sigma_{x}^{2}$ and variance, and $\sigma_{xy}$ and covariance. We often refer to these respective parameters as the population mean, the population variance, and the population covariance.
 
 \subsection{Definition.} The population total is 
 \begin{align*}
@@ -296,7 +296,7 @@ in the case of sampling with replacement and
 $$\text{Bias}(\bar{X}^{2}) = \frac{1}{n}\frac{N-n}{N-1}\sigma^{2}$$
 in the case of sampling without replacement.
 
-\subsection{Definition.} Define the estimator $\hat{\sigma}^{2}$ for the population variance $\sigma^{2}$ as 
+\subsection{Definition.} The mean squared deviation $\hat{\sigma}^{2}$ is an estimator for the population variance $\sigma^{2}$ defined as 
 $$\hat{\sigma}^{2} = \frac{1}{n}\sum_{i=1}^{n}(X_{i} - \bar{X})^{2}.$$
 
 \subsection{Definition.} The sample variance $s^{2}$ is an estimator for the population variance $\sigma^{2}$ defined as 
@@ -435,9 +435,9 @@ That is, $\alpha$ is the upper-tail probability of $Z$.
 $$P\left(-z_{\alpha} \leq \frac{\bar{X} - \mu}{\sigma/\sqrt{n}} \leq z_{\alpha}\right) \approx 1 - 2\alpha,$$
 so
 $$P\left(\bar{X} - z_{\alpha/2}\frac{\sigma}{\sqrt{n}} \leq \mu \leq \bar{X} + z_{\alpha/2}\frac{\sigma}{\sqrt{n}}\right) \approx 1 - \alpha$$
-where the (random) interval is the $1-\alpha$ confidence inverval for $\mu$.
+where the (random) interval is the $1-\alpha$ confidence interval for $\mu$.
 
-\subsection{Note.} The population standard deviation $\sigma$ may be unknown, but we may substite the sample standard deviation $s$ in its place.
+\subsection{Note.} The population standard deviation $\sigma$ may be unknown, but we may substitute the sample standard deviation $s$ in its place.
 
 \subsection{Example.} By Chebyshev's Inequality, we have that for a sample of size $n$, 
 $$P(|s_{n}^{2} - \sigma^{2}| \geq \delta) \leq \frac{\Var(s_{n}^{2})}{\delta^{2}} \rightarrow 0 \text{ as } n \rightarrow \infty,$$
