@@ -59,10 +59,10 @@ That is, the joint pdf is symmetric under permutations of its arguments.
 $$P(X \geq a) \leq \frac{\E(X)}{a}.$$
 
 \subsection{Proof.} (Continued.) Observe that $X$ may be written as 
-$$X = XI_{X < a} + XI_{X \geq a}.$$
+$$X = XI_{\{X < a\}} + XI_{\{X \geq a\}}.$$
 Then, since $X \geq 0$ and expectation is monotonic, we have that 
 \begin{align*}
-          \E(X) &\leq \E(XI_{X \geq a}) \\
+          \E(X) &\leq \E(XI_{\{X \geq a\}}) \\
                 &\leq aP(X \geq a) \\
     P(X \geq a) &\leq \frac{\E(X)}{a}.
 \end{align*}
@@ -81,6 +81,7 @@ $$|\Cov(X, Y)| \leq \sqrt{\Var(X)\Var(Y)}.$$
 
 \subsection{Theorem.} (Jensen's Inequality.) Let $f$ be a convex function and $X$ be a rv. Then,
 $$f(\E(X)) \leq \E(f(X)).$$
+If $f$ is strictly convex, then the inequality is strict if $X$ is not degenerate.
 
 \subsection{Definition.} For two random $k$-vectors $X$ and $Y$, the covariance matrix is a matrix $\Sigma \in \mathbb{R}^{k \times k}$ such that
 $$(\Sigma)_{ij} = \Cov(X_{i}, Y_{j}).$$
@@ -191,7 +192,7 @@ $$X_{1} = \xi_{l} \text{ iff } Z_{1} \in \{Z_{k} : x_{k} = \xi_{l}\}.$$
 \subsection{Definition.} For a sample of size $n$, the sample mean is defined as 
 $$\bar{X} = \frac{1}{n}\sum_{i=1}^{n}X_{i}.$$
 
-\subsection{Lemma.} For a uniform sample with replacement, the sample mean has the following properties:
+\subsection{Theorem.} For a uniform sample with replacement, the sample mean has the following properties:
 \begin{enumerate}
 \item[(1)] The expectation is 
 $$\E(\bar{X}) = \mu_{x}.$$
@@ -302,6 +303,9 @@ $$\hat{\sigma}^{2} = \frac{1}{n}\sum_{i=1}^{n}(X_{i} - \bar{X})^{2}.$$
 \subsection{Definition.} The sample variance $s^{2}$ is an estimator for the population variance $\sigma^{2}$ defined as 
 $$s^{2} = \frac{n}{n-1}\hat{\sigma}^{2}.$$
 
+\subsection{Remark.} For $n$ large, 
+$$s^{2} \approx \hat{\sigma}^{2}.$$
+
 \subsection{Theorem.} Suppose that we sample uniformly with replacement. The sample variance $s^{2}$ is an unbiased estimator of the population variance $\sigma^{2}$.
 
 \subsection{Proof.} (Continued.) Consider the expectation 
@@ -326,7 +330,9 @@ We can correct this bias to obtain the unbiased estimator $s^{2}$ such that
 
 \subsection{Proof.} (Continued.) Consider the expectation 
 \begin{align*}
-    \E(\hat{\sigma^{2}}) &= \Var(X) - \Var(\bar{X}) \\
+    \E(\hat{\sigma^{2}}) &= \frac{1}{n}\sum_{i=1}^{n}\E(X_{i}^{2}) - \E(\bar{X}^{2}) \\
+                         &= \Var(X) + \E(X)^{2} - \Var(\bar{X}) - \E(X)^{2} \\
+                         &= \Var(X) - \Var(\bar{X}) \\
                          &= \sigma^{2} - \frac{1}{n}\frac{N-n}{N-1}\sigma^{2} \\
                          &= 1 - \frac{1}{n}\frac{N-n}{N-1}\sigma^{2}.
 \end{align*}
@@ -342,7 +348,7 @@ $$\hat{\theta} = \frac{n}{n-1}\frac{N}{N-1}\hat{\sigma}^{2}.$$
 
 \subsection{Theorem.} The sample variance $s^{2}$ is a consistent estimator of the population variance $\sigma^{2}$.
 
-\subsection{Example.} $s$ is not a consistent estimator of $\sigma$. Observe that $f: t \to \sqrt{t}$ is a strictly concave function. Therefore, by Jensen's Inequality, we have that
+\subsection{Example.} $s$ is not an unbiased estimator of $\sigma$. Observe that $f: t \to \sqrt{t}$ is a strictly concave function. Therefore, by Jensen's Inequality, we have that
 \begin{align*}
     \E(\sqrt{s^{2}}) &\leq \sqrt{\E(s^{2})} \\
                \E(s) &\leq \sigma
@@ -379,19 +385,18 @@ Note that $\hat{p}$ is also the sample mean $\bar{X}$.
 \subsection{Proof.} (Continued.) The sample mean is an unbiased estimator of the population mean, so the sample proportion is an unbiased estimator of the population proportion.
 
 \subsection{Example.} The estimator 
-$$\frac{1}{n}\hat{p}(1-\hat{p})$$
+$$\frac{1}{n-1}\hat{p}(1-\hat{p})$$
 is unbiased for $\sigma_{\hat{p}}^{2}$.
 
 \subsection{Proof.} (Continued.) Recall that 
 $$\sigma_{\hat{p}}^{2} = \frac{1}{n}\sigma^{2}.$$
 We have that 
 \begin{align*}
-    \E(\hat{\sigma}^{2}) &= \E\left(\frac{1}{n-1}\hat{p}(1-\hat{p})\right) \\
-                         &= \frac{1}{n-1}\left(\E(\hat{p}) - \E(\hat{p}^{2})\right) \\
-                         &= \frac{1}{n-1}(p - \sigma_{\hat{p}}^{2} - p^{2}) \\
-                         &= \frac{1}{n-1}(p(1-p) - \sigma_{\hat{p}}^{2}) \\
-                         &= \frac{1}{n-1}(n\sigma_{\hat{p}}^{2} - \sigma_{\hat{p}}^{2}) \\
-                         &= \sigma_{\hat{p}}^{2}.
+    E\left(\frac{\hat{p}(1-\hat{p})}{n-1}\right) &= \frac{1}{n-1}\left(\E(\hat{p}) - \E(\hat{p}^{2})\right) \\
+                                                 &= \frac{1}{n-1}(p - \sigma_{\hat{p}}^{2} - p^{2}) \\
+                                                 &= \frac{1}{n-1}(p(1-p) - \sigma_{\hat{p}}^{2}) \\
+                                                 &= \frac{1}{n-1}(n\sigma_{\hat{p}}^{2} - \sigma_{\hat{p}}^{2}) \\
+                                                 &= \sigma_{\hat{p}}^{2}.
 \end{align*}
 
 \subsection{Theorem.} Suppose we take a uniform sample of size $n$ from a dichotomous population. Then, for any $\epsilon > 0$ and $\delta > 0$, 
@@ -464,7 +469,7 @@ $$\frac{n}{n}\frac{\bar{X}_{n}-\mu}{\sigma/\sqrt{n}} = \frac{T_{n}-n\mu}{\sigma\
 $$g'(\xi) = \frac{g(y) - g(x)}{y - x}.$$
 
 \subsection{Theorem.} (Taylor's Theorem with Remainder.) 
-Let $g: \mathbb{R} \to \mathbb{R}$ be $n$ times differentiable on $(a, b)$ and let $a < x < y < b$. Then there exists a $\xi \in (x, y)$ such that 
+Let $g: \mathbb{R} \to \mathbb{R}$ be $n$ times differentiable on $(a, b)$ and let $a < x < y < b$. Then there exists a $\xi \in [x, y]$ such that 
 $$g(y) = \sum_{k=0}^{n}\frac{g^{(k)}(x)}{k!}(y-x)^{k} + R_{n}(y)$$
 where
 $$R_{n}(y) = \frac{g^{(n+1)}(\xi)}{(n+1)!}(y-x)^{n+1}.$$
@@ -554,7 +559,7 @@ where $n, N$ are the sample size and population size, respectively.
 
 \subsection{Theorem.} We have the following propositions from Rice, Chapter (7), Section (7.4). Consider the case of sampling without replacement. Taking 
 $$r = \frac{\mu_{x}}{\mu_{y}},$$
-we can recover Theorem B, that the approximate expectation of $R = \bar{Y}/\bar{X}$ is 
+we arrive at Theorem B, that the approximate expectation of $R = \bar{Y}/\bar{X}$ is 
 $$\E(R) \approx r + \frac{1}{n}\left(1 - \frac{n-1}{N-1}\right)\frac{1}{\mu_{x}^{2}}
 (r\sigma_{x}^{2} - \rho\sigma_{x}\sigma_{y})$$
 where $\rho$ is the correlation 
@@ -564,7 +569,7 @@ $$\E(\bar{Y}_{R}) - \mu_{y} \approx \frac{1}{n}\left(1 - \frac{n-1}{N-1}\right)\
 
 \subsection{Theorem.} We have the following propositions from Rice, Chapter (7), Section (7.4). Consider the case of sampling without replacement. Taking 
 $$r = \frac{\mu_{x}}{\mu_{y}},$$
-we can recover Theorem A, that the approximate variance of $R = \bar{Y}/\bar{X}$ is 
+we arrive at Theorem A, that the approximate variance of $R = \bar{Y}/\bar{X}$ is 
 $$\Var(R) \approx \frac{1}{n}\left(1 - \frac{n-1}{N-1}\right)\frac{1}{\mu_{x}^{2}}
                   (r^{2}\sigma_{x}^{2} + \sigma_{y}^{2} - 2r\sigma_{xy}),$$
 and Corollary A, that the the estimated variance of the ratio estimate $\bar{Y}_{R} = \mu_{x}R$ of $\mu_{y}$ is 
@@ -880,7 +885,7 @@ $$\{X_{n}: n \in \mathbb{N}\}$$
 be a sequence of rvs on $\Omega$ and let $X$ also be an rv on $\Omega$. Then, $X_{n}$ converges pointwise everywhere to $X$ if for all $\omega \in \Omega$,
 $$X_{n}(\omega) \to X(\omega).$$
 That is, $X_{n}$ converges pointwise everywhere to $X$ if 
-$$\forall \omega \in \Omega, \forall \epsilon > 0, \exists N_{\epsilon} \in \mathbb{N} \text{ s.t. } |X_{n}(\omega) - X(\omega)| < \epsilon, \forall n > N_{\epsilon}.$$
+$$\forall \omega \in \Omega, \forall \epsilon > 0, \exists N_{\omega,\epsilon} \in \mathbb{N} \text{ s.t. } |X_{n}(\omega) - X(\omega)| < \epsilon, \forall n > N_{\omega,\epsilon}.$$
 
 \subsection{Definition.} Let $(\Omega, \mathcal{F}, P)$ be a probability space. Let 
 $$\{X_{n}: n \in \mathbb{N}\}$$
@@ -904,7 +909,7 @@ $$X_{n} \xrightarrow{P} X.$$
 \subsection{Note.} For $\delta_{1} < \delta_{2}$, we have that 
 $$A_{n,\delta_{1}} \supseteq A_{n,\delta_{2}}.$$
 
-\subsection{Remark.} Consistentcy 
+\subsection{Remark.} Consistency 
 $$P\left(|\bar{X}_{n} - \mu| \geq \epsilon\right) \to 0 \text{ as } n \to \infty$$
 is a statement about convergence in probability to the degenerate random variable $X = \mu$.
 
