@@ -22,6 +22,11 @@
 \item The term 'pmf' shall denote 'probability mass function'.
 \item The term 'pdf' shall denote 'probability density function'.
 \item The term 'cdf' shall denote 'cumulative density function'.
+\item The term 'iid' shall denote 'independent and identically distributed'.
+\item The term 'mom' shall denote 'method of moments'.
+\item The term 'mle' shall denote 'maximum likelihood estimator'.
+\item The term 'df' shall denote degrees of freedom.
+\item The term 'glr' shall denote 'generalized likelihood ratio'.
 \end{enumerate}
 
 \subsection{Notation} A finite population sample shall be as follows. We are given a finite bivariate population of $N$ distinct objects, and associated to each object $k$ is a pair of measurements $(x_k, y_k)$. Suppose our population of measurements is represented by $\{(x_1, y_1), \ldots, (x_N, y_N)\}$. We assume $N > 1$. Let $\tau_x$ and $\tau_y$ be the population totals of the $x$- and $y$-measurements, respectively; let $\mu_x$ and $\mu_y$ be the population means of the $x$- and $y$-measurements, respectively; let $\sigma_x^2$ and $\sigma_y^2$ denote the population variances of the $x$- and $y$-measurements, respectively. Let $\sigma_{xy}$ denote the population covariance.
@@ -1115,7 +1120,7 @@ for $r = 1, 2, \ldots, k$ where $\E(X^{r})$ is the $r$th moment of $X$. We denot
 $$\theta = g(\mu_{1}, \mu_{2}, \ldots, \mu_{k}).$$
 Suppose that we do not know the exact value of $\theta$ but we observe a collection of iid rvs $X_{n}$ with a common cdf $F_{\theta}$. Then, we would like to estimate $\theta$ from the observations of $X_{n}$. In particular, 
 $$\hat{\theta}_{MOM} = g(\hat{\mu}_{1}, \hat{\mu}_{2}, \ldots, \hat{\mu}_{k})$$
-where $\hat{\mu}_{r}$ is the $r$th sample moment of $X_{n}$. We call $\hat{\theta}_{MOM}$ the method of moments estimator of $\theta$.
+where $\hat{\mu}_{r}$ is the $r$th sample moment of $X_{n}$. We call $\hat{\theta}_{MOM}$ the method of moments (mom) estimator of $\theta$.
 
 \subsection{Example.} If $X_{n} \sim \text{N}(\theta_{1}, \theta_{2})$ iid, then 
 \begin{align*}
@@ -1127,7 +1132,7 @@ so
     \hat{\theta}_{1_{MOM}} &= \hat{\mu}_{1} \\
     \hat{\theta}_{2_{MOM}} &= \hat{\mu}_{2} - \hat{\mu}_{1}^{2}.
 \end{align*}
-Note that this method of moments estimator is simply the sample mean and sample variance, which is expected for a distribution $X \sim \text{N}(\mu, \sigma^{2})$. Note that $\hat{\theta}_{1_{MOM}} = \bar{X}$ is unbiased for $\theta_{1}$ but that $\hat{\theta}_{2_{MOM}} = \hat{\sigma}^{2}$ is biased for $\theta_{2}$.
+Note that this mom estimator is simply the sample mean and sample variance, which is expected for a distribution $X \sim \text{N}(\mu, \sigma^{2})$. Note that $\hat{\theta}_{1_{MOM}} = \bar{X}$ is unbiased for $\theta_{1}$ but that $\hat{\theta}_{2_{MOM}} = \hat{\sigma}^{2}$ is biased for $\theta_{2}$.
 
 \subsection{Example.} Sometimes, the distribution of $\hat{\theta}$ can be determined exactly. For $X_{n} \sim \text{Exp}(\lambda)$ iid, we have that 
 $$\hat{\lambda}_{MOM} = \frac{1}{\bar{X}}.$$
@@ -1143,7 +1148,7 @@ $$\hat{\lambda}_{MOM} \xrightarrow{P} \lambda.$$
 
 \subsection{Definition.} For the likelihood function 
 $$f(x_{1}, x_{2}, \ldots, x_{n}|\theta),$$
-the maximum likelihood estimator of $\theta$ given the observations $X_{i} = x_{i}$ is the value of $\theta$ that maximizes the likelihood function. That is, 
+the maximum likelihood estimator (mle) of $\theta$ given the observations $X_{i} = x_{i}$ is the value of $\theta$ that maximizes the likelihood function. That is, 
 $$\hat{\theta}_{MLE} = \arg\max_{\theta \in \Theta}f(x_{1}, x_{2}, \ldots, x_{n}|\theta).$$
 
 \subsection{Example.} Suppose that $X_{i}$ are iid. Then, the $\arg\max$ of the likelihood function occurs at 
@@ -1166,7 +1171,7 @@ which is maximized at
 \end{align*}
 Therefore, 
 $$\hat{\lambda}_{MLE} = \frac{1}{\bar{X}}.$$
-Note that this agrees with the method of moments estimator for $\lambda$.
+Note that this agrees with the mom estimator for $\lambda$.
 
 \subsection{Example.} If $X_{n} \sim \text{unif}(0, \theta)$ iid, then 
 $$\mu_{1} = \frac{\theta}{2},$$
@@ -1178,8 +1183,278 @@ But some observations $X_{i}$ may be greater than $\hat{\theta}_{MOM}$, which me
 $$f(x_{1}, x_{2}, \ldots, x_{n}|\theta) = \theta^{-n}I_{\{x_{i} \in [0, \theta] \forall i\}}.$$
 Since the support of $f_{\theta}$ depends on $\theta$, then $f(x|\theta)$ is not differentiable in $\theta$, so we cannot set the derivative equal to zero. But we observe that if $\theta \leq \max\{x_{i}\}$, i.e., if $\theta$ is feasible, then 
 $$f(x_{1}, x_{2}, \ldots, x_{n}|\theta) = \theta^{-n},$$
-which is maximized when $\theta$ is small. Therefore, the maximum likelihood estimator of $\theta$ is the smallest feasible $\theta$, i.e., 
+which is maximized when $\theta$ is small. Therefore, the mle of $\theta$ is the smallest feasible $\theta$, i.e., 
 $$\hat{\theta}_{MLE} = \max\{x_{i}\}.$$
 Note that $\hat{\theta}_{MLE}$ is always feasible unlike $\hat{\theta}_{MOM}$.
+
+\subsection{Definition.} The Fisher Information of a random variable $X$ with pdf $f(x|\theta)$ is 
+$$I(\theta) = \E\left(\left(\frac{\partial}{\partial\theta}\log f(X|\theta)\right)^{2}\right)$$
+where the expected value is taken over the support of $f(x|\theta)$. Under sufficient regularity conditions, the Fisher information is equivalent to 
+$$I(\theta) = -\E\left(\frac{\partial^{2}}{\partial\theta^{2}}\log f(X|\theta)\right).$$
+
+\subsection{Theorem.} Suppose that $X_{1}, X_{2}, \ldots, X_{n}$ are iid and $f(x|\theta)$ satisfies sufficient regularities conditions, i.e., 
+\begin{enumerate}
+\item[(1)] $f(x|\theta)$ is sufficiently regular.
+\item[(2)] $\text{supp} f(x|\theta)$ does not depend on $\theta$.
+\end{enumerate}
+Let $\hat{\theta}_{n}$ be the mle for $\theta \in \Theta$. Then, 
+$$\forall \delta > 0, P(|\hat{\theta}_{n} - \theta| \geq \delta) \to 0 \text{ as } n \to \infty,$$
+i.e., $\hat{\theta}_{n}$ is consistent for $\theta$, and 
+$$\sqrt{n}(\hat{\theta}_{n} - \theta) \xrightarrow{D} \text{N}(0, I(\theta)^{-1})$$
+and 
+$$\Var(\hat{\theta}_{n}) = \frac{1}{nI(\theta)}.$$
+
+\subsection{Theorem.} (Cramer-Rao Bound.) Suppose that $X_{1}, X_{2}, \ldots, X_{n}$ are iid with common pdf $f(x|\theta)$ that satisfies sufficient regularity conditions. Let $T(X_{1}, X_{2}, \ldots, X_{n})$ be an estimator for $\theta$ and let 
+$$\phi(\theta) = \E(T(X_{1}, X_{2}, \ldots, X_{n})).$$
+Then, the variance of $T$ satisfies the lower bound 
+$$\Var(T) \geq \frac{(\phi'(\theta))^{2}}{nI(\theta)}$$
+where $I(\theta)$ is the Fisher Information of $X$ with pdf $f(x|\theta)$.
+
+\subsection{Definition.} Suppose that $\hat{\theta}_{1}$ and $\hat{\theta}_{2}$ are two estimators for $\theta$. The relative efficiency of $\hat{\theta}_{1}$ with respect to $\hat{\theta}_{2}$ is
+$$\text{RE}(\hat{\theta}_{1}, \hat{\theta}_{2}) = \frac{\MSE(\hat{\theta}_{2})}{\MSE(\hat{\theta}_{1})}.$$
+If $\hat{\theta}_{1}$ and $\hat{\theta}_{2}$ are unbiased for $\theta$, then 
+$$\text{RE}(\hat{\theta}_{1}, \hat{\theta}_{2}) = \frac{\Var(\hat{\theta}_{2})}{\Var(\hat{\theta}_{1})}.$$
+
+\subsection{Definition.} $T(X_{1}, X_{2}, \ldots, X_{n})$ is sufficient for $\theta$ if the conditional distribution of $X_{1}, X_{2}, \ldots, X_{n}$ given $T(X_{1}, X_{2}, \ldots, X_{n})$ does not depend on $\theta$.
+
+\subsection{Theorem.} (Factorization Theorem.) Suppose that $X_{1}, X_{2}, \ldots, X_{n}$ are iid with common pdf $f(x|\theta)$. $T$ is sufficient for $\theta$ if and only if 
+$$f(x_{1}, x_{2}, \ldots, x_{n}|\theta) = g(T(x_{1}, x_{2}, \ldots, x_{n}), \theta)h(x_{1}, x_{2}, \ldots, x_{n}).$$
+
+\subsection{Definition.} $T$ is minimally sufficient for $\theta$ if for all sufficient statistics $S$ for $\theta$, there exists a function $l$ such that 
+$$T = l(S).$$
+
+\newpage \newsection{Bayesian Estimation.}
+
+\subsection{Introduction.} Bayesian Estimation.
+
+\subsection{Definition.} Suppose that we have the observations $X_{1}, X_{2}, \ldots, X_{n}$ iid with common pdf $f_{X|\theta}(x|\theta)$. Suppose that we want to estimate a paramter $\theta \in \Theta$ with a prior distribution 
+$f_{\theta}(\theta)$. The posterior distribution of $\theta$ given the observations $X_{1}, X_{2}, \ldots, X_{n}$ is
+$$f_{\theta|X}(x|\theta) = \frac{f_{X|\theta}(x|\theta)f_{\theta}(\theta)}{f_{X}(x)}$$
+where the denominator is a normalizing constant equal to 
+$$f_{X}(x) = \int_{\Theta}f_{X|\theta}(x|\theta)f_{\theta}(\theta)\, d\theta.$$
+
+\subsection{Lemma.} Suppose that we have a vector of iid observations $X = (X_{1}, X_{2}, \ldots, X_{n})$ with common pdf $f_{X|\theta}(x|\theta)$. Suppose also that $T(X)$ is a sufficient statistic for $\theta$. Then, the posterior distribution of $\theta$ given $X$ only depends on $T(X)$. For a sketch of the proof, observe that 
+\begin{align*}
+    f_{\theta|X}(\theta|X) &= \frac{f_{X|\theta}(X|\theta)f_{\theta}(\theta)}{f_{X}(X)} \\
+                           &= (g(T, \theta)h(X)f_{\theta}(\theta))\left(\int_{\Theta}g(T, \theta)h(X)f_{\theta}(\theta)\, d\theta\right)^{-1} \\
+                           &= g(T, \theta)h(X)\left(\int_{\Theta}g(T, \theta)h(X)f_{\theta}(\theta)\, d\theta\right)^{-1}
+\end{align*}
+by the factorization theorem.
+
+\subsection{Note.} Suppose that $\theta$ has a distribution of $f(\theta)$. Estimates for $\theta$ include 
+\begin{enumerate}
+\item[(1)] The mean of $\theta$.
+\item[(2)] The median of $\theta$.
+\item[(3)] The mode of $\theta$.
+\end{enumerate}
+
+\subsection{Definition.} A loss function is $l: \Theta \times A \to \mathbb{R}^{+} \cup 0$ where $A$ is the action space.
+
+\subsection{Definition.} Suppose that we have a vector of observations $(X_{1}, X_{2}, \ldots, X_{n})$. Then, a decision rule is 
+$$\delta: (\text{supp} f_{X})^{n} \to A.$$
+
+\subsection{Definition.} Suppose that we have a vector of iid observations $X = (X_{1}, X_{2}, \ldots, X_{n})$ with common pdf $f_{X}(x)$. The risk of a decision rule $\delta$ at parameter value $\theta$ is 
+\begin{align*}
+    R(\theta, \delta) &= \E(l(\theta, \delta(X))) \\
+                      &= \int_{\mathbb{R}^{n}}l(\theta, \delta(x))f_{X}(x)\, dx_{1}dx_{2}\ldots dx_{n}.
+\end{align*}
+
+\subsection{Definition.} The Bayes risk of a decision rule $\delta$ is 
+\begin{align*}
+    r(\delta) &= \E(R(\theta, \delta)) \\
+              &= \E(\E(l(\theta, \delta(X))|\theta)) \\
+              &= \int_{\Theta}\left[\int_{\mathbb{R}^{n}}l(\theta, \delta(x))f_{X|\theta}(x|\theta)\, dx_{1}dx_{2}\ldots dx_{n}\right]f_{\theta}(\theta)\, d\theta.
+\end{align*}
+
+\subsection{Definition.} The Bayes estimator of $\theta$ is the decision rule $\delta$ that minimizes the Bayes risk $r(\delta)$, i.e., 
+$$\delta = \arg\min_{\delta\in\Delta}r(\delta).$$
+
+\subsection{Definition.} The minimax estimator of $\theta$ is the decision rule $\delta$ that minimizes the maximum risk, i.e., 
+$$\delta = \arg\min_{\delta\in\Delta}\max_{\theta\in\Theta}R(\theta, \delta).$$
+
+\subsection{Definition.} Suppose that our prior $\theta$ belongs to a family $G$ and that our likelihood $f(x|\theta)$ belongs to a family $H$. If the posterior $\theta$ also belongs to $G$, then $G$ and $H$ are said to be conjugate families.
+
+\newpage \newsection{Hypothesis Testing.}
+
+\subsection{Introduction.} Hypothesis Testing.
+
+\subsection{Definition.} Suppose that we are in the frequentist paradigm. Suppose that we observe a vector of iid data $X = (X_{1}, X_{2}, \ldots, X_{n})$ with common pdf $f_{X|\theta}(x|\theta)$. Suppose that we want to test the null hypothesis $H_{0}$ against the alternative hypothesis $H_{1}$ where 
+$$H_{0}: \theta \in \Theta_{0} \quad \text{vs.} \quad H_{1}: \theta \in \Theta_{1}.$$
+Then, our decision rule is 
+$$d: (\text{supp} f_{X})^{n} \to \{0, 1\}$$
+where $d(X) = 0$ means that we fail to reject $H_{0}$ and $d(X) = 1$ means that we reject $H_{0}$. Note that the frequentist paradigm assigns probabilities to the data $X$ and not to the hypotheses $H_{0}$ and $H_{1}$.
+
+\subsection{Definition.} Suppose that we are in the Bayesian paradigm. Suppose that we observe a vector of iid data $X = (X_{1}, X_{2}, \ldots, X_{n})$ with common pdf $f_{X|\theta}(x|\theta)$. Suppose that we want to test the null hypothesis $H_{0}$ against the alternative hypothesis $H_{1}$ where
+$$H_{0}: f = f_{0} \quad \text{vs.} \quad H_{1}: f = f_{1}.$$
+Then, our posterior probabilities are 
+\begin{align*}
+    P(H_{0}|X) &= \frac{f(x|H_{0})p_{0}}{f(x|H_{0})p_{0} + f(x|H_{1})p_{1}} \\
+    P(H_{1}|X) &= \frac{f(x|H_{1})p_{1}}{f(x|H_{0})p_{0} + f(x|H_{1})p_{1}}
+\end{align*}
+where $p_{0}$ and $p_{1}$, respectively, are the prior probabilities of $H_{0}$ and $H_{1}$. The odds ratio is 
+$$\frac{P(H_{0}|X)}{P(H_{1}|X)} = \frac{f(x|H_{0})p_{0}}{f(x|H_{1})p_{1}}.$$
+We may say that our decision rule rejects $H_{0}$ if and only if the odds ratio is less than some threshold $c \in \mathbb{R}^{+}$ (often one), i.e., if and only if 
+\begin{align*}
+    \frac{f(x|H_{0})p_{0}}{f(x|H_{1})p_{1}} &< c \\
+                  \frac{f_{0}(x)}{f_{1}(x)} &< c\frac{p_{1}}{p_{0}}.
+\end{align*}
+
+\subsection{Definition.} The likelihood ratio test is the decision rule $\delta$ that rejects $H_{0}$ if and only if the likelihood ratio 
+$$\text{LR}(X) = \frac{f(X|H_{0})}{f(X|H_{1})}$$
+is less than some threshold $c \in \mathbb{R}^{+}$, i.e., if and only if 
+$$\frac{f_{0}(x)}{f_{1}(x)} < c.$$
+
+\subsection{Definition.} Type I error is if we reject $H_{0}$ when $H_{0}$ is true. Type II error is if we fail to reject $H_{0}$ when $H_{0}$ is false.
+
+\subsection{Definition.} The Type I error probability, i.e., the significance level $\alpha$, for a decision rule $\delta$ is 
+$$\alpha = P(\delta(X)=1|H_{0})$$
+if $H_{0} \cap H_{1} = \emptyset$ and $H_{0} \cup H_{1} = H$ where $H$ is the hypothesis space.
+
+\subsection{Definition.} The power of a decision rule $\delta$ is 
+$$\text{Power}(\delta) = P(\delta(X)=1|H_{1})$$
+where $H_{0} \cap H_{1} = \emptyset$ and $H_{0} \cup H_{1} = \mathcal{H}$ where $\mathcal{H}$ is the hypothesis space.
+
+\subsection{Definition.} The $p$-value for an observed statistic $T_{0}$ is the smallest $\alpha$ for which we reject $H_{0}$ given $T_{0}$ at significance level $\alpha$ with the likelihood ratio test.
+
+\subsection{Definition.} A hypothesis $H$ is simple if it completely specifies the distribution from which the data are taken, i.e., if the the hypothesis space under $H$, i.e., $\mathcal{H}_{0}$ is a singleton set. If $H$ is not simple, then it is composite.
+
+\subsection{Lemma.} (Neyman-Pearson Lemma.) Suppose that we have a vector of iid data $X = (X_{1}, X_{2}, \ldots, X_{n})$ with common pdf $f_{X|\theta}(x|\theta)$. Suppose that we want to test the null hypothesis $H_{0}$ against the alternative hypothesis $H_{1}$ where 
+$$H_{0}: \theta = \theta_{0} \quad \text{vs.} \quad H_{1}: \theta = \theta_{1}$$
+such that $H_{0}, H_{1}$ are simple and that $\theta_{0} \neq \theta_{1}$ and that $H_{0} \cup H_{1} = \mathcal{H}$. Then, the likelihood ratio test $\delta$ is the most powerful test for $H_{0}$ against $H_{1}$ at significance level $\alpha$. 
+
+That is, for any test $\delta^{*}$ with significance level $\alpha^{*} \leq \alpha$, i.e, with 
+$$P(\delta^{*}(X)=1|H_{0}) \leq \alpha,$$
+then 
+$$P(\delta^{*}(X)=1|H_{1}) \leq P(\delta(X)=1|H_{1}).$$
+If $\alpha^{*} < \alpha$, then the above inequality is strict.
+
+\subsection{Definition.} Suppose that we have the hypotheses 
+$$H_{0}: \theta = \theta_{0} \quad \text{vs.} \quad H_{1}: \theta \in \Theta_{1}.$$
+A test $\delta$ is uniformly most powerful for the composite hypothesis $H_{1}$ if for any $\theta_{1} \in \Theta_{1}$, the test $\delta$ is most powerful for the hypotheses  
+$$H_{0}: \theta = \theta_{0} \quad \text{vs.} \quad H_{1}: \theta = \theta_{1}.$$
+
+\subsection{Definition.} Suppose that we observe a vector of iid data $X = (X_{1}, X_{2}, \ldots, X_{n})$ with common pdf $f_{X|\theta}(x|\theta)$. Suppose that we want to test the null hypothesis $H_{0}$ against the alternative hypothesis $H_{1}$ where 
+$$H_{0}: \theta = \Theta_{0} \quad \text{vs.} \quad H_{1}: \theta \not\in \Theta_{0}.$$
+The generalized likelihood ratio (glr) is 
+$$\Lambda = \max_{\theta \in \Theta_{0}}f(x|\theta)(\max_{\theta \in \Theta}f(x|\theta))^{-1}.$$
+The glr test is to reject $H_{0}$ if and only if $\Lambda < c$ where $c \in \mathbb{R}^{+}$.
+
+\subsection{Lemma.} Suppose that $X_{1}, X_{2}, \ldots, X_{n} \sim \text{N}(\mu, \sigma^{2})$ iid. Then, the sample mean $\bar{X}$ is independent of the vector $W = (X_{1} - \bar{X}, X_{2} - \bar{X}, \ldots, X_{n} - \bar{X})$.
+
+\subsection{Corollary.} (Continued.) If $X_{1}, X_{2}, \ldots, X_{n} \sim \text{N}(\mu, \sigma^{2})$ iid, then the sample mean $\bar{X}$ is independent of the sample variance 
+$$S^{2} = \frac{1}{n-1}||W||_{2}^{2}.$$
+
+\subsection{Definition.} A rv $W$ has a chi-square distribution with $\nu$ df if $W$ has a Gamma distribution with shape parameter $\nu/2$ and rate parameter $1/2$, i.e., $W \sim \chi_{\nu}^{2}$ if $W \sim \text{Gamma}(\nu/2, 1/2)$ with pdf 
+$$f(w) = \frac{1}{2^{\nu/2}\Gamma(\nu/2)}w^{\nu/2-1}e^{-w/2}$$
+for $w > 0$.
+
+\subsection{Lemma.} If $Z \sim \text{N}(0, 1)$, then $Z^{2} \sim \chi_{1}^{2}$.
+
+\subsection{Lemma.} If $W_{1} \sim \chi_{\nu_{1}}^{2}$ and $W_{2} \sim \chi_{\nu_{2}}^{2}$, then $W_{1} + W_{2} \sim \chi_{\nu_{1} + \nu_{2}}^{2}$.
+
+\subsection{Corollary.} (Continued.) If $Z_{1}, Z_{2}, \ldots, Z_{n} \sim \text{N}(0, 1)$ iid, then 
+$$\sum_{i=1}^{n}Z_{i}^{2} \sim \chi_{n}^{2}.$$
+
+\subsection{Corollary.} If $X_{1}, X_{2}, \ldots, X_{n} \sim \text{N}(\mu, \sigma^{2})$ iid, then
+$$\frac{(n-1)S^{2}}{\sigma^{2}} \sim \chi_{n-1}^{2}.$$
+
+\subsection{Definition.} $T$ has a Student's $\text{t}$ distribution with $\nu$ df $t(\nu)$ if $T$ has the pdf
+$$f(t) = \frac{\Gamma((\nu+1)/2)}{\sqrt{\nu\pi}\Gamma(\nu/2)}\left(1 + \frac{t^{2}}{\nu}\right)^{-(\nu+1)/2}.$$
+
+\subsection{Lemma.} Suppose that $Z \sim \text{N}(0, 1)$ and $V \sim \chi_{\nu}^{2}$ are independent. Then, 
+$$T = \frac{Z}{\sqrt{V/\nu}} \sim \text{t}_{\nu}.$$
+
+\subsection{Lemma.} Suppose that $X_{1}, X_{2}, \ldots, X_{2} \sim \text{N}(\mu, \sigma^{2})$ iid. Then, 
+$$\frac{\bar{X} - \mu}{S/\sqrt{n}} \sim t_{n-1}.$$
+
+\subsection{Proof.} (Continued.) Observe that 
+\begin{align*}
+    \frac{\bar{X}-\mu}{S/\sqrt{n}} &= \frac{\bar{X}-\mu}{\sigma/\sqrt{n}}/\frac{S/\sqrt{n}}{\sigma/\sqrt{n}} \\
+                                   &= \frac{Z}{s/\sigma} \\
+                                   &= Z/\sqrt{\frac{s^{2}(n-1)}{\sigma^{2}(n-1)}} \\
+                                   &= \frac{Z}{\sqrt{V/(n-1)}} \sim t_{n-1}
+\end{align*}
+because we know from Corollary (13.13) that $\bar{X}$ is independent of $S^{2}$ and therefore $Z$ is independent of $V$.
+
+\subsection{Definition.} $X$ hsa an $\text{F}$ distribution with $\nu_{1}$ and $\nu_{2}$ df if $X$ has the pdf 
+$$f(x) = \frac{\Gamma((\nu_{1}+\nu_{2})/2)}{\Gamma(\nu_{1}/2)\Gamma(\nu_{2}/2)}\left(\frac{\nu_{1}}{\nu_{2}}\right)^{\nu_{1}/2}\frac{x^{\nu_{1}/2-1}}{(1 + \nu_{1}x/\nu_{2})^{(\nu_{1}+\nu_{2})/2}}.$$
+
+\subsection{Lemma.} If $V_{1} \sim \chi_{\nu_{1}}^{2}$ and $V_{2} \sim \chi_{\nu_{2}}^{2}$ are independent, then
+$$\frac{V_{1}/\nu_{1}}{V_{2}/\nu_{2}} \sim \text{F}_{\nu_{1}, \nu_{2}}.$$
+If $Y \sim \text{F}_{\nu_{1}, \nu_{2}}$, then 
+$$1/Y \sim \text{F}_{\nu_{2}, \nu_{1}}.$$
+If $T \sim \text{t}{\nu}$, then 
+$$T^{2} \sim \text{F}_{1, \nu}.$$
+because 
+$$\frac{Z^{2}}{V/\nu} \sim \text{F}_{1, \nu}.$$
+
+\subsection{Example.} Suppose that $X_{1}, X_{2}, \ldots, X_{n} \sim \text{N}(\mu, \sigma^{2})$ iid and that we have the hypotheses 
+$$H_{o}: \mu = \mu_{0}, \sigma^{2} > 0 \quad \text{vs.} \quad H_{1}: \mu \neq \mu_{0}, \sigma^{2} > 0.$$
+Then, we have that the glr is 
+$$\Lambda = \frac{f(x|\mu_{0}, \hat{\sigma}_{0}^{2})}{f(x|\hat{\mu}, \hat{\sigma}^{2})}$$
+where 
+$$\hat{\mu}_{0} = \mu_{0}, \quad \hat{\sigma}_{0}^{2} = \frac{1}{n}\sum_{i=1}^{n}(x_{i} - \mu_{0})^{2}$$
+$$\hat{\mu} = \bar{x}, \quad \hat{\sigma}^{2} = \frac{1}{n}\sum_{i=1}^{n}(x_{i} - \bar{x})^{2}.$$
+The likelihood ratio simplifies to 
+$$\Lambda = \left(\frac{\hat{\sigma}}{\hat{\sigma}_{0}}\right)^{n}.$$
+So we reject $H_{0}$ if the ratio $\hat{\sigma}^{2}_{0}/\hat{\sigma}^{2} > c$. Observe that 
+$$\sum_{i=1}^{n}(x_{i}-\mu_{0})^{2} / \sum_{i=1}^{n}(x_{i}-\bar{x})^{2} = 1 + n(\bar{x} - \mu_{0})^{2}/\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}.$$
+So we reject $H_{0}$ if the ratio
+$$n(\bar{x} - \mu_{0})^{2}/\sum_{i=1}^{n}(x_{i}-\bar{x})^{2} > c.$$
+But observe that 
+$$n(n-1)(\bar{X} - \mu_{0})^{2}/\sum_{i=1}^{n}(X_{i} - \bar{X})^{2} = \left(\frac{\bar{X}-\mu_{0}}{\sigma/\sqrt{n}}\right)^{2} / \frac{S^{2}(n-1)}{\sigma^{2}(n-1)} \sim F_{1, n-1}.$$
+Define the test statistic $W$ as 
+$$W = \left(\frac{\bar{X}-\mu_{0}}{\sigma/\sqrt{n}}\right)^{2} / \frac{S^{2}(n-1)}{\sigma^{2}(n-1)}.$$
+Then, we reject $H_{0}$ if $W > c$ where $c$ is the $1-\alpha$ quantile of the $F_{1, n-1}$ distribution. Observe also that 
+$$T = \sqrt{W} \sim t_{n-1},$$
+so we reject $H_{0}$ if $|T| > c$ where $c$ is the $1-\alpha/2$ quantile of the $t_{n-1}$ distribution.
+
+\subsection{Theorem.} (Wilks's Theorem.) Suppose that we have a vector of iid data $X = (X_{1}, X_{2}, \ldots, X_{n})$ with common pdf $f_{X|\theta}(x|\theta)$. Suppose that $f(x|\theta)$ satisfies sufficient regularity conditions. Suppose that
+we have the hypotheses 
+$$H_{0}: \theta = \theta_{0} \quad \text{vs.} \quad H_{1}: \theta \neq \theta_{0}$$
+and that 
+$$\dim \mathcal{H} - \dim \mathcal{H}_{0} = k \in \mathbb{N}.$$
+Then, 
+$$-2\log\Lambda \xrightarrow{D} \chi_{k}^{2} \text{ as } n \to \infty$$
+where $\Lambda$ is the glr.
+
+\subsection{Definition.} Suppose that we have $I$ vectors of $n_{i}$ data such that 
+$$Y_{ij} \sim \text{N}(\mu_{i}, \sigma^{2})$$
+for $i = 1, 2, \ldots, I$ and $j = 1, 2, \ldots, n_{i}$. Define 
+$$\mu = \frac{1}{I}\sum_{i=1}^{I}\mu_{i}$$
+and 
+$$\alpha_{i} = \mu_{i} - \mu$$
+such that $\alpha_{1} + \alpha_{2} + \ldots + \alpha_{I} = 0$. We have then that the data $Y_{ij}$ can be written as
+$$Y_{ij} \sim \text{N}(\mu + \alpha_{i}, \sigma^{2})$$
+such that 
+$$Y_{ij} = \alpha_{i} + \mu + X_{i}$$
+where $X_{ij} \sim \text{N}(0, \sigma^{2})$ iid. Suppose that we don't know the value of $\sigma^{2}$ but we know that it is the same for all $I$ vectors. Then, the likelihood of our data is 
+\begin{align*}
+    f(y|\mu, \alpha, \sigma^{2}) &= \prod_{i=1}^{I}\prod_{j=1}^{n_{i}}\frac{1}{\sqrt{2\pi\sigma^{2}}}\exp\left(-\frac{1}{2\sigma^{2}}(y_{ij} - (\alpha_{i} + \mu))^{2}\right) \\
+                                 &= \left(\frac{1}{\sigma\sqrt{2\pi}}\right)^{N}\exp\left(-\frac{1}{2\sigma^{2}}\sum_{i=1}^{I}\sum_{j=1}^{n_{i}}(y_{ij} - (\alpha_{i} + \mu))^{2}\right)
+\end{align*}
+where $N = n_{1} + n_{2} + \ldots + n_{I}$. Notice that our degrees of freedom are $\mu, \sigma^{2}, \alpha_{1}, \alpha_{2}, \ldots, \alpha_{I-1}$ because $\alpha_{I}$ is uniquely determined by the other $\alpha_{i}$.
+
+\subsection{Example.} Suppose that we have two vectors $Y_{1\cdot}$ and $Y_{2\cdot}$ such that 
+\begin{align*}
+    Y_{11}, Y_{12}, \ldots, Y_{1n_{1}} &\sim \text{N}(\mu_{1}, \sigma^{2}) \\
+    Y_{21}, Y_{22}, \ldots, Y_{2n_{2}} &\sim \text{N}(\mu_{2}, \sigma^{2})
+\end{align*}
+where all observations are independent. Suppose that $\sigma^{2}$ is known and that we have the hypotheses 
+$$H_{0}: \mu_{1} = \mu_{2} \quad \text{vs.} \quad H_{1}: \mu_{1} \neq \mu_{2}.$$
+Note that $H_{0}$ is not simple because the set of all possible values of $\mu_{1} = \mu_{2}$ is of dimension one. We have that the glr is 
+$$\Lambda = \frac{f(y|\mu_{1}, \mu_{2}, \sigma^{2})}{f(y|\mu, \mu, \sigma^{2})}.$$
+Under $H_{0}$, 
+$$\hat{\mu} = \frac{n_{1}\bar{Y}_{1\cdot} + n_{2}\bar{Y}_{2\cdot}}{n_{1} + n_{2}}$$
+and under $H_{1}$, our maximizer is 
+$$(\hat{\mu}_{1}, \hat{\mu}_{2}) = (\bar{Y}_{1\cdot}, \bar{Y}_{2\cdot}).$$
+We have then that the glr is 
+$$\Lambda = \exp\left(-\frac{1}{2\sigma^{2}}\left(\sum_{j=1}^{n_{1}}(Y_{1j} - \hat{\mu})^{2} + \sum_{j=1}^{n_{2}}(Y_{2j} - \hat{\mu})^{2}\right)\right) / \exp\left(-\frac{1}{2\sigma^{2}}\left(\sum_{j=1}^{n_{1}}(Y_{1j} - \hat{\mu}_{1})^{2} + \sum_{j=1}^{n_{2}}(Y_{2j} - \hat{\mu}_{2})^{2}\right)\right).$$
+We reject $H_{0}$ if $\Lambda < c$, so we reject $H_{0}$ if $\log\Lambda < c$, i.e., if 
+$$\sum_{j=1}^{n_{1}}(Y_{1j} - \hat{\mu}_{1})^{2} + \sum_{j=1}^{n_{2}}(Y_{2j} - \hat{\mu}_{2})^{2} - \sum_{j=1}^{n_{1}}(Y_{1j} - \hat{\mu})^{2} - \sum_{j=1}^{n_{2}}(Y_{2j} - \hat{\mu})^{2} < c.$$
+But observe that 
+$$\sum_{j=1}^{n_{1}}(Y_{1j} - \hat{\mu}_{1} + \hat{\mu}_{1} - \hat{\mu})^{2} = \sum_{j=1}^{n_{1}}(Y_{1j} - \hat{\mu}_{1})^{2} + n_{1}(\hat{\mu}_{1} - \hat{\mu})^{2}$$
+and similarly for $Y_{2\cdot}$. It follows then that we reject $H_{0}$ if 
+$$n_{1}(\hat{\mu}_{1} - \hat{\mu})^{2} + n_{2}(\hat{\mu}_{2} - \hat{\mu})^{2} > c.$$
 
 \end{document}

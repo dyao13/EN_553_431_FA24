@@ -8,8 +8,6 @@
 \usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage{titlesec}
-\usepackage{tocloft}
-
 
 \title{EN.553.431 Honors Mathematical Statistics}
 \author{Daniel Yao}
@@ -32,12 +30,13 @@
 
 \setcounter{section}{-1}
 
-\renewcommand{\cftsecfont}{\normalfont}
-\renewcommand{\cftsubsecfont}{\normalfont}
-\renewcommand{\cftsecpagefont}{\normalfont}
-\renewcommand{\cftsubsecpagefont}{\normalfont}
+\newcommand{\newsection}[1]{
+    \refstepcounter{section}
+    \addcontentsline{toc}{section}{\thesection\quad#1}
+    \setcounter{subsection}{-1}
+}
 
-\newcommand{\newsection}[1]{\refstepcounter{section}\addcontentsline{toc}{section}{\thesection\quad#1}{\setcounter{subsection}{-1}}}
-
-\cftsetindents{section}{0em}{2.5em}
-\cftsetindents{subsection}{1.5em}{3em}
+\makeatletter
+\renewcommand{\l@section}{\@dottedtocline{1}{0em}{2.5em}}
+\renewcommand{\l@subsection}{\@dottedtocline{2}{1.5em}{3em}}
+\makeatother
