@@ -16,12 +16,12 @@
 
 \subsection{Notation.} Rice shall refer to 'Mathematical Statistics and Data Analysis' 3rd edition (US) by John A. Rice.
 
-\subsection{Notation.} The following abbreviations shall be overserved.
+\subsection{Notation.} The following abbreviations shall be observed.
 \begin{enumerate}
 \item The term 'rv' shall denote 'random variable'.
 \item The term 'pmf' shall denote 'probability mass function'.
 \item The term 'pdf' shall denote 'probability density function'.
-\item The term 'cdf' shall denote 'cumulative density function'.
+\item The term 'cdf' shall denote 'cumulative distribution function'.
 \item The term 'iid' shall denote 'independent and identically distributed'.
 \item The term 'mom' shall denote 'method of moments'.
 \item The term 'mle' shall denote 'maximum likelihood estimator'.
@@ -1191,10 +1191,11 @@ Note that $\hat{\theta}_{MLE}$ is always feasible unlike $\hat{\theta}_{MOM}$.
 $$I(\theta) = \E\left(\left(\frac{\partial}{\partial\theta}\log f(X|\theta)\right)^{2}\right)$$
 where the expected value is taken over the support of $f(x|\theta)$. Under sufficient regularity conditions, the Fisher information is equivalent to 
 $$I(\theta) = -\E\left(\frac{\partial^{2}}{\partial\theta^{2}}\log f(X|\theta)\right).$$
+The Fisher information $I(\theta)$ of an rv $X$ is a measure of how much information an observation of $X$ contains about its parameter $\theta$.
 
 \subsection{Theorem.} Suppose that $X_{1}, X_{2}, \ldots, X_{n}$ are iid and $f(x|\theta)$ satisfies sufficient regularities conditions, i.e., 
 \begin{enumerate}
-\item[(1)] $f(x|\theta)$ is sufficiently regular.
+\item[(1)] $f(x|\theta)$ is sufficiently regular (sufficiently smooth).
 \item[(2)] $\text{supp} f(x|\theta)$ does not depend on $\theta$.
 \end{enumerate}
 Let $\hat{\theta}_{n}$ be the mle for $\theta \in \Theta$. Then, 
@@ -1222,6 +1223,32 @@ $$f(x_{1}, x_{2}, \ldots, x_{n}|\theta) = g(T(x_{1}, x_{2}, \ldots, x_{n}), \the
 
 \subsection{Definition.} $T$ is minimally sufficient for $\theta$ if for all sufficient statistics $S$ for $\theta$, there exists a function $l$ such that 
 $$T = l(S).$$
+
+\subsection{Example.} Suppose that $X_{1}, X_{2}, \ldots, X_{n} \sim \text{Bern}(\theta)$ iid. Define $X = (X_{1}, X_{2}, \ldots, X_{n}$ and consider the pdf 
+\begin{align*}
+    f(x|\theta)) &= \prod_{i=1}^{n}\theta^{x_{i}}(1-\theta)^{1-x_{i}}.
+\end{align*}
+Define the statistic
+$$T = \sum_{i=1}^{n}X_{i} \sim \text{binom}(n, \theta).$$
+Then, the pdf is 
+\begin{align*}
+    f(x|\theta) &= \binom{n}{T}\theta^{T}(1-\theta)^{n-T} \\
+                &= g(T, \theta)h(x).
+\end{align*}
+Therefore, $T$ is sufficient for $\theta$ by the factorization theorem.
+
+\subsection{Example.} (Continued.) Suppose that we have two values $\theta_{1} \neq \theta_{2}$. The likelihood ratio is 
+$$\frac{f(x|\theta_{1})}{f(x|\theta_{2})} = \left(\frac{\theta_{1}}{\theta_{2}}\right)^{T}\left(\frac{1-\theta_{1}}{1-\theta_{2}}\right)^{n-T}.$$
+Suppose also that $S$ is another sufficient statistic for $\theta$. By the factorization theorem, the likelihood ratio is 
+$$\frac{f(x|\theta_{1})}{f(x|\theta_{2})} = \frac{g(S, \theta_{1})}{g(S, \theta_{2})}.$$
+Suppose that $\theta_{1} = 1 - \theta_{2}$. We then have that 
+\begin{align*}
+                     \frac{g(S, \theta_{1})}{g(S, \theta_{2})} &= \left(\frac{\theta_{1}}{\theta_{2}}\right)^{T}\left(\frac{1-\theta_{1}}{1-\theta_{2}}\right)^{n-T} \\
+                     \frac{g(S, \theta_{1})}{g(S, \theta_{2})} &= \left(\frac{\theta_{1}}{1-\theta_{1}}\right)^{2T-n} \\
+    \log\left(\frac{g(S, \theta_{1})}{g(S, \theta_{2})}\right) &= 2T\log\left(\frac{\theta_{1}}{1-\theta_{1}}\right) - n\log\left(\frac{\theta_{1}}{1-\theta_{1}}\right) \\
+                                                             T &= \log\left(\frac{g(S, \theta_{1})}{g(S, \theta_{2})}\right)\left(2\log\left(\frac{\theta_{1}}{1-\theta_{1}}\right)\right)^{-1} + \frac{n}{2}.
+\end{align*}
+We choose $\theta_{1} = 1/3, \theta_{2} = 2/3$ to see that $T$ is a function of $S$, so $T$ is minimally sufficient for $\theta$.
 
 \newpage \newsection{Bayesian Estimation.}
 
@@ -1358,7 +1385,7 @@ $$\sum_{i=1}^{n}Z_{i}^{2} \sim \chi_{n}^{2}.$$
 \subsection{Corollary.} If $X_{1}, X_{2}, \ldots, X_{n} \sim \text{N}(\mu, \sigma^{2})$ iid, then
 $$\frac{(n-1)S^{2}}{\sigma^{2}} \sim \chi_{n-1}^{2}.$$
 
-\subsection{Definition.} $T$ has a Student's $\text{t}$ distribution with $\nu$ df $t(\nu)$ if $T$ has the pdf
+\subsection{Definition.} A rv $T$ has a Student's $\text{t}$ distribution with $\nu$ df $t(\nu)$ if $T$ has the pdf
 $$f(t) = \frac{\Gamma((\nu+1)/2)}{\sqrt{\nu\pi}\Gamma(\nu/2)}\left(1 + \frac{t^{2}}{\nu}\right)^{-(\nu+1)/2}.$$
 
 \subsection{Lemma.} Suppose that $Z \sim \text{N}(0, 1)$ and $V \sim \chi_{\nu}^{2}$ are independent. Then, 
@@ -1376,7 +1403,7 @@ $$\frac{\bar{X} - \mu}{S/\sqrt{n}} \sim t_{n-1}.$$
 \end{align*}
 because we know from Corollary (13.13) that $\bar{X}$ is independent of $S^{2}$ and therefore $Z$ is independent of $V$.
 
-\subsection{Definition.} $X$ hsa an $\text{F}$ distribution with $\nu_{1}$ and $\nu_{2}$ df if $X$ has the pdf 
+\subsection{Definition.} An rv $X$ hsa an $\text{F}$ distribution with $\nu_{1}$ and $\nu_{2}$ df if $X$ has the pdf 
 $$f(x) = \frac{\Gamma((\nu_{1}+\nu_{2})/2)}{\Gamma(\nu_{1}/2)\Gamma(\nu_{2}/2)}\left(\frac{\nu_{1}}{\nu_{2}}\right)^{\nu_{1}/2}\frac{x^{\nu_{1}/2-1}}{(1 + \nu_{1}x/\nu_{2})^{(\nu_{1}+\nu_{2})/2}}.$$
 
 \subsection{Lemma.} If $V_{1} \sim \chi_{\nu_{1}}^{2}$ and $V_{2} \sim \chi_{\nu_{2}}^{2}$ are independent, then
@@ -1418,7 +1445,7 @@ Then,
 $$-2\log\Lambda \xrightarrow{D} \chi_{k}^{2} \text{ as } n \to \infty$$
 where $\Lambda$ is the glr.
 
-\subsection{Definition.} Suppose that we have $I$ vectors of $n_{i}$ data such that 
+\subsection{Example.} Suppose that we have $I$ vectors of $n_{i}$ data such that 
 $$Y_{ij} \sim \text{N}(\mu_{i}, \sigma^{2})$$
 for $i = 1, 2, \ldots, I$ and $j = 1, 2, \ldots, n_{i}$. Define 
 $$\mu = \frac{1}{I}\sum_{i=1}^{I}\mu_{i}$$
