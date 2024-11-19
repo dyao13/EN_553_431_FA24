@@ -1288,8 +1288,7 @@ $$\delta: (\text{supp} f_{X})^{n} \to A.$$
 
 \subsection{Definition.} The Bayes risk of a decision rule $\delta$ is 
 \begin{align*}
-    r(\delta) &= \E(R(\theta, \delta)) \\
-              &= \E(\E(l(\theta, \delta(X))|\theta)) \\
+    r(\delta) &= \E(\E(l(\theta, \delta(X))|\theta)) \\
               &= \int_{\Theta}\left[\int_{\mathbb{R}^{n}}l(\theta, \delta(x))f_{X|\theta}(x|\theta)\, dx_{1}dx_{2}\ldots dx_{n}\right]f_{\theta}(\theta)\, d\theta.
 \end{align*}
 
@@ -1301,15 +1300,27 @@ $$\delta = \arg\min_{\delta\in\Delta}\max_{\theta\in\Theta}R(\theta, \delta).$$
 
 \subsection{Definition.} Suppose that our prior $\theta$ belongs to a family $G$ and that our likelihood $f(x|\theta)$ belongs to a family $H$. If the posterior $\theta$ also belongs to $G$, then $G$ and $H$ are said to be conjugate families.
 
+\subsection{Example.} Suppose that we observe a vector $X = (X_{1}, X_{2}, \ldots, X_{n})$ of iid $\text{Bern}(\theta)$ rvs. Suppose that our prior for $\theta$ is $\text{Beta}(\alpha, \beta)$ with pdf
+$$f_{\theta}(\theta) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\theta^{\alpha-1}(1-\theta)^{\beta-1}.$$
+Observe also that 
+$$T = \sum_{i=1}^{n}X_{i} \sim \text{binom}(n, \theta)$$
+is a sufficient statistic for $\theta$. The posterior distribution of $\theta$ given $X$ is 
+\begin{align*}
+    f(\theta|X) &= Af_{X|\theta}(X|\theta)f_{\theta}(\theta) \\
+                &= A\theta^{T}(1-\theta)^{n-T}\theta^{\alpha-1}(1-\theta)^{\beta-1} \\
+                &= A\theta^{T+\alpha-1}(1-\theta)^{n-T+\beta-1} \sim \text{Beta}(T+\alpha, n-T+\beta)
+\end{align*}
+where $A$ is the appropriate normalizing constant. Therefore, the binomial distribution and the Beta distribution are conjugate families.
+
 \newpage \newsection{Hypothesis Testing.}
 
 \subsection{Introduction.} Hypothesis Testing.
 
 \subsection{Definition.} Suppose that we are in the frequentist paradigm. Suppose that we observe a vector of iid data $X = (X_{1}, X_{2}, \ldots, X_{n})$ with common pdf $f_{X|\theta}(x|\theta)$. Suppose that we want to test the null hypothesis $H_{0}$ against the alternative hypothesis $H_{1}$ where 
 $$H_{0}: \theta \in \Theta_{0} \quad \text{vs.} \quad H_{1}: \theta \in \Theta_{1}.$$
-Then, our decision rule is 
-$$d: (\text{supp} f_{X})^{n} \to \{0, 1\}$$
-where $d(X) = 0$ means that we fail to reject $H_{0}$ and $d(X) = 1$ means that we reject $H_{0}$. Note that the frequentist paradigm assigns probabilities to the data $X$ and not to the hypotheses $H_{0}$ and $H_{1}$.
+Then, our decision rule $\delta$ is 
+$$\delta: (\text{supp} f_{X})^{n} \to \{0, 1\}$$
+where $\delta(X) = 0$ means that we fail to reject $H_{0}$ and $\delta(X) = 1$ means that we reject $H_{0}$. Note that the frequentist paradigm assigns probabilities to the data $X$ and not to the hypotheses $H_{0}$ and $H_{1}$.
 
 \subsection{Definition.} Suppose that we are in the Bayesian paradigm. Suppose that we observe a vector of iid data $X = (X_{1}, X_{2}, \ldots, X_{n})$ with common pdf $f_{X|\theta}(x|\theta)$. Suppose that we want to test the null hypothesis $H_{0}$ against the alternative hypothesis $H_{1}$ where
 $$H_{0}: f = f_{0} \quad \text{vs.} \quad H_{1}: f = f_{1}.$$
@@ -1318,9 +1329,9 @@ Then, our posterior probabilities are
     P(H_{0}|X) &= \frac{f(x|H_{0})p_{0}}{f(x|H_{0})p_{0} + f(x|H_{1})p_{1}} \\
     P(H_{1}|X) &= \frac{f(x|H_{1})p_{1}}{f(x|H_{0})p_{0} + f(x|H_{1})p_{1}}
 \end{align*}
-where $p_{0}$ and $p_{1}$, respectively, are the prior probabilities of $H_{0}$ and $H_{1}$. The odds ratio is 
+where $p_{0}$ and $p_{1}$, respectively, are the prior probabilities of $H_{0}$ and $H_{1}$. The posterior odds are 
 $$\frac{P(H_{0}|X)}{P(H_{1}|X)} = \frac{f(x|H_{0})p_{0}}{f(x|H_{1})p_{1}}.$$
-We may say that our decision rule rejects $H_{0}$ if and only if the odds ratio is less than some threshold $c \in \mathbb{R}^{+}$ (often one), i.e., if and only if 
+We may say that our decision rule rejects $H_{0}$ if and only if the posterior odds are less than some threshold $c \in \mathbb{R}^{+}$ (often one), i.e., if and only if 
 \begin{align*}
     \frac{f(x|H_{0})p_{0}}{f(x|H_{1})p_{1}} &< c \\
                   \frac{f_{0}(x)}{f_{1}(x)} &< c\frac{p_{1}}{p_{0}}.
@@ -1335,7 +1346,7 @@ $$\frac{f_{0}(x)}{f_{1}(x)} < c.$$
 
 \subsection{Definition.} The Type I error probability, i.e., the significance level $\alpha$, for a decision rule $\delta$ is 
 $$\alpha = P(\delta(X)=1|H_{0})$$
-if $H_{0} \cap H_{1} = \emptyset$ and $H_{0} \cup H_{1} = H$ where $H$ is the hypothesis space.
+if $H_{0} \cap H_{1} = \emptyset$ and $H_{0} \cup H_{1} = \mathcal{H}$ where $\mathcal{H}$ is the hypothesis space.
 
 \subsection{Definition.} The power of a decision rule $\delta$ is 
 $$\text{Power}(\delta) = P(\delta(X)=1|H_{1})$$
@@ -1383,9 +1394,9 @@ for $w > 0$.
 $$\sum_{i=1}^{n}Z_{i}^{2} \sim \chi_{n}^{2}.$$
 
 \subsection{Corollary.} If $X_{1}, X_{2}, \ldots, X_{n} \sim \text{N}(\mu, \sigma^{2})$ iid, then
-$$\frac{(n-1)S^{2}}{\sigma^{2}} \sim \chi_{n-1}^{2}.$$
+$$\sum_{i=1}^{n}\frac{(X_{i}-\bar{X})^{2}}{\sigma^{2}} = \frac{(n-1)S^{2}}{\sigma^{2}} \sim \chi_{n-1}^{2}.$$
 
-\subsection{Definition.} A rv $T$ has a Student's $\text{t}$ distribution with $\nu$ df $t(\nu)$ if $T$ has the pdf
+\subsection{Definition.} A rv $T$ has a Student's $\text{t}$ distribution with $\nu$ df, i.e., $T \sim \text{t}_{\nu}$, if $T$ has the pdf
 $$f(t) = \frac{\Gamma((\nu+1)/2)}{\sqrt{\nu\pi}\Gamma(\nu/2)}\left(1 + \frac{t^{2}}{\nu}\right)^{-(\nu+1)/2}.$$
 
 \subsection{Lemma.} Suppose that $Z \sim \text{N}(0, 1)$ and $V \sim \chi_{\nu}^{2}$ are independent. Then, 
@@ -1403,14 +1414,14 @@ $$\frac{\bar{X} - \mu}{S/\sqrt{n}} \sim t_{n-1}.$$
 \end{align*}
 because we know from Corollary (13.13) that $\bar{X}$ is independent of $S^{2}$ and therefore $Z$ is independent of $V$.
 
-\subsection{Definition.} An rv $X$ hsa an $\text{F}$ distribution with $\nu_{1}$ and $\nu_{2}$ df if $X$ has the pdf 
+\subsection{Definition.} An rv $X$ has an $\text{F}$ distribution with $\nu_{1}$ and $\nu_{2}$ df, i.e., $X \sim \text{F}_{\nu_{1}, \nu_{2}}$ if $X$ has the pdf 
 $$f(x) = \frac{\Gamma((\nu_{1}+\nu_{2})/2)}{\Gamma(\nu_{1}/2)\Gamma(\nu_{2}/2)}\left(\frac{\nu_{1}}{\nu_{2}}\right)^{\nu_{1}/2}\frac{x^{\nu_{1}/2-1}}{(1 + \nu_{1}x/\nu_{2})^{(\nu_{1}+\nu_{2})/2}}.$$
 
 \subsection{Lemma.} If $V_{1} \sim \chi_{\nu_{1}}^{2}$ and $V_{2} \sim \chi_{\nu_{2}}^{2}$ are independent, then
 $$\frac{V_{1}/\nu_{1}}{V_{2}/\nu_{2}} \sim \text{F}_{\nu_{1}, \nu_{2}}.$$
 If $Y \sim \text{F}_{\nu_{1}, \nu_{2}}$, then 
 $$1/Y \sim \text{F}_{\nu_{2}, \nu_{1}}.$$
-If $T \sim \text{t}{\nu}$, then 
+If $T \sim \text{t}_{\nu}$, then 
 $$T^{2} \sim \text{F}_{1, \nu}.$$
 because 
 $$\frac{Z^{2}}{V/\nu} \sim \text{F}_{1, \nu}.$$
