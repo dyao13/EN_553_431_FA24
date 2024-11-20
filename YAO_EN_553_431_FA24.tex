@@ -27,6 +27,7 @@
 \item The term 'mle' shall denote 'maximum likelihood estimator'.
 \item The term 'df' shall denote degrees of freedom.
 \item The term 'glr' shall denote 'generalized likelihood ratio'.
+\item The term 'logarithm $\log$' shall denote the 'natural logarithm $\ln$'.
 \end{enumerate}
 
 \subsection{Notation} A finite population sample shall be as follows. We are given a finite bivariate population of $N$ distinct objects, and associated to each object $k$ is a pair of measurements $(x_k, y_k)$. Suppose our population of measurements is represented by $\{(x_1, y_1), \ldots, (x_N, y_N)\}$. We assume $N > 1$. Let $\tau_x$ and $\tau_y$ be the population totals of the $x$- and $y$-measurements, respectively; let $\mu_x$ and $\mu_y$ be the population means of the $x$- and $y$-measurements, respectively; let $\sigma_x^2$ and $\sigma_y^2$ denote the population variances of the $x$- and $y$-measurements, respectively. Let $\sigma_{xy}$ denote the population covariance.
@@ -1264,7 +1265,7 @@ $$f_{X}(x) = \int_{\Theta}f_{X|\theta}(x|\theta)f_{\theta}(\theta)\, d\theta.$$
 \begin{align*}
     f_{\theta|X}(\theta|X) &= \frac{f_{X|\theta}(X|\theta)f_{\theta}(\theta)}{f_{X}(X)} \\
                            &= (g(T, \theta)h(X)f_{\theta}(\theta))\left(\int_{\Theta}g(T, \theta)h(X)f_{\theta}(\theta)\, d\theta\right)^{-1} \\
-                           &= g(T, \theta)h(X)\left(\int_{\Theta}g(T, \theta)h(X)f_{\theta}(\theta)\, d\theta\right)^{-1}
+                           &= g(T, \theta)f_{\theta}(\theta)\left(\int_{\Theta}g(T, \theta)f_{\theta}(\theta)\, d\theta\right)^{-1}
 \end{align*}
 by the factorization theorem.
 
@@ -1316,12 +1317,6 @@ where $A$ is the appropriate normalizing constant. Therefore, the binomial distr
 
 \subsection{Introduction.} Hypothesis Testing.
 
-\subsection{Definition.} Suppose that we are in the frequentist paradigm. Suppose that we observe a vector of iid data $X = (X_{1}, X_{2}, \ldots, X_{n})$ with common pdf $f_{X|\theta}(x|\theta)$. Suppose that we want to test the null hypothesis $H_{0}$ against the alternative hypothesis $H_{1}$ where 
-$$H_{0}: \theta \in \Theta_{0} \quad \text{vs.} \quad H_{1}: \theta \in \Theta_{1}.$$
-Then, our decision rule $\delta$ is 
-$$\delta: (\text{supp} f_{X})^{n} \to \{0, 1\}$$
-where $\delta(X) = 0$ means that we fail to reject $H_{0}$ and $\delta(X) = 1$ means that we reject $H_{0}$. Note that the frequentist paradigm assigns probabilities to the data $X$ and not to the hypotheses $H_{0}$ and $H_{1}$.
-
 \subsection{Definition.} Suppose that we are in the Bayesian paradigm. Suppose that we observe a vector of iid data $X = (X_{1}, X_{2}, \ldots, X_{n})$ with common pdf $f_{X|\theta}(x|\theta)$. Suppose that we want to test the null hypothesis $H_{0}$ against the alternative hypothesis $H_{1}$ where
 $$H_{0}: f = f_{0} \quad \text{vs.} \quad H_{1}: f = f_{1}.$$
 Then, our posterior probabilities are 
@@ -1336,6 +1331,12 @@ We may say that our decision rule rejects $H_{0}$ if and only if the posterior o
     \frac{f(x|H_{0})p_{0}}{f(x|H_{1})p_{1}} &< c \\
                   \frac{f_{0}(x)}{f_{1}(x)} &< c\frac{p_{1}}{p_{0}}.
 \end{align*}
+
+\subsection{Definition.} Suppose that we are in the frequentist paradigm. Suppose that we observe a vector of iid data $X = (X_{1}, X_{2}, \ldots, X_{n})$ with common pdf $f_{X|\theta}(x|\theta)$. Suppose that we want to test the null hypothesis $H_{0}$ against the alternative hypothesis $H_{1}$ where 
+$$H_{0}: \theta \in \Theta_{0} \quad \text{vs.} \quad H_{1}: \theta \in \Theta_{1}.$$
+Then, our decision rule $\delta$ is 
+$$\delta: (\text{supp} f_{X})^{n} \to \{0, 1\}$$
+where $\delta(X) = 0$ means that we fail to reject $H_{0}$ and $\delta(X) = 1$ means that we reject $H_{0}$. Note that the frequentist paradigm assigns probabilities to the data $X$ and not to the hypotheses $H_{0}$ and $H_{1}$.
 
 \subsection{Definition.} The likelihood ratio test is the decision rule $\delta$ that rejects $H_{0}$ if and only if the likelihood ratio 
 $$\text{LR}(X) = \frac{f(X|H_{0})}{f(X|H_{1})}$$
@@ -1352,7 +1353,7 @@ if $H_{0} \cap H_{1} = \emptyset$ and $H_{0} \cup H_{1} = \mathcal{H}$ where $\m
 $$\text{Power}(\delta) = P(\delta(X)=1|H_{1})$$
 where $H_{0} \cap H_{1} = \emptyset$ and $H_{0} \cup H_{1} = \mathcal{H}$ where $\mathcal{H}$ is the hypothesis space.
 
-\subsection{Definition.} The $p$-value for an observed statistic $T_{0}$ is the smallest $\alpha$ for which we reject $H_{0}$ given $T_{0}$ at significance level $\alpha$ with the likelihood ratio test.
+\subsection{Definition.} The $p$-value for an observed statistic $T_{0}$ is the smallest $\alpha$ for which we reject $H_{0}$ given $T_{0}$ at significance level $\alpha$ with the likelihood ratio test. Under the Neyman-Pearson framework, the $p$-value is the probability that we observe a test statistic at least as extreme as $T_{0}$ given that $H_{0}$ is true.
 
 \subsection{Definition.} A hypothesis $H$ is simple if it completely specifies the distribution from which the data are taken, i.e., if the the hypothesis space under $H$, i.e., $\mathcal{H}_{0}$ is a singleton set. If $H$ is not simple, then it is composite.
 
@@ -1377,12 +1378,21 @@ The generalized likelihood ratio (glr) is
 $$\Lambda = \max_{\theta \in \Theta_{0}}f(x|\theta)(\max_{\theta \in \Theta}f(x|\theta))^{-1}.$$
 The glr test is to reject $H_{0}$ if and only if $\Lambda < c$ where $c \in \mathbb{R}^{+}$.
 
+\subsection{Theorem.} (Wilks's Theorem.) Suppose that we have a vector of iid data $X = (X_{1}, X_{2}, \ldots, X_{n})$ with common pdf $f_{X|\theta}(x|\theta)$. Suppose that $f(x|\theta)$ satisfies sufficient regularity conditions. Suppose that
+we have the hypotheses 
+$$H_{0}: \theta = \theta_{0} \quad \text{vs.} \quad H_{1}: \theta \neq \theta_{0}$$
+and that 
+$$\dim \mathcal{H} - \dim \mathcal{H}_{0} = k \in \mathbb{N}.$$
+Then, 
+$$-2\log\Lambda \xrightarrow{D} \chi_{k}^{2} \text{ as } n \to \infty$$
+where $\Lambda$ is the glr.
+
 \subsection{Lemma.} Suppose that $X_{1}, X_{2}, \ldots, X_{n} \sim \text{N}(\mu, \sigma^{2})$ iid. Then, the sample mean $\bar{X}$ is independent of the vector $W = (X_{1} - \bar{X}, X_{2} - \bar{X}, \ldots, X_{n} - \bar{X})$.
 
 \subsection{Corollary.} (Continued.) If $X_{1}, X_{2}, \ldots, X_{n} \sim \text{N}(\mu, \sigma^{2})$ iid, then the sample mean $\bar{X}$ is independent of the sample variance 
 $$S^{2} = \frac{1}{n-1}||W||_{2}^{2}.$$
 
-\subsection{Definition.} A rv $W$ has a chi-square distribution with $\nu$ df if $W$ has a Gamma distribution with shape parameter $\nu/2$ and rate parameter $1/2$, i.e., $W \sim \chi_{\nu}^{2}$ if $W \sim \text{Gamma}(\nu/2, 1/2)$ with pdf 
+\subsection{Definition.} A rv $W$ has a chi-square distribution with $\nu$ df if it has a Gamma distribution with shape parameter $\nu/2$ and rate parameter $1/2$, i.e., $W \sim \chi_{\nu}^{2}$ if $W \sim \text{Gamma}(\nu/2, 1/2)$ with pdf 
 $$f(w) = \frac{1}{2^{\nu/2}\Gamma(\nu/2)}w^{\nu/2-1}e^{-w/2}$$
 for $w > 0$.
 
@@ -1393,7 +1403,6 @@ for $w > 0$.
 \subsection{Corollary.} (Continued.) If $Z_{1}, Z_{2}, \ldots, Z_{n} \sim \text{N}(0, 1)$ iid, then 
 $$\sum_{i=1}^{n}Z_{i}^{2} \sim \chi_{n}^{2}.$$
 
-\subsection{Corollary.} If $X_{1}, X_{2}, \ldots, X_{n} \sim \text{N}(\mu, \sigma^{2})$ iid, then
 $$\sum_{i=1}^{n}\frac{(X_{i}-\bar{X})^{2}}{\sigma^{2}} = \frac{(n-1)S^{2}}{\sigma^{2}} \sim \chi_{n-1}^{2}.$$
 
 \subsection{Definition.} A rv $T$ has a Student's $\text{t}$ distribution with $\nu$ df, i.e., $T \sim \text{t}_{\nu}$, if $T$ has the pdf
@@ -1403,14 +1412,14 @@ $$f(t) = \frac{\Gamma((\nu+1)/2)}{\sqrt{\nu\pi}\Gamma(\nu/2)}\left(1 + \frac{t^{
 $$T = \frac{Z}{\sqrt{V/\nu}} \sim \text{t}_{\nu}.$$
 
 \subsection{Lemma.} Suppose that $X_{1}, X_{2}, \ldots, X_{2} \sim \text{N}(\mu, \sigma^{2})$ iid. Then, 
-$$\frac{\bar{X} - \mu}{S/\sqrt{n}} \sim t_{n-1}.$$
+$$\frac{\bar{X} - \mu}{S/\sqrt{n}} \sim \text{t}_{n-1}.$$
 
 \subsection{Proof.} (Continued.) Observe that 
 \begin{align*}
     \frac{\bar{X}-\mu}{S/\sqrt{n}} &= \frac{\bar{X}-\mu}{\sigma/\sqrt{n}}/\frac{S/\sqrt{n}}{\sigma/\sqrt{n}} \\
                                    &= \frac{Z}{s/\sigma} \\
                                    &= Z/\sqrt{\frac{s^{2}(n-1)}{\sigma^{2}(n-1)}} \\
-                                   &= \frac{Z}{\sqrt{V/(n-1)}} \sim t_{n-1}
+                                   &= \frac{Z}{\sqrt{V/(n-1)}} \sim \text{t}_{n-1}
 \end{align*}
 because we know from Corollary (13.13) that $\bar{X}$ is independent of $S^{2}$ and therefore $Z$ is independent of $V$.
 
@@ -1424,7 +1433,7 @@ $$1/Y \sim \text{F}_{\nu_{2}, \nu_{1}}.$$
 If $T \sim \text{t}_{\nu}$, then 
 $$T^{2} \sim \text{F}_{1, \nu}.$$
 because 
-$$\frac{Z^{2}}{V/\nu} \sim \text{F}_{1, \nu}.$$
+$$\frac{Z^{2}/1}{V/\nu} \sim \text{F}_{1, \nu}.$$
 
 \subsection{Example.} Suppose that $X_{1}, X_{2}, \ldots, X_{n} \sim \text{N}(\mu, \sigma^{2})$ iid and that we have the hypotheses 
 $$H_{o}: \mu = \mu_{0}, \sigma^{2} > 0 \quad \text{vs.} \quad H_{1}: \mu \neq \mu_{0}, \sigma^{2} > 0.$$
@@ -1446,15 +1455,6 @@ $$W = \left(\frac{\bar{X}-\mu_{0}}{\sigma/\sqrt{n}}\right)^{2} / \frac{S^{2}(n-1
 Then, we reject $H_{0}$ if $W > c$ where $c$ is the $1-\alpha$ quantile of the $F_{1, n-1}$ distribution. Observe also that 
 $$T = \sqrt{W} \sim t_{n-1},$$
 so we reject $H_{0}$ if $|T| > c$ where $c$ is the $1-\alpha/2$ quantile of the $t_{n-1}$ distribution.
-
-\subsection{Theorem.} (Wilks's Theorem.) Suppose that we have a vector of iid data $X = (X_{1}, X_{2}, \ldots, X_{n})$ with common pdf $f_{X|\theta}(x|\theta)$. Suppose that $f(x|\theta)$ satisfies sufficient regularity conditions. Suppose that
-we have the hypotheses 
-$$H_{0}: \theta = \theta_{0} \quad \text{vs.} \quad H_{1}: \theta \neq \theta_{0}$$
-and that 
-$$\dim \mathcal{H} - \dim \mathcal{H}_{0} = k \in \mathbb{N}.$$
-Then, 
-$$-2\log\Lambda \xrightarrow{D} \chi_{k}^{2} \text{ as } n \to \infty$$
-where $\Lambda$ is the glr.
 
 \subsection{Example.} Suppose that we have $I$ vectors of $n_{i}$ data such that 
 $$Y_{ij} \sim \text{N}(\mu_{i}, \sigma^{2})$$
