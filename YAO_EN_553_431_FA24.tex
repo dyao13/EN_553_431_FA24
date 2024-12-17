@@ -1451,7 +1451,10 @@ $$n(\bar{x} - \mu_{0})^{2}/\sum_{i=1}^{n}(x_{i}-\bar{x})^{2} > c.$$
 But observe that 
 $$n(n-1)(\bar{X} - \mu_{0})^{2}/\sum_{i=1}^{n}(X_{i} - \bar{X})^{2} = \left(\frac{\bar{X}-\mu_{0}}{\sigma/\sqrt{n}}\right)^{2} / \frac{S^{2}(n-1)}{\sigma^{2}(n-1)} \sim F_{1, n-1}.$$
 Define the test statistic $W$ as 
-$$W = \left(\frac{\bar{X}-\mu_{0}}{\sigma/\sqrt{n}}\right)^{2} / \frac{S^{2}(n-1)}{\sigma^{2}(n-1)}.$$
+\begin{align*}
+    W &= \left(\frac{\bar{X}-\mu_{0}}{\sigma/\sqrt{n}}\right)^{2} / \frac{S^{2}(n-1)}{\sigma^{2}(n-1)} \\
+      &= \frac{(\bar{X}-\mu_{0})^{2}}{S^{2}/n} \sim F_{1, n-1}.
+\end{align*}
 Then, we reject $H_{0}$ if $W > c$ where $c$ is the $1-\alpha$ quantile of the $F_{1, n-1}$ distribution. Observe also that 
 $$T = \sqrt{W} \sim t_{n-1},$$
 so we reject $H_{0}$ if $|T| > c$ where $c$ is the $1-\alpha/2$ quantile of the $t_{n-1}$ distribution.
@@ -1491,8 +1494,358 @@ $$\Lambda = \exp\left(-\frac{1}{2\sigma^{2}}\left(\sum_{j=1}^{n_{1}}(Y_{1j} - \h
 We reject $H_{0}$ if $\Lambda < c$, so we reject $H_{0}$ if $\log\Lambda < c$, i.e., if 
 $$\sum_{j=1}^{n_{1}}(Y_{1j} - \hat{\mu}_{1})^{2} + \sum_{j=1}^{n_{2}}(Y_{2j} - \hat{\mu}_{2})^{2} - \sum_{j=1}^{n_{1}}(Y_{1j} - \hat{\mu})^{2} - \sum_{j=1}^{n_{2}}(Y_{2j} - \hat{\mu})^{2} < c.$$
 But observe that 
-$$\sum_{j=1}^{n_{1}}(Y_{1j} - \hat{\mu}_{1} + \hat{\mu}_{1} - \hat{\mu})^{2} = \sum_{j=1}^{n_{1}}(Y_{1j} - \hat{\mu}_{1})^{2} + n_{1}(\hat{\mu}_{1} - \hat{\mu})^{2}$$
+$$\sum_{j=1}^{n_{1}}(Y_{1j} - \hat{\mu}_{1} + \hat{\mu}_{1} - \hat{\mu})^{2} = \sum_{j=1}^{n_{2}}(Y_{1j} - \hat{\mu}_{1})^{2} + n_{1}(\hat{\mu}_{1} - \hat{\mu})^{2}$$
 and similarly for $Y_{2\cdot}$. It follows then that we reject $H_{0}$ if 
 $$n_{1}(\hat{\mu}_{1} - \hat{\mu})^{2} + n_{2}(\hat{\mu}_{2} - \hat{\mu})^{2} > c.$$
+
+\subsection{Example.} Suppose that we have two vectors $Y_{1\cdot}$ and $Y_{2\cdot}$ such that 
+\begin{align*}
+    Y_{11}, Y_{12}, \ldots, Y_{1m} &\sim \text{N}(\mu_{1}, \sigma^{2}) \\
+    Y_{21}, Y_{22}, \ldots, Y_{2n} &\sim \text{N}(\mu_{2}, \sigma^{2})
+\end{align*}
+where all observations are independent. Suppose that $\sigma^{2}$ is unknown and that we have the hypotheses 
+$$H_{0}: \mu_{1} = \mu_{2}, \sigma^{2} > 0 \quad \text{vs.} \quad H_{1}: \mu_{1} \neq \mu_{2}, \sigma^{2} > 0.$$
+It can be shown that the glr is 
+\begin{align*}
+    \Lambda = \left(\frac{\hat{\sigma}}{\hat{\sigma}_{0}}\right)^{m+n}.
+\end{align*}
+where 
+\begin{align*}
+    \sigma^{2} &= \frac{1}{m+n}\left(\sum_{j=1}^{m}(Y_{1j} - \hat{\mu}_{1})^{2}  + \sum_{j=1}^{n}(Y_{2j} - \hat{\mu}_{2})^{2}\right) \\
+    \sigma^{2}_{0} &= \frac{1}{m+n}\left(\sum_{j=1}^{m}(Y_{1j} - \hat{\mu}_{0})^{2}  + \sum_{j=1}^{n}(Y_{2j} - \hat{\mu}_{0})^{2}\right)
+\end{align*}
+where $\mu_{1}, \mu_{2}$ are respectivey the sample mean of group one and group two and $\mu_{0}$ is the grand sample mean. We reject $H_{0}$ for small values of $\Lambda$, i.e, for large values of 
+$$\frac{\hat{\sigma}_{0}^{2}}{\hat{\sigma}^{2}} = 1 + \frac{m(\hat{\mu}_{1} - \hat{\mu}_{0})^{2} + n(\hat{\mu}_{2} - \hat{\mu}_{0})^{2}}{(m+n-2)s_{p}^{2}}$$
+where $s_{p}^{2}$ is the pooled sample variance. This is equivalent to if we reject $H_{0}$ for large values of 
+$$\frac{mn(\hat{\mu}_{1} - \hat{\mu}_{2})^{2}/(m+n)}{(m+n-2)s_{p}^{2}}.$$
+Observe that under $H_{0}$, 
+$$\frac{\hat{\mu}_{1} - \hat{\mu}_{2}}{\sqrt{(m+n)\sigma^{2}/(mn)}} \sim \text{N}(0, 1)$$
+and 
+$$\frac{(m+n-2)s_{p}^{2}}{\sigma^{2}} \sim \chi_{m+n-2}^{2}$$
+are independent. We see then that we reject $H_{0}$ for large values of the statistic 
+$$\frac{\hat{\mu}_{1} - \hat{\mu}_{2}}{\sqrt{(1/m + 1/n)s_{p}^{2}}} \sim \text{t}(m+n-2).$$
+
+\newpage \newsection{Analysis of Variance.}
+
+\subsection{Introduction.} Analysis of Variance.
+
+\subsection{Theorem.} (Cochran's Theorem.) Suppose that $Z_{1}, \ldots, Z_{n} \sim \text{N}(0, 1)$ iid. Then,
+$$\sum_{i=1}^{n}(Z-\bar{Z})^{2} \sim \chi^{2}(n-1).$$
+
+\subsection{Corollary.} (Continued.) Suppose that $X_{1}, \ldots, X_{n} \sim \text{N}(0, \sigma^{2})$. Then, the sample variance is such that 
+$$\frac{s^{2}}{\sigma^{2}} \sim \chi^{2}(n-1).$$
+
+\subsection{Definition.} Suppose that we have $I$ groups of data $Y_{ij}$ where $j = 1, \ldots, J_{i}$. Define the group sample mean of the $i$th group as 
+$$\bar{Y}_{i\cdot} = \frac{1}{J_{i}}\sum_{j=1}^{J_{i}}Y_{ij}$$
+and the grand sample mean as 
+\begin{align*}
+    \bar{Y}_{\cdot\cdot} &= \frac{1}{N}\sum_{i=1}^{I}\sum_{j=1}^{J_{i}}Y_{ij} \\
+                         &= \frac{1}{N}\sum_{i=1}^{I}J_{i}\bar{Y}_{i\cdot}.
+\end{align*}
+
+\subsection{Definition.} Define the group sample variance of the $i$th group as 
+$$S_{i}^{2} = \frac{1}{J_{i}-1}\sum_{j=1}^{J_{i}}(Y_{ij} - \bar{Y}_{i\cdot})^{2}.$$
+Define the pooled sample variance as 
+\begin{align*}
+    S_{p}^{2} &= \frac{1}{N-I}\sum_{i=1}^{I}\sum_{j=1}^{J_{i}}(Y_{ij} - \bar{Y}_{i\cdot})^{2} \\
+              &= \frac{1}{N-I}\sum_{i=1}^{I}(J_{i}-1)S_{i}^{2}.
+\end{align*}
+
+\subsection{Lemma.} If the data $Y_{ij}$ are iid, then the pooled sample variance is such that 
+$$\frac{(N-I)S_{p}^{2}}{\sigma^{2}} \sim \chi^{2}(N-I).$$
+
+\subsection{Definition.} Define the total sum of squares as 
+$$TSS = \sum_{i=1}^{I}\sum_{j=1}^{J_{i}}(Y_{ij} - \bar{Y}_{\cdot\cdot})^{2}$$
+and the sum of squares within as 
+\begin{align*}
+    SSW &= \sum_{i=1}^{I}\sum_{j=1}^{J_{i}}(Y_{ij} - \bar{Y}_{i\cdot})^{2} \\
+        &= \sum_{i=1}^{I}(J_{i}-1)S_{i}^{2}
+\end{align*}
+and the sum of squares between as
+\begin{align*}
+    SSB &= \sum_{i=1}^{I}\sum_{j=1}^{J_{i}}(\bar{Y}_{i\cdot} - \bar{Y}_{\cdot\cdot})^{2} \\
+        &= \sum_{i=1}^{I}J_{i}(\bar{Y}_{i\cdot} - \bar{Y}_{\cdot\cdot})^{2}.
+\end{align*}
+Observe that 
+$$TSS = SSW + SSB.$$
+
+\subsection{Theorem.} The expectation of $SSW$ is 
+$$\E(SSW) = (N-I)\sigma^{2}.$$
+The expectation of $SSB$ is
+$$(I-1)\sigma^{2} + \sum_{i=1}^{I}J_{i}\alpha_{i}^{2}.$$
+
+\subsection{Theorem.} If the errors $\epsilon_{ij} \sim \text{N}(0, \sigma^{2})$ iid and furthermore $\alpha_{i} = 0$ for all $i$, then
+$$\frac{SSW}{\sigma^{2}} \sim \chi^{2}(N-I)$$
+and 
+$$\frac{SSB}{\sigma^{2}} \sim \chi^{2}(I-1).$$
+Furthermore, $SSW$ and $SSB$ are independent, so the ratio 
+$$\frac{SSB/(I-1)}{SSW/(N-I)} \sim \text{F}(I-1, N-I).$$
+
+\subsection{Definition.} The one-way ANOVA layout is such that suppose that we have $I$ groups of data such that 
+$$Y_{ij} = \mu + \alpha_{i} + \epsilon_{ij}$$
+where $i = 1, \ldots, I$ and $j = 1, \ldots, J_{i}$. Suppose also that $\epsilon_{ij} \sim \text{N}(0, \sigma^{2})$ iid and $\alpha_{1} + \ldots + \alpha_{I} = 0$. Our unknown variables are therefore $\mu, \sigma^{2}, \alpha_{1}, \ldots, \alpha_{I-1}$ (because $\alpha_{I}$ is uniquely determined by the other $\alpha_{i}$). We have then that the likelihood of our data is 
+$$f(y|\mu, \alpha, \sigma^{2}) = \left(\frac{1}{\sigma\sqrt{2\pi}}\right)^{N}\exp\left(-\frac{1}{2\sigma^{2}}\sum_{i=1}^{I}\sum_{j=1}^{J_{i}}(y_{ij} - \mu - \alpha_{i})^{2}\right)$$
+where $N = J_{1} + \ldots + J_{I}$ and $\alpha = (\alpha_{1}, \ldots, \alpha_{I}$). Suppose that we want to test the hypotheses
+$$H_{0}: \alpha = 0 \quad \text{vs.} \quad H_{1}: \alpha \neq 0.$$
+The glr is therefore 
+$$\Lambda = \left(\frac{\hat{\sigma}}{\hat{\sigma}_{0}}\right)^{N}$$
+where 
+\begin{align*}
+        \hat{\sigma}^{2} &= \frac{1}{N}\sum_{i=1}^{I}\sum_{j=1}^{J_{i}}(Y_{ij} - \bar{Y}_{i\cdot})^{2} \\
+    \hat{\sigma}_{0}^{2} &= \frac{1}{N}\sum_{i=1}^{I}\sum_{j=1}^{J_{i}}(Y_{ij} - \bar{Y}_{\cdot\cdot})^{2}
+\end{align*}
+are respectively the mles under $H_{1}$ and $H_{0}$. We reject $H_{0}$ for small values of $\Lambda$, i.e., for large values of 
+\begin{align*}
+    \frac{\hat{\sigma_{0}^{2}}}{\hat{\sigma}^{2}} &= \left(\sum_{i=1}^{I}\sum_{j=1}^{J_{i}}(Y_{ij} - \bar{Y}_{\cdot\cdot})^{2}\right) / \left(\sum_{i=1}^{I}\sum_{j=1}^{J_{i}}(Y_{ij} - \bar{Y}_{i\cdot})^{2}\right) \\
+                                          &= \left(\sum_{i=1}^{J}\sum_{j=1}^{J_{i}}(Y_{ij} - \bar{Y}_{i\cdot})^{2} + \sum_{i=1}^{I}\sum_{j=1}^{J_{i}}(\bar{Y}_{i\cdot} - \bar{Y}_{\cdot\cdot})^{2}\right) / \left(\sum_{i=1}^{I}\sum_{j=1}^{J_{i}}(Y_{ij} - \bar{Y}_{i\cdot})^{2}\right) \\
+                                          &= \frac{SSB + SSW}{SSW}
+\end{align*}
+or equivalently for large values of 
+$$\frac{SSB/(I-1)}{SSW/(N-I)} \sim \text{F}(I-1, N-I)$$
+where the threshold is chosen such that our test is level $\alpha$.
+
+\subsection{Definition.} Tukey's test is such that suppose that we have the one-way ANOVA layout where the group sample sizes are all equal to $J$. Consider the distribution of the statistic 
+$$W = \max_{i \neq j}\frac{|(\bar{Y}_{i\cdot} - \bar{Y}_{j\cdot})|}{\sqrt{S_{p}^{2}/J}}.$$
+The distribution of $W$ is the studentized range distribution with $I$ and $I(J-1)$ df. The $1-\alpha$-quantiles of the studentized range distribution are denoted by 
+$$q_{\alpha}(I, I(J-1)).$$
+We reject $H_{0}: \mu_{1} = \ldots = \mu_{I}$ at level $\alpha$ if 
+$$W > q_{\alpha}(I, I(J-1))\frac{S_{p}^{2}}{\sqrt{J}}.$$
+The $100(1-\alpha)\%$-confidence interval for any pair $i \neq j$ is 
+$$(\bar{Y}_{i\cdot} - \bar{Y_{j\cdot}}) \pm q_{\alpha}(I, I(J-1))\frac{S_{p}}{\sqrt{J}}.$$
+For any pair $i \neq j$, we reject $H_{0}: \mu_{i} = \mu_{j}$ at level $\alpha$ if
+$$|\bar{Y}_{i\cdot} - \bar{Y}_{j\cdot}| > q_{\alpha}(I, I(J-1))\frac{S_{p}}{\sqrt{J}}.$$
+
+\subsection{Definition.} The two-way ANOVA layout is such that suppose that we have $I$ groups of data such that 
+$$Y_{ijk} = \mu + \alpha_{i} + \beta_{j} + \delta_{ij} + \epsilon_{ijk}$$
+where $i = 1, \ldots, I$ and $j = 1, \ldots J$ and $k = 1, \ldots, K$. Suppose also that $\epsilon_{ijk} \sim \text{N}(0, \sigma^{2})$ iid and that 
+\begin{align*}
+     \sum_{i=1}^{I}\alpha_{i} &= 0 \\
+      \sum_{j=1}^{J}\beta_{j} &= 0 \\
+    \sum_{i=1}^{I}\delta_{ij} &= 0 \\
+    \sum_{j=1}^{J}\delta_{ij} &= 0.
+\end{align*}
+The likelihood is then 
+$$f(y|\mu, \alpha, \beta, \delta, \sigma^{2}) = \left(\frac{1}{\sigma\sqrt{2\pi}}\right)^{N}\exp\left(-\frac{1}{2\sigma^{2}}\sum_{i=1}^{I}\sum_{j=1}^{J}\sum_{k=1}^{K}(y_{ijk} - \mu - \alpha_{i} - \beta_{j} - \delta_{ij})^{2}\right).$$
+It follows that the mles are 
+\begin{align*}
+            \hat{\mu} &= \bar{Y}_{\cdot\cdot\cdot} \\
+     \hat{\alpha}_{i} &= \bar{Y}_{i\cdot\cdot} - \bar{Y}_{\cdot\cdot\cdot} \\
+      \hat{\beta}_{j} &= \bar{Y}_{\cdot j\cdot} - \bar{Y}_{\cdot\cdot\cdot} \\
+    \hat{\delta}_{ij} &= \bar{Y}_{ij\cdot} - \bar{Y}_{i\cdot\cdot} - \bar{Y}_{\cdot j\cdot} + \bar{Y}_{\cdot\cdot\cdot} \\
+     \hat{\sigma}^{2} &= \frac{1}{N}\sum_{i=1}^{I}\sum_{j=1}^{J}\sum_{k=1}^{K}(Y_{ijk} - \hat{\mu} - \hat{\alpha}_{i} - \hat{\beta}_{j} - \hat{\delta}_{ij})^{2}.
+\end{align*}
+Define the total sum of squares as 
+$$TSS = \sum_{i=1}^{I}\sum_{j=1}^{J}\sum_{k=1}^{K}(Y_{ijk} - \bar{Y}_{\cdot\cdot\cdot})^{2}$$
+and note that it has $IJK-1$ df. Define the sum of squares for the main effect of $\alpha$ as
+$$SSA = JK\sum_{i=1}^{I}(\bar{Y}_{i\cdot\cdot} - \bar{Y}_{\cdot\cdot\cdot})^{2}$$
+and the sum of squares for the main effect of $\beta$ as
+$$SSB = IK\sum_{j=1}^{J}(\bar{Y}_{\cdot j\cdot} - \bar{Y}_{\cdot\cdot\cdot})^{2}$$
+and the sum of squares for the interaction effect as
+$$SSAB = K\sum_{i=1}^{I}\sum_{j=1}^{J}(\bar{Y}_{ij\cdot} - \bar{Y}_{i\cdot\cdot} - \bar{Y}_{\cdot j\cdot} + \bar{Y}_{\cdot\cdot\cdot})^{2}.$$
+and the sum of squares for the error as
+$$SSE = \sum_{i=1}^{I}\sum_{j=1}^{J}\sum_{k=1}^{K}(Y_{ijk} - \bar{Y}_{ij\cdot})^{2}.$$
+Note that $TSS = SSA + SSB + SSAB + SSE$. Observe also that 
+\begin{align*}
+     \frac{SSA}{\sigma^{2}} &\sim \chi^{2}(I-1) \\
+     \frac{SSB}{\sigma^{2}} &\sim \chi^{2}(J-1) \\
+    \frac{SSAB}{\sigma^{2}} &\sim \chi^{2}((I-1)(J-1)) \\
+     \frac{SSE}{\sigma^{2}} &\sim \chi^{2}(IJ(K-1)).
+\end{align*}
+We may then choose the appropriate $\text{F}$-statistic to test our desired hypothesis.
+
+\newpage \newsection{Simple Linear Regression.}
+
+\subsection{Introduction.} Simple Linear Regression.
+
+\subsection{Definition.} Simple linear regression is such that suppose that we have data $(x_{1}, y_{1}), \ldots, (x_{n}, y_{n})$ and that the conditional distribution of $Y_{i}$ given $X_{i} = x_{i}$ is 
+$$Y(x) = \beta_{0} + \beta_{1} X + \epsilon_{i}$$
+where $\epsilon_{i} \sim \text{N}(0, \sigma^{2})$ iid. The least-squares estimators are 
+$$(\hat{\beta}_{0}, \hat{\beta}_{1}) = \arg\min_{\beta_{0}, \beta_{1}}\sum_{i=1}^{n}(y_{i} - \beta_{0} - \beta_{1}x_{i})^{2}.$$
+The solutions are 
+\begin{align*}
+    \hat{\beta}_{1} &= \sum_{i=1}^{n}(x_{i} - \bar{x})(y_{i} - \bar{y}) / \sum_{i=1}^{n}(x_{i} - \bar{x})^{2} \\
+    \hat{\beta}_{0} &= \bar{y} - \hat{\beta}_{1}\bar{x}.
+\end{align*}
+
+\subsection{Definition.} Define 
+\begin{align*}
+    S_{xx} &= \sum_{i=1}^{n}(x_{i} - \bar{x})^{2} \\
+    S_{yy} &= \sum_{i=1}^{n}(y_{i} - \bar{y})^{2} \\
+    S_{xy} &= \sum_{i=1}^{n}(x_{i} - \bar{x})(y_{i} - \bar{y}).
+\end{align*}
+Observe that 
+$$\hat{\beta}_{1} = \frac{S_{xy}}{S_{xx}}.$$
+
+\subsection{Lemma.} $S_{xx}$ is such that 
+$$S_{xx} = \sum_{i=1}^{n}(x_{i} - \bar{x})x_{i}.$$
+$S_{xy}$ is such that 
+$$S_{xy} = \sum_{i=1}^{n}(x_{i} - \bar{x})y_{i}.$$
+
+\subsection{Theorem.} The estimator $\hat{\beta}_{1}$ for $\beta_{1}$ is such that $\hat{\beta}_{1} \sim \text{N}(\beta_{1}, \sigma^{2}/S_{xx})$.
+
+\subsection{Proof.} (Continuted.) Observe that 
+$$\hat{\beta}_{1} = \frac{1}{S_{xx}}\sum_{i=1}^{n}(x_{i} - \bar{x})y_{i}.$$
+We model the $x$ data as nonrandom, so $\hat{\beta}_{1}$ is a linear combination of the normal $y$ data and is therefore normal. Furthermore, the expectation of $\hat{\beta}_{1}$ is
+\begin{align*}
+    \E(\hat{\beta}_{1}) &= \E\left(\frac{1}{S_{xx}}\sum_{i=1}^{n}(x_{i}-\bar{x})y_{i}\right) \\
+                        &= \frac{1}{S_{xx}}\sum_{i=1}^{n}(x_{i}-\bar{x})\E(y_{i}) \\
+                        &= \frac{1}{S_{xx}}\sum_{i=1}^{n}(x_{i}-\bar{x})(\beta_{0} + \beta_{1}x_{i}) \\
+                        &= \frac{1}{S_{xx}}\sum_{i=1}^{n}(x_{i}-\bar{x})\beta_{1}x_{i} \\
+                        &= \beta_{1}.
+\end{align*}
+The variance of $\hat{\beta}_{1}$ is
+\begin{align*}
+    \Var(\hat{\beta}_{1}) &= \Var\left(\frac{1}{S_{xx}}\sum_{i=1}^{n}(x_{i}-\bar{x})y_{i}\right) \\
+                          &= \frac{1}{S_{xx}^{2}}\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}\Var(y_{i}) \\
+                          &= \frac{\sigma^{2}}{S_{xx}}.
+\end{align*}
+
+\subsection{Theorem.} The estimator $\hat{\beta}_{0}$ for $\beta_{0}$ is such that $\hat{\beta}_{0} \sim \text{N}(\beta_{0}, \sigma^{2}S_{xx}/n)$.
+
+\subsection{Proof.} (Continued.) Observe that 
+\begin{align*}
+    \hat{\beta}_{0} &= \frac{1}{n}\sum_{i=1}^{n}y_{i} - \bar{x}\sum_{i=1}^{n}\frac{(x_{i}-\bar{x})y_{i}}{S_{xx}} \\
+                    &= \sum_{i=1}^{n}\left(\frac{1}{n} + \frac{x_{i}-\bar{x}}{S_{xx}}\right)y_{i}.
+\end{align*}
+We model the $x$ data as nonrandom, so $\hat{\beta}_{0}$ is a linear combination of the normal $y$ data and is therefore normal. Furthermore, the expectation of $\hat{\beta}_{0}$ is
+\begin{align*}
+    \E(\hat{\beta}_{0}) &= \E(\bar{y} - \hat{\beta}_{1}\bar{x}) \\
+                        &= \frac{1}{n}\sum_{i=1}^{n}(\beta_{0} + \beta_{1}x_{i}) - \hat{\beta}_{1}\bar{x} \\
+                        &= \beta_{0}.
+\end{align*}
+The variance of $\hat{\beta}_{0}$ is
+\begin{align*}
+    \Var(\hat{\beta}_{0}) &= \Var(\bar{y} - \hat{\beta}_{1}\bar{x}) \\
+                          &= \Var\left(\frac{1}{n}\sum_{i=1}^{n}(\beta_{0} + \beta_{1}x_{i} + \epsilon_{i}) - \hat{\beta}_{1}\bar{x}\right) \\
+                          &= \frac{1}{n}\sigma^{2} + \bar{x}^{2}\frac{\sigma^{2}}{S_{xx}} \\
+                          &= \sigma^{2}\left(\frac{1}{n} + \frac{\bar{x}^{2}}{S_{xx}}\right) \\
+                          &= \frac{\sigma^{2}}{nS_{xx}}\left(\sum_{i=1}^{n}(x_{i}-\bar{x})x_{i} + n\bar{x}^{2}\right) \\
+                          &= \frac{\sigma^{2}}{nS_{xx}}\sum_{i=1}^{n}x_{i}^{2}.
+\end{align*}
+
+\subsection{Theorem.} The covariance between $\hat{\beta}_{0}$ and $\hat{\beta}_{1}$ is 
+$$\Cov(\hat{\beta}_{0}, \hat{\beta}_{1}) = -\frac{\bar{x}\sigma^{2}}{S_{xx}}.$$
+
+\subsection{Proof.} (Continued.) Observe that 
+\begin{align*}
+    \Cov(\hat{\beta}_{0}, \hat{\beta}_{1}) &= \Cov\left(\bar{y} - \hat{\beta}_{1}\bar{x}, \hat{\beta}_{1}\right) \\
+                                           &= \Cov(\bar{y}, \hat{\beta}_{1}) - \bar{x}\Var(\hat{\beta}_{1}) \\
+                                           &= \Cov\left(\frac{1}{n}\sum_{i=1}^{n}y_{i}, \frac{1}{S_{xx}}\sum_{i=1}^{n}(x_{i}-\bar{x})y_{i}\right) - \bar{x}\frac{\sigma^{2}}{S_{xx}} \\
+                                           &= \frac{1}{nS_{xx}}\sum_{i=1}^{n}(x_{i}-\bar{x})\sigma^{2} - \bar{x}\frac{\sigma^{2}}{S_{xx}} \\
+                                           &= -\frac{\bar{x}\sigma^{2}}{S_{xx}}.
+\end{align*}
+
+\subsection{Theorem.} The estimator 
+\begin{align*}
+    \hat{Y}(x) &= \hat{\beta}_{0} + \hat{\beta}_{1}x \\
+               &= \sum_{i=1}^{n}\left(\frac{1}{n} + \frac{(x_{i}-\bar{x})}{S_{xx}}(x-\bar{x})\right)y_{i}
+\end{align*}
+for $Y(x)$ is such that 
+$$\hat{Y}(x) \sim \text{N}\left(\beta_{0} + \beta_{1}x, \sigma^{2}\left(\frac{1}{n} + \frac{(x-\bar{x})^{2}}{S_{xx}}\right)\right).$$
+
+\subsection{Proof.} (Continued.) Observe that $Y(x)$ is a linear combination of the normal $y$ data and is therefore normal. The expectation of $\hat{Y}(x)$ is 
+\begin{align*}
+    \E(\hat{Y}(x)) &= \E(\hat{\beta}_{0} + \hat{\beta}_{1}x) \\
+                   &= \beta_{0} + \beta_{1}x.
+\end{align*}
+The variance of $\hat{Y}(x)$ is
+\begin{align*}
+    \Var(\hat{Y}(x)) &= \Var\left(\sum_{i=1}^{n}\left(\frac{1}{n} + \frac{(x_{i}-\bar{x})}{S_{xx}}(x-\bar{x})\right)y_{i}\right) \\
+                     &= \sigma^{2}\sum_{i=1}^{n}\left(\frac{1}{n} + \frac{(x_{i}-\bar{x})}{S_{xx}}(x-\bar{x})\right)^{2} \\
+                     &= \sigma^{2}\sum_{i=1}^{n}\left(\frac{1}{n^{2}} + \frac{2(x_{i}-\bar{x})(x-\bar{x})}{nS_{xx}} + \frac{(x_{i}-\bar{x})^{2}(x-\bar{x})^{2}}{S_{xx}^{2}}\right) \\
+                     &= \sigma^{2}\left(\frac{1}{n} + \frac{(x-\bar{x})^{2}}{S_{xx}}\right).
+\end{align*}
+
+\subsection{Definition.} Define the mean squared error as 
+$$MSE = \frac{1}{n-2}\sum_{i=1}^{n}(y_{i} - \hat{Y}(x_{i}))^{2}.$$
+
+\subsection{Lemma.} The estimator $MSE$ for $\sigma^{2}$ is such that 
+$$\frac{(n-2)MSE}{\sigma^{2}} \sim \chi^{2}(n-2).$$
+
+\subsection{Definition.} The question of model utility is to test the hypotheses 
+$$H_{0}: \beta_{1} = 0 \quad \text{vs.} \quad H_{1}: \beta_{1} \neq 0.$$
+Under $H_{0}$, we have that $\hat{\beta}_{1} \sim \text{N}(0, \sigma^{2}/S_{xx})$. We therefore reject $H_{0}$ for large absolute values of 
+$$\frac{\hat{\beta}_{1}}{\sqrt{MSE/S_{xx}}} \sim \text{t}(n-2)$$
+where the threshold is chosen such that our test is level $\alpha$.
+
+\subsection{Lemma.} The mean of the predicted values $\bar{\hat{y}}$ is equal to the mean of the observed values $\bar{y}$.
+
+\subsection{Definition.} Define the total sum of squares 
+$$TSS = \sum_{i=1}^{n}(y_{i} - \bar{y})^{2}$$
+and the sum of squares regression
+$$SSR = \sum_{i=1}^{n}(\hat{y}_{i} - \bar{y})^{2}$$
+and the sum of squares error
+$$SSE = \sum_{i=1}^{n}(y_{i} - \hat{y}_{i})^{2}.$$
+
+\subsection{Lemma.} $TSS$, $SSR$, and $SSE$ are such that 
+\begin{align*}
+    TSS &= S_{yy} \\
+    SSR &= \frac{S_{xy}^{2}}{S_{xx}} \\
+    SSE &= S_{yy} - \frac{S_{xy}^{2}}{S_{xx}}.
+\end{align*}
+
+\subsection{Proof.} (Continued.) $TSS = S_{yy}$ is trivial. We may write 
+\begin{align*}
+    SSR &= \sum_{i=1}^{n}(\hat{y}_{i}-\bar{y})^{2} \\
+        &= \sum_{i=1}^{n}(\hat{\beta}_{0} + \hat{\beta}_{1}x_{i} - \bar{y})^{2} \\
+        &= \sum_{i=1}^{n}(\bar{y} + \hat{\beta}_{1}\bar{x} + \hat{\beta}_{1}x_{i} - \bar{y})^{2} \\
+        &= \sum_{i=1}^{n}\hat{\beta}_{1}(x_{i} - \bar{x})^{2} \\
+        &= \hat{\beta}_{1}^{2}S_{xx} \\
+        &= \frac{S_{xy}^{2}}{S_{xx}}
+\end{align*}
+and 
+\begin{align*}
+    SSE &= \sum_{i=1}^{n}(\hat{y}_{i} - y_{i})^{2} \\
+        &= \sum_{i=1}^{n}(\hat{\beta}_{0} + \hat{\beta}_{1}x_{i} - y_{i})^{2} \\
+        &= \sum_{i=1}^{n}(\bar{y} + \hat{\beta}_{1}\bar{x} + \hat{\beta}_{1}x_{i} - y_{i})^{2} \\
+        &= \sum_{i=1}^{n}(y_{i} - \bar{y} - \hat{\beta}_{1}(x_{i} - \bar{x}))^{2} \\
+        &= \sum_{i=1}^{n}((y_{i}-\bar{y})^{2} - 2\beta_{1}(x_{i}-\bar{x})(y_{i}-\bar{y}) + \beta_{1}^{2}(x_{i}-\bar{x})^{2}) \\
+        &= S_{yy} - 2\frac{S_{xy}}{S_{xx}}S_{xy} + \frac{S_{xy}^{2}}{S_{xx}^{2}}S_{xx} \\
+        &= S_{yy} - \frac{S_{xy}^{2}}{S_{xx}}.
+\end{align*}
+
+\subsection{Theorem.} $TSS = SSR + SSE$.
+
+\subsection{Proof.} (Continued.) It is clear from the previous lemma that $TSS = SSR + SSE$. Alternatively, we may first observe that 
+\begin{align*}
+    \sum_{i=1}^{n}(y_{i}-\hat{y}_{i})(\hat{y}_{i}-\bar{y}) &= \sum_{i=1}^{n}(y_{i}-\hat{y}_{i})\hat{y}_{i} - \sum_{i=1}^{n}(y_{i}-\hat{y}_{i})\bar{y} \\
+                                                           &= \sum_{i=1}^{n}(y_{i}-\hat{y}_{i})\hat{y}_{i} \\
+                                                           &= \sum_{i=1}^{n}(y_{i}-\bar{y}-\hat{\beta}_{1}(x_{i} - \bar{x}))(\hat{\beta}_{0} + \hat{\beta}_{1}x_{i}) \\
+                                                           &= \sum_{i=1}^{n}(y_{i}-\bar{y})(\hat{\beta}_{0} + \hat{\beta}_{1}x_{i}) - \hat{\beta}_{1}\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y}) \\
+                                                           &= \sum_{i=1}^{n}(y_{i}-\bar{y})\hat{\beta}_{1}x_{i} - \frac{S_{xy}^{2}}{S_{xx}} \\
+                                                           &= 0.
+\end{align*}
+We see then that 
+\begin{align*}
+    TSS &= \sum_{i=1}^{n}(y_{i} - \bar{y})^{2} \\
+        &= \sum_{i=1}^{n}(y_{i} - \hat{y})_{i}^{2} + 2\sum_{i=1}^{n}(y_{i} - \hat{y}_{i})(\hat{y}_{i} - \bar{y}) + \sum_{i=1}^{n}(\hat{y}_{i} - \bar{y})^{2} \\
+        &= SSE + SSR.
+\end{align*}
+
+\subsection{Definition.} ANOVA for simple linear regression is such that suppose that we want to test the hypotheses 
+$$H_{0}: \beta_{1} = 0 \quad \text{vs.} \quad H_{1}: \beta_{1} \neq 0.$$
+We then reject $H_{0}$ for large values of 
+$$\frac{SSR}{SSE/(n-2)} \sim \text{F}(1, n-2)$$
+where the threshold is chosen such that our test is level $\alpha$.
+
+\subsection{Example.} The distribution of $\hat{Y}(x) - E(Y(x))$ is such that 
+$$\frac{\hat{Y}(x) - \beta_{0} - \beta_{1}x}{\sqrt{\sigma^{2}(1/n + (x-\bar{x})^{2}/S_{xx})}} \sim \text{N}(0, 1).$$
+If $\sigma^{2}$ is not known, then we may use the estimator $MSE$ to obtain the distribution 
+$$\frac{\hat{Y}(x) - \beta_{0} - \beta_{1}x}{\sqrt{MSE(1/n + (x-\bar{x})^{2}/S_{xx})}} \sim \text{t}(n-2).$$
+It follows that the $100(1-\alpha)\%$ confidence interval for $\E(Y(x))$ is
+$$\hat{Y}(x) \pm \text{t}_{\alpha/2}(n-2)\sqrt{MSE(1/n + (x-\bar{x})^{2}/S_{xx})}.$$
+
+\subsection{Example.} The distribution of $\hat{Y}(x) - Y(x)$ is such that 
+$$\frac{\hat{Y}(x) - Y(x)}{\sqrt{\sigma^{2}(1 + 1/n + (x-\bar{x})^{2}/S_{xx})}} \sim \text{N}(0, 1)$$
+because $Y(x)$ itself is a rv with variance $\sigma^{2}$ that is furthermore independent of $\hat{Y}(x)$ (because $\hat{Y}(x)$ is a function of the data $(x_{1}, y_{1}), \ldots, (x_{n} y_{n})$ which is independent of the new data $(x, y)$). If $\sigma^{2}$ is not known, then we may use the estimator $MSE$ to obtain the distribution
+$$\frac{\hat{Y}(x) - Y(x)}{\sqrt{MSE(1 + 1/n + (x-\bar{x})^{2}/S_{xx})}} \sim \text{t}(n-2).$$
+It follows that the $100(1-\alpha)\%$ prediction interval for $Y(x)$ is 
+$$\hat{Y}(x) \pm \text{t}_{\alpha/2}(n-2)\sqrt{MSE(1 + 1/n + (x-\bar{x})^{2}/S_{xx})}.$$
+
+\subsection{Definition.} Define the coefficient of determination $r^{2}$ as 
+\begin{align*}
+    r^{2} &= \frac{SSR}{TSS} \\
+          &= \frac{S_{xy}^{2}}{S_{xx}S_{yy}}.
+\end{align*}
 
 \end{document}
