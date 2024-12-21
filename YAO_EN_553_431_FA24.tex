@@ -46,7 +46,7 @@ All sample sizes $n$ satisfy $n \geq 1$, and in some cases, we specify if $n > 1
 
 \subsection{Introduction.} Probability.
 
-\subsection{Remark.} This course EN.553.431 Honors Mathematical Statistics is taken after the prerequisite EN.553.420 Probability or EN.553.420 Honors Probability. The following notes shall be brief.
+\subsection{Remark.} This course EN.553.431 Honors Mathematical Statistics is taken after the prerequisite EN.553.420 Probability or EN.553.421 Honors Probability. The following notes shall be brief.
 
 \subsection{Definition.} If $X$ and $Y$ are rvs with respective pdfs $f_{x}$ and $f_{y}$ and joint pdf $f_{xy}$, then the conditional pdf of $Y$ given $X = x$ is
 $$f_{y|x}(y|x) = \frac{f_{xy}(x, y)}{f_{x}(x)}.$$
@@ -76,10 +76,8 @@ Then, since $X \geq 0$ and expectation is monotonic, we have that
 \subsection{Theorem.} (Chebyshev's Inequality.) Let $X$ be a rv with finite mean $\mu$ and finite variance $\sigma^{2}$. Then, for any $\delta > 0$, 
 $$P(|X - \mu| \geq \delta) \leq \frac{\sigma^{2}}{\delta^{2}}.$$
 
-\subsection{Proof.} (Continued.) From Markov's Inequality, take 
-$$X = (X - \mu)^{2}$$
-and 
-$$\E\left(X - \mu\right)^{2} = \sigma^{2}$$
+\subsection{Proof.} (Continued.) From Markov's Inequality, take the argument $(X - \mu)^{2}$ and observe that 
+$$\E((X - \mu)^{2}) = \sigma^{2}$$
 to obtain Chebyshev's Inequality.
 
 \subsection{Theorem.} (Cauchy-Schwarz Inequality.) Let $X$ and $Y$ be rvs with finite second moments. Then,
@@ -90,7 +88,7 @@ $$f(\E(X)) \leq \E(f(X)).$$
 If $f$ is strictly convex, then the inequality is strict if $X$ is not degenerate.
 
 \subsection{Definition.} For two random $k$-vectors $X$ and $Y$, the covariance matrix is a matrix $\Sigma \in \mathbb{R}^{k \times k}$ such that
-$$(\Sigma)_{ij} = \Cov(X_{i}, Y_{j}).$$
+$$\Sigma_{ij} = \Cov(X_{i}, Y_{j}).$$
 
 \subsection{Theorem.} Suppose that $X,Y$ are random $k$-vectors and that $A, B \in \mathbb{R}^{m \times k}$. Then, the covariance matrix between $AX$ and $BY$ is an $m \times m$ matrix given by 
 $$\Cov(AX, BY) = A\Sigma B^{T}.$$
@@ -181,7 +179,7 @@ the (distinct) numerical values of the $x$- and $y$-measurements are
 $$\xi_{l} \text{ and } \eta_{r}$$
 for $l = 1, 2, \ldots, L$ and $r = 1, 2, \ldots, R$ where $L$ and $R$ are the respective number of distinct $x$- and $y$-measurements. The probability that the $i$th sample point has $X_{i} = \xi_{l}$ is
 $$P(X_{i} = \xi_{l}) = \frac{n_{l}}{N}$$
-and similarly for the $y$-measurements.
+where $n_{l}$ is the multiplicity of $\xi_{l}$ and similarly for the $y$-measurements.
 
 \subsection{Remark.} Observe the distinction between $x_{k}$ and $\xi_{l}$. $x_{k}$ is the $x$-measurement, which need not be distinct, for the $k$th object. That is 
 $$X_{1} = x_{k} \text{ iff } Z_{1} = z_{k}.$$
@@ -231,7 +229,7 @@ because we exhaust the population. We have that
 \begin{align*}
                  0 &= \Var(\bar{X}) \\
                    &= \frac{1}{N^{2}}\Cov\left(\sum_{i=1}^{N}X_{i}, \sum_{j=1}^{N}X_{j}\right) \\
-                   &= \frac{1}{N^{2}}\left(\sum_{i=1}^{N}\Var(X_{i}) + \sum\sum_{i \neq j}\Cov(X_{i}, X_{j})\right) \\
+                   &= \frac{1}{N^{2}}\left(\sum_{i=1}^{N}\Var(X_{i}) + \sum_{i=1}^{n}\sum_{j \neq i}\Cov(X_{i}, X_{j})\right) \\
                    &= \frac{1}{N^{2}}\left(N\sigma^{2} + N(N-1)\Cov(X_{i}, X_{j})\right) \\
                    &= \frac{1}{N}\sigma^{2} + \frac{N-1}{N}\Cov(X_{i}, X_{j}) \\
 \Cov(X_{i}, X_{j}) &= -\frac{\sigma^{2}}{N-1}.
@@ -251,7 +249,7 @@ $$\Var(\bar{X}) = \frac{1}{n}\left(\frac{N-n}{N-1}\right)\sigma^{2}$$
 where $(N-n)/(N-1)$ is the finite population correction factor.
 \end{enumerate}
 
-\subsection{Proof.} (Continued.) The expectation is the same as before since the sample points are exchangeable. We have that the variance is 
+\subsection{Proof.} (Continued.) The expectation is the same as that of if we sample with replacement because the sample points are exchangeable. We have that the variance is 
 \begin{align*}
     \Var(\bar{X}) &= \frac{1}{n^{2}}\Cov\left(\sum_{i=1}^{n}X_{i}, \sum_{j=1}^{n}X_{j}\right) \\
                   &= \frac{1}{n}\sigma^{2} + \frac{n-1}{n}\Cov(X_{i}, X_{j}) \\
@@ -330,7 +328,7 @@ We can correct this bias to obtain the unbiased estimator $s^{2}$ such that
 
 \subsection{Theorem.} Suppose that we sample uniformly without replacement. The unbiased estimator $\hat{\theta}$ for $\sigma^{2}$ is 
 \begin{align*}
-    \hat{\theta} &= \frac{n}{n-1}\frac{N-1}{N}\hat{\sigma}^{2} \\
+    \hat{\theta} &= \frac{n}{n-1}\frac{N}{N-1}\hat{\sigma}^{2} \\
                  &= \frac{N-1}{N}s^{2}.
 \end{align*}
 
@@ -350,7 +348,7 @@ We then have that
               &= \frac{N}{N-1}\sigma^{2}.
 \end{align*}
 Hence, the unbiased estimator $\hat{\theta}$ for $\sigma^{2}$ is
-$$\hat{\theta} = \frac{n}{n-1}\frac{N}{N-1}\hat{\sigma}^{2}.$$
+$$\hat{\theta} = \frac{n}{n-1}\frac{N-1}{N}\hat{\sigma}^{2}.$$
 
 \subsection{Theorem.} The sample variance $s^{2}$ is a consistent estimator of the population variance $\sigma^{2}$.
 
@@ -405,7 +403,7 @@ We have that
                                                  &= \sigma_{\hat{p}}^{2}.
 \end{align*}
 
-\subsection{Theorem.} Suppose we take a uniform sample of size $n$ from a dichotomous population. Then, for any $\epsilon > 0$ and $\delta > 0$, 
+\subsection{Theorem.} Suppose we take a uniform sample of size $n$ from a dichotomous population. Then, for any $\epsilon > 0$ and $\delta > 0$, we may choose 
 $$n \geq \frac{1}{4\epsilon\delta^{2}}$$
 such that 
 $$P(|\hat{p} - p| > \delta) \leq \epsilon.$$
@@ -464,7 +462,7 @@ $$T_{n} = \sum_{i=1}^{n}X_{i},$$
 the CLT says that 
 $$P\left(\frac{T_{n} - n\mu}{\sigma\sqrt{n}} \leq t\right) \rightarrow \Phi(t) \text{ as } n \rightarrow \infty.$$
 
-\subsection{Note.} The sample mean and the sample total are related in that 
+\subsection{Proof.} (Continued.) The sample mean and the sample total are related in that 
 $$\frac{n}{n}\frac{\bar{X}_{n}-\mu}{\sigma/\sqrt{n}} = \frac{T_{n}-n\mu}{\sigma\sqrt{n}}.$$
 
 \newpage \newsection{Delta Methods.}
@@ -486,10 +484,10 @@ where $M = \max|g^{(n+1)}(\xi)|$ on the interval $(x, y)$.
 \subsection{Theorem.} For $g: \mathbb{R}^{n} \to \mathbb{R}$ twice-differentiable on a closed ball $B$ containing $x$ and $y$, we have that the first-order Taylor polynomial with remainder is 
 $$g(y) = g(x) + \nabla g(x)^{T}(y-x) + \frac{1}{2}(y-x)^{T}H(\xi)(y-x)$$
 where 
-$$\nabla g(x) = \begin{pmatrix} \frac{\partial g}{\partial x_{1}}(\xi) & \cdots & \frac{\partial g}{\partial x_{n}}(\xi) \end{pmatrix}^{T}$$
-for some $\xi \in \mathbb{R}^{n}$ between $x$ and $y$ where is the gradient of $g$ at $x$ and 
+$$\nabla g(x) = \begin{pmatrix} \frac{\partial g}{\partial x_{1}}(x) & \cdots & \frac{\partial g}{\partial x_{n}}(x) \end{pmatrix}^{T}$$
+is the gradient of $g$ at $x$ and where 
 $$H(\xi) = \begin{pmatrix} \frac{\partial^{2} g}{\partial x_{1}^{2}}(\xi) & \cdots & \frac{\partial^{2} g}{\partial x_{1}\partial x_{n}}(\xi) \\ \vdots & \ddots & \vdots \\ \frac{\partial^{2} g}{\partial x_{n}\partial x_{1}}(\xi) & \cdots & \frac{\partial^{2} g}{\partial x_{n}^{2}}(\xi) \end{pmatrix}$$
-is the Hessian of $g$ at $\xi$.
+is the Hessian of $g$ at $\xi$ for some $\xi$ between $x$ and $y$.
 
 \subsection{Example.} For $g: \mathbb{R}^{2} \to \mathbb{R}$, the second order taylor polynomial is 
 $$g(y) \approx g(x) + \nabla g(x)^{T}(y-x) + \frac{1}{2}(y-x)^{T}H(x)(y-x).$$
@@ -710,15 +708,17 @@ there exists an $N_{\epsilon/2} \in \mathbb{N}$ such that for all $n > N_{\epsil
 \end{align*}
 for all $m, n > N_{\epsilon/2}$ by the triangle inequality. Hence, a sequence if convergent if it is Cauchy.
 
-\subsection{Definition.} A set $D$ is complete if every Cauchy sequence in $D$ is convergent to a limit $L \in D$.
+\subsection{Definition.} A field $D$ is complete if every Cauchy sequence in $D$ is convergent to a limit $L \in D$.
 
 \subsection{Theorem.} $\mathbb{R}$ is complete.
+
+\subsection{Theorem.} Every Cauchy sequence in $\mathbb{R}$ is bounded.
 
 \subsection{Proof.} (Continued.) Suppose that $a_{n}$ is a Cauchy sequence in $\mathbb{R}$ that is not bounded. Then, for all $\epsilon > 0$, there exists an $N_{\epsilon} \in \mathbb{N}$ such that
 $$d(a_{n}, a_{m}) < \epsilon, \forall n,m \geq N_{\epsilon}.$$
 But $a_{n}$ is not bounded, so for any $\epsilon > 0$ and $m \in \mathbb{N}$, there exists an $n \geq m$ such that 
 $$d(a_{n}, a_{m}) \geq \epsilon$$
-because $a_{m} \pm \epsilon$ would otherwise be a bound for $a_{n}$. Hence, we have a contradiction, so $\mathbb{R}$ is complete.
+because $a_{m} \pm \epsilon$ would otherwise be a bound for $a_{n}$. Hence, we have a contradiction, so $\mathbb{R}$ is bounded.
 
 \subsection{Lemma.} $x$ such that $x^{2} = 2$ is irrational.
 
@@ -1133,7 +1133,7 @@ so
     \hat{\theta}_{1_{MOM}} &= \hat{\mu}_{1} \\
     \hat{\theta}_{2_{MOM}} &= \hat{\mu}_{2} - \hat{\mu}_{1}^{2}.
 \end{align*}
-Note that this mom estimator is simply the sample mean and sample variance, which is expected for a distribution $X \sim \text{N}(\mu, \sigma^{2})$. Note that $\hat{\theta}_{1_{MOM}} = \bar{X}$ is unbiased for $\theta_{1}$ but that $\hat{\theta}_{2_{MOM}} = \hat{\sigma}^{2}$ is biased for $\theta_{2}$.
+Note that this mom estimator is simply $\hat{\theta}_{MOM} = (\bar{X}, \hat{\sigma}^{2})$, which is expected for a distribution $X \sim \text{N}(\mu, \sigma^{2})$. Note that $\hat{\theta}_{1_{MOM}} = \bar{X}$ is unbiased for $\theta_{1}$ but that $\hat{\theta}_{2_{MOM}} = \hat{\sigma}^{2}$ is biased for $\theta_{2}$.
 
 \subsection{Example.} Sometimes, the distribution of $\hat{\theta}$ can be determined exactly. For $X_{n} \sim \text{Exp}(\lambda)$ iid, we have that 
 $$\hat{\lambda}_{MOM} = \frac{1}{\bar{X}}.$$
@@ -1533,7 +1533,7 @@ $$\frac{\hat{\mu}_{1} - \hat{\mu}_{2}}{\sqrt{(1/m + 1/n)s_{p}^{2}}} \sim \text{t
 $$\sum_{i=1}^{n}(Z-\bar{Z})^{2} \sim \chi^{2}(n-1).$$
 
 \subsection{Corollary.} (Continued.) Suppose that $X_{1}, \ldots, X_{n} \sim \text{N}(0, \sigma^{2})$. Then, the sample variance is such that 
-$$\frac{s^{2}}{\sigma^{2}} \sim \chi^{2}(n-1).$$
+$$\frac{s^{2}(n-1)}{\sigma^{2}} \sim \chi^{2}(n-1).$$
 
 \subsection{Definition.} Suppose that we have $I$ groups of data $Y_{ij}$ where $j = 1, \ldots, J_{i}$. Define the group sample mean of the $i$th group as 
 $$\bar{Y}_{i\cdot} = \frac{1}{J_{i}}\sum_{j=1}^{J_{i}}Y_{ij}$$
@@ -1608,12 +1608,11 @@ where the threshold is chosen such that our test is level $\alpha$.
 $$W = \max_{i \neq j}\frac{|(\bar{Y}_{i\cdot} - \bar{Y}_{j\cdot})|}{\sqrt{S_{p}^{2}/J}}.$$
 The distribution of $W$ is the studentized range distribution with $I$ and $I(J-1)$ df. The $1-\alpha$-quantiles of the studentized range distribution are denoted by 
 $$q_{\alpha}(I, I(J-1)).$$
-We reject $H_{0}: \mu_{1} = \ldots = \mu_{I}$ at level $\alpha$ if 
-$$W > q_{\alpha}(I, I(J-1))\frac{S_{p}^{2}}{\sqrt{J}}.$$
 The $100(1-\alpha)\%$-confidence interval for any pair $i \neq j$ is 
 $$(\bar{Y}_{i\cdot} - \bar{Y_{j\cdot}}) \pm q_{\alpha}(I, I(J-1))\frac{S_{p}}{\sqrt{J}}.$$
 For any pair $i \neq j$, we reject $H_{0}: \mu_{i} = \mu_{j}$ at level $\alpha$ if
 $$|\bar{Y}_{i\cdot} - \bar{Y}_{j\cdot}| > q_{\alpha}(I, I(J-1))\frac{S_{p}}{\sqrt{J}}.$$
+That is, if any pair $i \neq j$ differs in sample means by more than the threshold for the difference of the max-min pair, then we reject $H_{0}: \mu_{i} = \mu_{j}$.
 
 \subsection{Definition.} The two-way ANOVA layout is such that suppose that we have $I$ groups of data such that 
 $$Y_{ijk} = \mu + \alpha_{i} + \beta_{j} + \delta_{ij} + \epsilon_{ijk}$$
@@ -1700,7 +1699,7 @@ The variance of $\hat{\beta}_{1}$ is
                           &= \frac{\sigma^{2}}{S_{xx}}.
 \end{align*}
 
-\subsection{Theorem.} The estimator $\hat{\beta}_{0}$ for $\beta_{0}$ is such that $\hat{\beta}_{0} \sim \text{N}(\beta_{0}, \sigma^{2}S_{xx}/n)$.
+\subsection{Theorem.} The estimator $\hat{\beta}_{0}$ for $\beta_{0}$ is such that $\hat{\beta}_{0} \sim \text{N}(\beta_{0}, x^{T}x\sigma^{2}/nS_{xx})$.
 
 \subsection{Proof.} (Continued.) Observe that 
 \begin{align*}
